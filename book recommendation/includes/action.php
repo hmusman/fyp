@@ -29,26 +29,15 @@
 		if($con->num_rows($con->execute($q))>0)
 		{
 			$del_query = "delete from user_hobby where ip_address='$ip'";
-			if ($con->execute($del_query))
-			{
-				for ($i = 0; $i < count($array); $i++) {
-				    $hobby_id = $array[$i];
-				    $inser_q = "insert into user_hobby set ip_address='$ip' , choose_hobby='$hobby_id'";
-					$con->execute($inser_q);
-				}
-				
-			}
+			$con->execute($del_query);
 		}
-		else
+		
+		for ($i = 0; $i < count($array); $i++)
 		{
-			
-			for ($i = 0; $i < count($array); $i++) {
-			    $hobby_id = $array[$i];
-			    $inser_q = "insert into user_hobby set ip_address='$ip' , choose_hobby='$hobby_id'";
-				$con->execute($inser_q);
-			}
+			$hobby_id = $array[$i];
+			$inser_q = "insert into user_hobby set ip_address='$ip' , choose_hobby='$hobby_id'";
+			$con->execute($inser_q);
 		}
-
 		
 	}
 ?>
