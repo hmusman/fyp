@@ -1,3 +1,4 @@
+<?php require_once 'includes/database.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -422,31 +423,65 @@ margin-top: -3px;
 
 
 
-
 <div class="row">
-	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ></div>
-	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 booktime" onmouseover="changepic()" onmouseout="orgnlpic()" id="booktime" style="border: 1px #dcdedf solid; background-color: white !important;margin-right: 6px;">
+		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ></div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="message" ></div>
+
+
+</div>
+<div class="row">
+	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"></div>
+	<?php
+		$run = $con->execute('select * from category');
+		while($data = $con->fetch_assoc($run))
+		{
+			?>
+				<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 booktime" onmouseover="changepic()" onmouseout="orgnlpic()" id="booktime" style="border: 1px #dcdedf solid; background-color: white !important;margin-right: 6px;">
 		
-		<label class="control control--radio">&nbsp;<div style="height: 100%; width: 100%; ">
+					<label class="control control--radio">&nbsp;
+						<div style="height: 100%; width: 100%; ">
+					
+						<input type="radio" value="<?= $data['id'] ?>" class="category_id" name="radio"/>
+						<div class="control__indicator"></div>
+					
+						</div> 
+				
+						<center><img id="bookimg" src="img/ic_import_contacts_black_48dp.png" /></center>
+						<br/>
+						<p class="para"><?= ucfirst($data['title']) ?><br/>
+							<section class="para2"><?= $data['description'] ?></section>
+						</p>
+
+				
+					</label>
+
+				</div>
+
+			<?php
+		}
+
+	?>
+	<!-- <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 booktime" onmouseover="changepic()" onmouseout="orgnlpic()" id="booktime" style="border: 1px #dcdedf solid; background-color: white !important;margin-right: 6px;">
+		
+		<label class="control control--radio">&nbsp;
+			<div style="height: 100%; width: 100%; ">
 		
 			<input type="radio" name="radio" checked="checked"/>
 			<div class="control__indicator"></div>
 		
-		</div> 
+			</div> 
 	
-		<center><img id="bookimg" src="img/ic_import_contacts_black_48dp.png" /></center>
-<br/>
-		<p class="para">Occasional Reader<br/>
-		<section class="para2">I read 4 books a year</section>
-		</p>
+			<center><img id="bookimg" src="img/ic_import_contacts_black_48dp.png" /></center>
+			<br/>
+			<p class="para">Occasional Reader<br/>
+				<section class="para2">I read 4 books a year</section>
+			</p>
 
 	
-	</label>
+		</label>
 
-
-
-	</div>
-	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" id="booktime2" onmouseover="changepic2()" onmouseout="orgnlpic2()" style="border: 1px #dcdedf solid; background-color: white !important;margin-right: 6px;">
+	</div> -->
+	<!-- <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" id="booktime2" onmouseover="changepic2()" onmouseout="orgnlpic2()" style="border: 1px #dcdedf solid; background-color: white !important;margin-right: 6px;">
 		
 		<label class="control control--radio">&nbsp;<div style="height: 100%; width: 100%; ">
 		
@@ -456,18 +491,18 @@ margin-top: -3px;
 		</div> 
 	
 		<center><img id="bookimg2" src="img/ic_style_black_18dp.png" /></center>
-<br/>
+		<br/>
 		<p class="para">Occasional Reader<br/>
 		<section class="para2">I read 4-12 books a year</section>
 		</p>
 
 	
-	</label>
+		</label>
 
 
 
-	</div>
-	<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" id="booktime3" onmouseover="changepic3()" onmouseout="orgnlpic3()" style="border: 1px #dcdedf solid; background-color: white !important;">
+	</div> -->
+	<!-- <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12" id="booktime3" onmouseover="changepic3()" onmouseout="orgnlpic3()" style="border: 1px #dcdedf solid; background-color: white !important;">
 		
 		<label class="control control--radio">&nbsp;<div style="height: 100%; width: 100%; ">
 		
@@ -487,7 +522,7 @@ margin-top: -3px;
 
 
 
-	</div>
+	</div> -->
 	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ></div>
 </div>
 
@@ -541,7 +576,7 @@ margin-top: -3px;
 			<center>
 			
 
-			<a href="BookRecomendationForm.html">	<button type="button" class="btn_1 outline">Save and Continue</button>  </a>
+			<button type="button" class="btn_1 outline save">Save and Continue</button>
 
 			</center>
 			<!-- <input class="clear" type="button" value="Clear Selection">
@@ -694,11 +729,36 @@ function Results() {
 <script>
 
 $(document).ready(function(){
-
+	$('#message').hide();
 // jQuery methods go here...
 $(".booktime").hover(function(){
     $(this).attr("src","img/1-1.png");
 });
+
+$('.save').click(function(){
+	var category_id;
+	if($(".category_id").is(":checked"))
+	{
+		$('#message').hide();
+		var category_id = $(".category_id:checked").val();
+		$.ajax({
+		url:"includes/action.php",
+		type:"post",
+		data:{category_id:category_id},
+		success:function(data){
+			window.location="BookRecomendationForm.php";
+		}
+	});
+	}
+	else
+	{
+		$('#message').show();
+		document.getElementById('message').innerHTML = "<div class='alert alert-warning'>Please select any category</div>";
+	}
+
+	
+});
+
 
 });
 

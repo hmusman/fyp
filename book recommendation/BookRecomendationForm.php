@@ -1,3 +1,6 @@
+<?php 
+	require_once('includes/database.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -125,7 +128,7 @@
 
 @media (max-width: 550px){
 
-	input[name="Question0"] {
+	input[name="question[]"] {
     display: block !important;
     visibility: hidden;
 }
@@ -269,7 +272,7 @@ ul[ class="answers"] > li{
     padding:inherit;
     list-style:none;
   }
-  input[name="Question0"]{
+  input[name="question[]"]{
 	/* height: 100% !important;
     width: 100% !important; */
 	display: none;
@@ -353,49 +356,78 @@ ul[ class="answers"] > li{
 			<p class="onboarding-question">What do you like to read?</p>
 		
 		
-		   <center> <div class="question"><p>Mysteries, Thrillers, Action</p>
+		   <center> <div class="question"><!-- <p>Mysteries, Thrillers, Action</p> -->
 		
-		
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ></div>
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="message" ></div>
+			</div>
 			  <ul class="answers">
-				
-				<li >
+					
+					<?php
+						$ip = $_SERVER['REMOTE_ADDR'];
+						$q = "select * from user_category where ip_address='$ip'";
+						$categoryArr= $con->fetch_assoc($con->execute($q));
+						$category_id = $categoryArr['choose_category'];
+						$q1 = "select * from category_hobby where category_id= '$category_id'";
+						$run = $con->execute($q1);
+						while ($data = $con->fetch_assoc($run))
+						{
+							?>
+								<li >
+									<label class="container">
+										<div class="row">
+											<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"><?= ucwords($data['name']) ?></div>
+											<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
+												<input  name="question[]" class="question_checkbox" type="checkbox" value="<?= $data['id'] ?>">  
+												<span class="checkmark"></span>
+											</div>
+										</div>
+									</label>
+								</li>
+							<?php
+						}
+
+					?>
+
+				<!-- <li >
 					<label class="container">
 						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Crime Fiction</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
+							<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Crime Fiction</div>
+							<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
+								<input  name="Question0" id="lblone" type="checkbox">  
+								<span class="checkmark"></span>
+							</div>
+						</div>
+					</label>
+				</li> -->
 
 
 
 
 
 
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Psychological Thrillers</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
+				<!-- 	<li >
+						<label class="container">
+							<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Psychological Thrillers</div>
+	<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
+		<input  name="Question0" id="lblone" type="checkbox">  
+		<span class="checkmark"></span>
+	</div>
+						</div>
+					</label>
+					</li>
 
 
 
 
 
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Cozy Mysteries</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
+					<li >
+						<label class="container">
+							<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Cozy Mysteries</div>
+	<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
 	<input  name="Question0" id="lblone" type="checkbox">  
 	<span class="checkmark"></span>
 </div>
@@ -471,7 +503,7 @@ ul[ class="answers"] > li{
 </div>
 					</div>
 				</label>
-				</li>
+				</li> -->
 
 
 
@@ -503,7 +535,7 @@ ul[ class="answers"] > li{
 
 
 			
-			<center <div class="question"><p>Fantasy, Science Fiction, Horror
+			<center> <div class="question"><p>Fantasy, Science Fiction, Horror
 
 			</p>
 			
@@ -717,10 +749,12 @@ ul[ class="answers"] > li{
 		  
 			<center>
 			
+			<!-- <a href="courses-grid.html" >	<button type="button" class="btn_1 outline">Find Books</button></a> -->
 
-			<a href="courses-grid.html" >	<button type="button" class="btn_1 outline">Find Books</button></a>
 
-				<button type="button" class="next btn_1 outline">Next Optinos</button>
+			<button type="button" class="btn_1 outline find_books">Find Books</button>
+
+				<!-- <button type="button" class="next btn_1 outline">Next Optinos</button> -->
 			</center>
 			<!-- <input class="clear" type="button" value="Clear Selection">
 			<input class="results" type="button" value="Results"> -->
@@ -825,7 +859,31 @@ ul[ class="answers"] > li{
 
 
 <script>
-	
+
+$(document).ready(function(){
+	$('.find_books').click(function(){
+		
+		if($(".question_checkbox").is(":checked"))
+		{
+			$('#message').hide();
+			var hobbyArr = $('.question_checkbox:checked').map(function(){ return this.value; }).get();
+			$.ajax({
+			url:"includes/action.php",
+			type:"post",
+			data:{hobby_id:hobbyArr},
+			success:function(data){
+				window.location="courses-grid.php";
+			}
+		});
+		}
+		else
+		{
+			$('#message').show();
+			document.getElementById('message').innerHTML = "<div class='alert alert-warning'>Please select any hobby book</div>";
+		}
+	});
+});
+
 //Total number of questions
 var totalNumQuestions = $('.question').size();
 
