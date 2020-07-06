@@ -40,7 +40,13 @@
 		public function register($name,$email ,$pass)
 		{
 			$q = "insert into user set name='$name',email='$email',pass='$pass'";
-			$this->execute($q);
+			if($this->execute($q))
+			{
+
+				$_SESSION['user'] = $email;
+				$_SESSION['name'] = $name;
+				$_SESSION['id'] = $this->last_insert_id();
+			}
 		}
 
 		public function login($email , $pass)
@@ -68,6 +74,11 @@
 				?> <script type="text/javascript"> window.location="login.php"; </script> <?php
 				return true;
 			}
+		}
+
+		public function last_insert_id()
+		{
+			return mysqli_insert_id($this->con);
 		}
 	}
 

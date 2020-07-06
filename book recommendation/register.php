@@ -41,7 +41,7 @@
 	<!-- End Preload -->
 	
 	<div id="login">
-		<aside style="width: 40%; margin-left: 30% !important; margin-top:5% !important; margin-right: 30% !important; height: 580px !important;">
+		<aside style="width: 40%; margin-left: 30% !important; margin-top:5% !important; margin-right: 30% !important; height: 640px !important;">
 			<figure>
 				<a href=""><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
 			</figure>

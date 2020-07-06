@@ -17,7 +17,7 @@ $(document).ready(function(){
 				{
 					
 					$('#alert_register').show();
-					setTimeout(function(){ window.location="login.php" },5000);
+					setTimeout(function(){ window.location="BookReadingPeriods.php" },5000);
 				}
 			});
 		} 
