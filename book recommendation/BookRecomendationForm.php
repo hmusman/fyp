@@ -1,5 +1,6 @@
 <?php 
 	require_once('includes/database.php');
+	$con->login_session();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Udema a modern educational site template">
     <meta name="author" content="Ansonika">
-    <title>UDEMA | Modern Educational site template</title>
+    <title>Final Year Project</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -46,7 +47,10 @@
 			<a href="index.html"><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
 		</div>
 		<ul id="top_menu">
-			<li><a href="login.html" class="login">Login</a></li>
+			<?php 
+				if($con->login_session()){ ?><li><a href="login.php" class="login">Login</a></li><?php }
+				else{ ?><li><a href="logout.php" class="">Logout</a></li><?php }
+			?>
 			<li><a href="#0" class="search-overlay-menu-btn">Search</a></li>
 			<li class="hidden_tablet"><a href="admission.html" class="btn_1 rounded">Admission</a></li>
 		</ul>
@@ -369,7 +373,7 @@ ul[ class="answers"] > li{
 						$q = "select * from user_category where ip_address='$ip'";
 						$categoryArr= $con->fetch_assoc($con->execute($q));
 						$category_id = $categoryArr['choose_category'];
-						$q1 = "select * from category_hobby where category_id= '$category_id'";
+						$q1 = "SELECT  DISTINCT(category_hobby.id) ,category_hobby.name from category_hobby join hobby_book on category_hobby.id = hobby_book.category_hobby_id where category_hobby.id=hobby_book.category_hobby_id and category_hobby.category_id='$category_id'";
 						$run = $con->execute($q1);
 						while ($data = $con->fetch_assoc($run))
 						{

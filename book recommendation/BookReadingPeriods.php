@@ -1,4 +1,9 @@
-<?php require_once 'includes/database.php'; ?>
+<?php 
+	require_once 'includes/database.php'; 
+	$con->login_session();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Udema a modern educational site template">
     <meta name="author" content="Ansonika">
-    <title>UDEMA | Modern Educational site template</title>
+   <title>Final Year Project</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -44,7 +49,10 @@
 			<a href="index.html"><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
 		</div>
 		<ul id="top_menu">
-			<li><a href="login.html" class="login">Login</a></li>
+			<?php 
+				if($con->login_session()){ ?><li><a href="login.php" class="login">Login</a></li><?php }
+				else{ ?><li><a href="logout.php" class="">Logout</a></li><?php }
+			?>
 			<li><a href="#0" class="search-overlay-menu-btn">Search</a></li>
 			<li class="hidden_tablet"><a href="admission.html" class="btn_1 rounded">Admission</a></li>
 		</ul>
@@ -432,7 +440,7 @@ margin-top: -3px;
 <div class="row">
 	<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"></div>
 	<?php
-		$run = $con->execute('select * from category');
+		$run = $con->execute('SELECT DISTINCT(category.id),category.title,category.description FROM `category` join category_hobby on category.id = category_hobby.category_id where category.id=category_hobby.category_id');
 		while($data = $con->fetch_assoc($run))
 		{
 			?>
@@ -592,6 +600,9 @@ margin-top: -3px;
 		<br/>
 	</main>
 	<!-- /main -->
+	
+
+
 	
 	<footer>
 		<div class="container margin_120_95">
