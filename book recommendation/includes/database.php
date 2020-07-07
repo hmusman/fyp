@@ -1,5 +1,5 @@
 <?php
-
+	session_start();
 	class database
 	{
 		private $host =  "localhost";
@@ -36,7 +36,52 @@
 		{
 			return mysqli_num_rows($result);
 		}
+
+		public function register($name,$email ,$pass)
+		{
+			$q = "insert into user set name='$name',email='$email',pass='$pass'";
+			if($this->execute($q))
+			{
+
+				$_SESSION['user'] = $email;
+				$_SESSION['name'] = $name;
+				$_SESSION['id'] = $this->last_insert_id();
+			}
+		}
+
+		public function login($email , $pass)
+		{
+			$q = "select * from user where email='$email' and pass='$pass'";
+			if($this->num_rows($this->execute($q)))
+			{
+				$run = $this->execute($q);
+				$data = $this->fetch_assoc($run);
+				$_SESSION['user'] = $data['email'];
+				$_SESSION['name'] = $data['name'];
+				$_SESSION['id'] = $data['id'];
+			}
+			else
+			{
+				echo "not";
+			}
+		}
+
+		public function login_session()
+		{
+			if (!isset($_SESSION['user']))
+			{
+
+				?> <script type="text/javascript"> window.location="login.php"; </script> <?php
+				return true;
+			}
+		}
+
+		public function last_insert_id()
+		{
+			return mysqli_insert_id($this->con);
+		}
 	}
+
 	
 	$con = new database();
 

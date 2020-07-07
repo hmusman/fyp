@@ -8,17 +8,11 @@
 		if($con->num_rows($con->execute($q))>0)
 		{
 			$del_query = "delete from user_category where ip_address='$ip'";
-			if ($con->execute($del_query))
-			{
-				$inser_q = "insert into user_category set ip_address='$ip' , choose_category='$category_id'";
-				$con->execute($inser_q);
-			}
+			$con->execute($del_query);
 		}
-		else
-		{
-			$inser_q = "insert into user_category set ip_address='$ip' , choose_category='$category_id'";
-			$con->execute($inser_q);
-		}
+		
+		$inser_q = "insert into user_category set ip_address='$ip' , choose_category='$category_id'";
+		$con->execute($inser_q);
 	}
 
 	if (isset($_REQUEST['hobby_id']))
@@ -40,4 +34,17 @@
 		}
 		
 	}
+
+	if (isset($_REQUEST['register']))
+	{
+		$pass= md5($_REQUEST['pass']);
+		$con->register($_REQUEST['name'],$_REQUEST['email'],$pass);
+	}
+
+	if (isset($_REQUEST['login']))
+	{
+		$pass= md5($_REQUEST['pass']);
+		$con->login($_REQUEST['email'],$pass);
+	}
+
 ?>

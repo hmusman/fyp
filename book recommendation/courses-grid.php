@@ -1,6 +1,6 @@
 <?php
 	require_once('includes/database.php');
-
+	$con->login_session();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Udema a modern educational site template">
     <meta name="author" content="Ansonika">
-    <title>UDEMA | Modern Educational site template</title>
+    <title>Final Year Project</title>
 
     <!-- Favicons-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
@@ -63,7 +63,11 @@
 			<a href="index.html"><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
 		</div>
 		<ul id="top_menu">
-			<li><a href="login.html" class="login">Login</a></li>
+			<?php 
+				if($con->login_session()){ ?><li><a href="login.php" class="login">Login</a></li><?php }
+				else{ ?><li><a href="logout.php" class="">Logout</a></li><?php }
+			?>
+			<li><?php if($con->login_session()){ ?><a href="login.php" class="login">Login</a><?php }?></li>
 			<li><a href="#0" class="search-overlay-menu-btn">Search</a></li>
 			<li class="hidden_tablet"><a href="admission.html" class="btn_1 rounded">Admission</a></li>
 		</ul>
@@ -193,6 +197,7 @@
 					while ($user_hobby_data = $con->fetch_assoc($run))
 					{
 						$category_hobby_id = $user_hobby_data['choose_hobby'];
+						$category_data = $con->fetch_assoc($con->execute("select category.title,category.description from category join category_hobby on category_hobby.category_id = category.id where category_hobby.id='$category_hobby_id'"));
 						$q1 = "select * from hobby_book where category_hobby_id='$category_hobby_id'";
 						$run1 = $con->execute($q1);
 						while ($hobby_book = $con->fetch_assoc($run1))
@@ -205,12 +210,12 @@
 											<a href="#0" class="wish_bt"></a>
 											<a href="course-detail.html"><img src="img/3uLLk4tXSV.png" class="img-fluid" alt=""></a>
 											<div class="price">$54</div>
-											<div class="preview"><span>Preview course</span></div>
+											<div class="preview"><a href="view_book.php?book=<?= $hobby_book['book_name']?>"><span>Preview Book</span></a></div>
 										</figure>
 										<div class="wrapper">
 											<small>Category</small>
-											<h3><?= $hobby_book['book_name'] ?></h3>
-											<p>Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu.</p>
+											<h3><?= ucfirst($category_data['title']) ?></h3>
+											<p><?= ucfirst($category_data['description']) ?></p>
 											<div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></div>
 										</div>
 										<ul>

@@ -3728,9 +3728,9 @@ section#reviews {
   position: absolute;
   left: 0;
   top: 0;
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   background-color: #fff;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
 }
 @media (max-width: 767px) {
   #login aside, #register aside {

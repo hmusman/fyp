@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2020 at 12:53 PM
+-- Generation Time: Jul 06, 2020 at 11:58 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -90,12 +90,34 @@ CREATE TABLE `hobby_book` (
 --
 
 INSERT INTO `hobby_book` (`id`, `category_hobby_id`, `book_name`) VALUES
-(1, 1, 'book1_category_hobby1.pdf'),
-(2, 1, 'book2_category_hobby1.pdf'),
-(3, 5, 'book1_category_hobby5.pdf'),
-(4, 5, 'book2_category_hobby5.pdf'),
-(5, 9, 'book1_category_hobby9.pdf'),
-(6, 9, 'book2_category_hobby9.pdf');
+(1, 1, 'book.pdf'),
+(2, 1, 'book.pdf'),
+(3, 5, 'book.pdf'),
+(4, 5, 'book.pdf'),
+(5, 9, 'book.pdf'),
+(6, 9, 'book.pdf'),
+(7, 4, 'book.pdf'),
+(8, 11, 'book.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `email`, `pass`) VALUES
+(9, 'test', 'test@gmail.com', '9f191b1e986e07c36e694001bc1117b5');
 
 -- --------------------------------------------------------
 
@@ -131,7 +153,7 @@ CREATE TABLE `user_hobby` (
 --
 
 INSERT INTO `user_hobby` (`ip_address`, `choose_hobby`) VALUES
-('::1', '1');
+('::1', '9');
 
 --
 -- Indexes for dumped tables
@@ -156,6 +178,12 @@ ALTER TABLE `hobby_book`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -163,7 +191,7 @@ ALTER TABLE `hobby_book`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `category_hobby`
@@ -175,7 +203,13 @@ ALTER TABLE `category_hobby`
 -- AUTO_INCREMENT for table `hobby_book`
 --
 ALTER TABLE `hobby_book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
