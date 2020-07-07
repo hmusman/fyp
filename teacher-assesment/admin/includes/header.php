@@ -1,6 +1,6 @@
 <?php 
 	require_once('database.php'); 
-	$con = new database();
+	$con->login_session('admin');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,29 +52,7 @@
 	<div class="content">
 
 		<!-- navigation start   -->
-		<div class="navigation">
-			<h5 class="title">Navigation</h5>
-			<!-- /.title -->
-			<ul class="menu js__accordion">
-				<li class="current">
-					<a class="waves-effect" href=""><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></a>
-				</li>
-				<li>
-					<a class="waves-effect" href="classes.html"><i class="menu-icon ti-calendar"></i><span>Classes</span></a>
-				</li>
-				<li>
-					<a class="waves-effect" href="teachers.html"><i class="menu-icon ti-calendar"></i><span>Teachers</span></a>
-				</li>
-
-				<li>
-					<a class="waves-effect" href="students.html"><i class="menu-icon ti-calendar"></i><span>Students</span></a>
-				</li>
-
-				
-			</ul>
-
-			
-		</div>
+		<?php require_once('includes/navigation.php')?>
 		<!-- /.navigation end -->
 	</div>
 	<!-- /.content -->
@@ -100,8 +78,8 @@
 		<div class="ico-item">
 			<i class="ti-user"></i>
 			<ul class="sub-ico-item">
-				<li><a href="#">Settings</a></li>
-				<li><a class="js__logout" href="#">Log Out</a></li>
+				
+				<li><a href="logout.php">Log Out</a></li>
 			</ul>
 			<!-- /.sub-ico-item -->
 		</div>
@@ -279,196 +257,3 @@
 	<!-- /.content -->
 </div>
 <!-- /#message-popup -->
-
-<div id="wrapper">
-	<div class="main-content">
-		
-		<div class="row small-spacing">
-			<div class="col-lg-2"></div>
-			<div class="col-lg-8 col-xs-12">
-				<div class="box-content card">
-					<h4 class="box-title" style="background: #3F51B5;">Add Teacher</h4>
-					<!-- /.box-title -->
-					<div class="card-content">
-						<form>
-							<div class="form-group">
-								<label for="exampleInputName">Name</label>
-								<input type="email" class="form-control" id="exampleInputName" placeholder="Enter Name">
-							</div>
-
-							<div class="form-group">
-								<label for="exampleInputEmail1">Email address</label>
-								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email Address">
-							</div>
-
-							<div class="form-group">
-								<label for="exampleInputPassword1">Password</label>
-								<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password">
-							</div>
-
-							<div class="form-group">
-								<label for="exampleInputSubject">Subject</label>
-								<input type="password" class="form-control" id="exampleInputSubject" placeholder="Enter Subject">
-							</div>
-							
-							<button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Add Teacher</button>
-						</form>
-					</div>
-					<!-- /.card-content -->
-				</div>
-				<!-- /.box-content -->
-			</div>
-			<!-- /.col-lg-12s col-xs-12 -->
-
-		</div>
-	</div>
-	<!-- /.main-content -->
-</div><!--/#wrapper -->
-	
-<!-- Placed at the end of the document so the pages load faster -->
-	<script src="assets/scripts/jquery.min.js"></script>
-	<script src="assets/scripts/modernizr.min.js"></script>
-	<script src="assets/plugin/bootstrap/js/bootstrap.min.js"></script>
-	<script src="assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="assets/plugin/nprogress/nprogress.js"></script>
-	<script src="assets/plugin/sweet-alert/sweetalert.min.js"></script>
-	<script src="assets/plugin/waves/waves.min.js"></script>
-	<!-- Sparkline Chart -->
-	<script src="assets/plugin/chart/sparkline/jquery.sparkline.min.js"></script>
-	<script src="assets/scripts/chart.sparkline.init.min.js"></script>
-
-	<!-- Percent Circle -->
-	<script src="assets/plugin/percircle/js/percircle.js"></script>
-
-	<!-- Google Chart -->
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-
-	<!-- Chartist Chart -->
-	<script src="assets/plugin/chart/chartist/chartist.min.js"></script>
-	<script src="assets/scripts/jquery.chartist.init.min.js"></script>
-
-	<!-- FullCalendar -->
-	<script src="assets/plugin/moment/moment.js"></script>
-	<script src="assets/plugin/fullcalendar/fullcalendar.min.js"></script>
-	<script src="assets/scripts/fullcalendar.init.js"></script>
-	
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
-	<script src="assets/scripts/main.min.js"></script>
-	<script type="text/javascript">
-	
-		$(document).ready(function(){
-			// $('.weeks').hide();
-			// $('.teachers').hide();
-			// $('.students_rating').hide();
-
-			$('.assign_class').click(function(){
-				var teacher_id = $(this).data('id');
-				var class_name = $('#class_name'+teacher_id).children('option:selected').val();
-				var submit = "submit";
-				
-				if (class_name=="Select Class") {
-					swal("Please Select Any Class");
-				}
-				else
-				{
-					$.ajax({
-						type:"post",
-						url:"includes/action.php",
-						data:{teacher_id:teacher_id,class_name:class_name,submit:submit},
-						success:function(data)
-						{
-							if (data=="This class has been already assigned")
-							{
-								swal({
-								    title: "",
-								    text:data,
-								    type: "warning",
-								    confirmButtonColor: '#3F51B5',
-								    confirmButtonText: 'Ok',
-								    closeOnConfirm: false,
-								 },
-								 function(isConfirm){
-
-								   if (isConfirm){
-								     location.reload();
-
-								    } 
-								 });
-							}
-							else
-							{
-								swal({
-								    title: "",
-								    text: data,
-								    type: "success",
-								    confirmButtonColor: '#3F51B5',
-								    confirmButtonText: 'Ok',
-								    closeOnConfirm: false,
-								 },
-								 function(isConfirm){
-
-								   if (isConfirm){
-								   		location.reload();
-								    } 
-								 });
-							}
-							
-						}
-					});
-				}
-			});
-
-			// $('#student_class').change(function(){
-			// 	var value = $('#student_class option:selected').text();
-			// 	if (value=="9th") 
-			// 	{ window.location = "9th_class.php"; }
-			// 	else if(value=="10th")
-			// 	{
-			// 		window.location = "10th_class.php";
-			// 	}
-			// });
-
-			// $('#month').change(function(){
-			// 	var value = $('#month option:selected').text();
-			// 	$('.months').hide();
-			// 	$('.weeks').show();
-
-			// });
-
-			// $('#week').change(function(){
-			// 	var value = $('#week option:selected').text();
-			// 	$('.weeks').hide();
-			// 	$('.teachers').show();
-
-			// });
-
-			// $('#week').change(function(){
-			// 	var value = $('#week option:selected').text();
-			// 	$('.weeks').hide();
-			// 	$('.teachers').show();
-
-			// });
-
-			// $('#teacher').change(function(){
-			// 	var value = $('#week option:selected').text();
-			// 	$('.teachers').hide();
-			// 	$('.students_rating').show();
-
-			// });
-		});
-
-
-	</script>
-
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#teacherTable').DataTable();
-			$('#reviewTable').DataTable();
-			$('#classTable').DataTable();
-			$('#studentTable').DataTable();
-		});
-	</script>
-</body>
-</html>

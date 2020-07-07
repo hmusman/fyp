@@ -1,4 +1,7 @@
-
+<?php 
+	require_once('admin/includes/database.php'); 
+	$con->login_session('student');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,7 +143,7 @@
 					<a class="waves-effect" href=""><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></a>
 				</li>
 				<li>
-					<a class="waves-effect" href="rating_comment.html"><i class="menu-icon ti-calendar"></i><span>Rating and Comments</span></a>
+					<a class="waves-effect" href="rating_comment.php"><i class="menu-icon ti-calendar"></i><span>Rating and Comments</span></a>
 				</li>
 				
 
@@ -174,8 +177,7 @@
 		<div class="ico-item">
 			<i class="ti-user"></i>
 			<ul class="sub-ico-item">
-				<li><a href="#">Settings</a></li>
-				<li><a class="js__logout" href="#">Log Out</a></li>
+				<li><a href="logout.php">Log Out</a></li>
 			</ul>
 			<!-- /.sub-ico-item -->
 		</div>

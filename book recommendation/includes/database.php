@@ -52,7 +52,7 @@
 		public function login($email , $pass)
 		{
 			$q = "select * from user where email='$email' and pass='$pass'";
-			if($this->num_rows($this->execute($q)))
+			if($this->num_rows($this->execute($q))>0)
 			{
 				$run = $this->execute($q);
 				$data = $this->fetch_assoc($run);

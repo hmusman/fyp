@@ -1,4 +1,7 @@
-
+<?php 
+	require_once('admin/includes/database.php'); 
+	$con->login_session('teacher');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,29 +14,29 @@
 	<title>Final Year Project</title>
 
 	<!-- Main Styles -->
-	<link rel="stylesheet" href="assets/styles/style.min.css">
+	<link rel="stylesheet" href="admin/assets/styles/style.min.css">
 	
 	<!-- Themify Icon -->
-	<link rel="stylesheet" href="assets/fonts/themify-icons/themify-icons.css">
+	<link rel="stylesheet" href="admin/assets/fonts/themify-icons/themify-icons.css">
 
 	<!-- mCustomScrollbar -->
-	<link rel="stylesheet" href="assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
+	<link rel="stylesheet" href="admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css">
 
 	<!-- Waves Effect -->
-	<link rel="stylesheet" href="assets/plugin/waves/waves.min.css">
+	<link rel="stylesheet" href="admin/assets/plugin/waves/waves.min.css">
 
 	<!-- Sweet Alert -->
-	<link rel="stylesheet" href="assets/plugin/sweet-alert/sweetalert.css">
+	<link rel="stylesheet" href="admin/assets/plugin/sweet-alert/sweetalert.css">
 	
 	<!-- Percent Circle -->
-	<link rel="stylesheet" href="assets/plugin/percircle/css/percircle.css">
+	<link rel="stylesheet" href="admin/assets/plugin/percircle/css/percircle.css">
 
 	<!-- Chartist Chart -->
-	<link rel="stylesheet" href="assets/plugin/chart/chartist/chartist.min.css">
+	<link rel="stylesheet" href="admin/assets/plugin/chart/chartist/chartist.min.css">
 
 	<!-- FullCalendar -->
-	<link rel="stylesheet" href="assets/plugin/fullcalendar/fullcalendar.min.css">
-	<link rel="stylesheet" href="assets/plugin/fullcalendar/fullcalendar.print.css" media='print'>
+	<link rel="stylesheet" href="admin/assets/plugin/fullcalendar/fullcalendar.min.css">
+	<link rel="stylesheet" href="admin/assets/plugin/fullcalendar/fullcalendar.print.css" media='print'>
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
 
 </head>
@@ -42,7 +45,7 @@
 
 <div class="main-menu">
 	<header class="header">
-		<a href="index.html" class="logo"><i class="ico ti-rocket"></i>SpaceX</a>
+		<a href="" class="logo"><i class="ico ti-rocket"></i>SpaceX</a>
 		<button type="button" class="button-close fa fa-times js__menu_close"></button>
 	</header>
 	<!-- /.header -->
@@ -57,16 +60,8 @@
 					<a class="waves-effect" href=""><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></a>
 				</li>
 				<li>
-					<a class="waves-effect" href="classes.html"><i class="menu-icon ti-calendar"></i><span>Classes</span></a>
+					<a class="waves-effect" href="reviews.phpl"><i class="menu-icon ti-calendar"></i><span>Comment and Rating</span></a>
 				</li>
-				<li>
-					<a class="waves-effect" href="teachers.html"><i class="menu-icon ti-calendar"></i><span>Teachers</span></a>
-				</li>
-
-				<li>
-					<a class="waves-effect" href="students.html"><i class="menu-icon ti-calendar"></i><span>Students</span></a>
-				</li>
-
 				
 			</ul>
 
@@ -97,8 +92,7 @@
 		<div class="ico-item">
 			<i class="ti-user"></i>
 			<ul class="sub-ico-item">
-				<li><a href="#">Settings</a></li>
-				<li><a class="js__logout" href="#">Log Out</a></li>
+				<li><a href="logout.php">Log Out</a></li>
 			</ul>
 			<!-- /.sub-ico-item -->
 		</div>
@@ -279,91 +273,139 @@
 
 <div id="wrapper">
 	<div class="main-content">
-		<h4 class="box-title">Classes</h4>
-		<div class="table-responsive">
-			<table class="table" id="classTable">
-				
-				<thead> 
-					<tr> 
-						<th colspan="5"></th> 
-						<th><a href="new_class.html" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Class</a></th> 
-						
-					</tr> 
-				</thead> 
+		<h4 class="box-title">Teacher Review</h4>
+		<div class="col-md-12 table-responsive months">
 
-				<thead> 
-					<tr> 
-						<th>#</th> 
-						<th>Name</th> 
-						<th>Teacher</th>
-						<th>Assign</th>
-						<th>Assign Teachers</th>
-						<th>Action</th> 
-						
-					</tr> 
-				</thead> 
-				
-				<tbody> 
-					<tr> 
-						<td>1</td> 
-						<td>Seventh</td>
-						<td>
-							<select class="form-control">
-								<option selected="" disabled="">Select Teacher</option>
-								<option>test teacher</option>
-							</select>
-						</td>
-						<td>
-							<button type="button" class="btn btn-primary btn-sm waves-effect waves-light">Assign</button>
-						</td>
-						<td>Teacher1 , Teacher2 , Teacher3</td>
-						<td>
-							<a href="update_class.html" class="btn btn-primary btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-edit"></i></a>
-							<a class="btn btn-danger btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-trash"></i></a>
-							
-						</td> 
-						
-					</tr> 
+			<div class="col-md-3 mt-5" style="margin-top: 5px; margin-bottom: 5px;">
+				<select id="student_class" class="form-control">
+					<option selected=""  disabled="">Select Class</option>
+					<option>9th</option>
+					<option>10th</option>
+				</select>
+			</div>
+
+			<div class="col-md-3 mt-5" style="margin-top: 5px; margin-bottom: 5px;">
+				<select id="month" class="form-control">
+					<option selected="" disabled="">Select Month</option>
+					<option>Jan</option>
+					<option>Feb</option>
+					<option>Mar</option>
+					<option>Apr</option>
+					<option>May</option>
+					<option>Jun</option>
+					<option>July</option>
+					<option>Aug</option>
+					<option>Sept</option>
+					<option>Oct</option>
+					<option>Nov</option>
+					<option>Dec</option>
 					
-				</tbody> 
-			</table> 
+				</select>
+			</div>
+
+			<div class="col-md-3" style="margin-top: 5px; margin-bottom: 5px;">
+				<select id="week" class="form-control">
+					<option selected="" disabled="">Select Weeks</option>
+					<option>First Week</option>
+					<option>Second Week</option>
+					<option>Third Week</option>
+					<option>Fourth Week</option>
+				
+				</select>
+			</div>
+
+			<div class="col-md-3" style="margin-top: 5px; margin-bottom: 5px;">
+				<button class="btn btn-info">Filter</button>
+			</div>
 			
 		</div>
+
+
+		<table class="table" id="studentTable" style="margin-top: 25px;" >
+			<thead> 
+				<tr> 
+					<th>#</th>
+					<th>Teacher</th> 
+					<th>Class</th> 
+					<th>Comment</th>
+					<th>Rating</th>
+					
+					
+				</tr> 
+			</thead> 
+			<tbody> 
+				<tr> 
+					<td>1</td> 
+
+					<td>Teacher1</td> 
+					<td>9th</td>
+					<td>
+						<p>he is a good teacher</p>
+					</td>
+					
+					<td>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					</td>
+					
+				</tr> 
+
+				<tr> 
+					<td>2</td> 
+					<td>Teacher2</td> 
+					<td>10th</td>
+					<td>
+						<p>he is a good teacher</p>
+					</td>
+					<td>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					</td>
+					
+					
+				</tr> 
+				
+			</tbody> 
+		</table> 
 	</div>
 	<!-- /.main-content -->
 </div><!--/#wrapper -->
 	
 <!-- Placed at the end of the document so the pages load faster -->
-	<script src="assets/scripts/jquery.min.js"></script>
-	<script src="assets/scripts/modernizr.min.js"></script>
-	<script src="assets/plugin/bootstrap/js/bootstrap.min.js"></script>
-	<script src="assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="assets/plugin/nprogress/nprogress.js"></script>
-	<script src="assets/plugin/sweet-alert/sweetalert.min.js"></script>
-	<script src="assets/plugin/waves/waves.min.js"></script>
+	<script src="../admin/assets/scripts/jquery.min.js"></script>
+	<script src="../admin/assets/scripts/modernizr.min.js"></script>
+	<script src="../admin/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="../admin/assets/plugin/nprogress/nprogress.js"></script>
+	<script src="../admin/assets/plugin/sweet-alert/sweetalert.min.js"></script>
+	<script src="../admin/assets/plugin/waves/waves.min.js"></script>
 	<!-- Sparkline Chart -->
-	<script src="assets/plugin/chart/sparkline/jquery.sparkline.min.js"></script>
-	<script src="assets/scripts/chart.sparkline.init.min.js"></script>
+	<script src="../admin/assets/plugin/chart/sparkline/jquery.sparkline.min.js"></script>
+	<script src="../admin/assets/scripts/chart.sparkline.init.min.js"></script>
 
 	<!-- Percent Circle -->
-	<script src="assets/plugin/percircle/js/percircle.js"></script>
+	<script src="../admin/assets/plugin/percircle/js/percircle.js"></script>
 
 	<!-- Google Chart -->
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 	<!-- Chartist Chart -->
-	<script src="assets/plugin/chart/chartist/chartist.min.js"></script>
-	<script src="assets/scripts/jquery.chartist.init.min.js"></script>
+	<script src="../admin/assets/plugin/chart/chartist/chartist.min.js"></script>
+	<script src="../admin/assets/scripts/jquery.chartist.init.min.js"></script>
 
 	<!-- FullCalendar -->
-	<script src="assets/plugin/moment/moment.js"></script>
-	<script src="assets/plugin/fullcalendar/fullcalendar.min.js"></script>
-	<script src="assets/scripts/fullcalendar.init.js"></script>
+	<script src="../admin/assets/plugin/moment/moment.js"></script>
+	<script src="../admin/assets/plugin/fullcalendar/fullcalendar.min.js"></script>
+	<script src="../admin/assets/scripts/fullcalendar.init.js"></script>
 	
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 
-	<script src="assets/scripts/main.min.js"></script>
+	<script src="../admin/assets/scripts/main.min.js"></script>
 	<script type="text/javascript">
 	
 		$(document).ready(function(){

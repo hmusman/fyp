@@ -207,21 +207,16 @@
 									<div class="box_grid wow">
 										<figure class="block-reveal">
 											<div class="block-horizzontal"></div>
-											<a href="#0" class="wish_bt"></a>
-											<a href="course-detail.html"><img src="img/3uLLk4tXSV.png" class="img-fluid" alt=""></a>
-											<div class="price">$54</div>
-											<div class="preview"><a href="view_book.php?book=<?= $hobby_book['book_name']?>"><span>Preview Book</span></a></div>
+											<!-- <a href="#0" class="wish_bt"></a> -->
+											<a href="view_book.php?book=<?= $hobby_book['book_name']?>"><img src="img/3uLLk4tXSV.png" class="img-fluid" alt=""></a>
 										</figure>
 										<div class="wrapper">
 											<small>Category</small>
 											<h3><?= ucfirst($category_data['title']) ?></h3>
 											<p><?= ucfirst($category_data['description']) ?></p>
-											<div class="rating"><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star voted"></i><i class="icon_star"></i><i class="icon_star"></i> <small>(145)</small></div>
 										</div>
 										<ul>
-											<li><i class="icon_clock_alt"></i> 1h 30min</li>
-											<li><i class="icon_like"></i> 890</li>
-											<li><a href="course-detail.html">Enroll now</a></li>
+											<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>">View Book</a></li>
 										</ul>
 									</div>
 								</div>

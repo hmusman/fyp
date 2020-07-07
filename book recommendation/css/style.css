@@ -2868,7 +2868,9 @@ a.box_feat h3 {
   font-size: 1.3125rem;
 }
 .box_grid .wrapper {
-  padding: 25px;
+  /*padding: 25px;*/
+  padding-top: 25px;
+  padding-left: 25px;
 }
 .box_grid .wrapper h3 {
   font-size: 20px;
