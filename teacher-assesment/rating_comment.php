@@ -199,22 +199,40 @@
 					<h4 class="box-title" style="background: #3F51B5;">Add Comment and Rating</h4>
 					<!-- /.box-title -->
 					<div class="card-content">
+						<?php
+							if (isset($_SESSION['student'])) { $id = $_SESSION['id']; }
+							$data = $con->get_data_by_id('student',$id);
+							$class_id = $data['class_id'];
+							$class_data = $con->fetch_assoc($con->execute("select * from classes where id='$class_id'"));
+							$class_name = $class_data['name'];
+							$q = "SELECT teacher.id , teacher.name FROM class_teacher join teacher on class_teacher.teacher_id = teacher.id where class_teacher.class_name='$class_name'";
+							$run = $con->execute($q);
+						?>
 						<form>
 							<div class="form-group">
 								<label for="exampleInputName">Class</label>
-								<select class="form-control">
+								<select class="form-control" id="class">
 									<option selected="" disabled="" >Select Class</option>
-									<option>9th</option>
+									<option value="<?= $class_data['name'] ?>"><?= $class_data['name']; ?></option>
 								</select>
+								 <p id="class_error" style="color: #ff7f7f; margin-top:10px;">Please Select Class </p>
+
 							</div>
 
 							<div class="form-group">
 								<label for="">Teacher</label>
-								<select class="form-control">
+								<select class="form-control" id="teacher">
 									<option selected="" disabled="" >Select Teacher</option>
-									<option>Teacher1</option>
-									<option>Teacher2</option>
+									<?php
+										while ($teacher_data= $con->fetch_assoc($run))
+										{
+											?><option value="<?= $teacher_data['id'] ?>"> <?= $teacher_data['name'] ?></option><?php
+										}
+									?>
+									
 								</select>
+								 <p id="teacher_error" style="color: #ff7f7f; margin-top: 10px;">Please Select Teacher </p>
+
 							</div>
 
 							<div class="form-group">
@@ -224,21 +242,24 @@
 									<input type="radio" name="rating" value="3" id="star-3" class="star__radio visuhide">
 									<input type="radio" name="rating" value="4" id="star-4" class="star__radio visuhide">
 									<input type="radio" name="rating" value="5" id="star-5" class="star__radio visuhide">
-								  
+								  	<input type="hidden" id="student" value="<?= $id ?>">
 									<label class="star__item" for="star-1"><span class="visuhide">1 star</span></label>
 									<label class="star__item" for="star-2"><span class="visuhide">2 stars</span></label>
 									<label class="star__item" for="star-3"><span class="visuhide">3 stars</span></label>
 									<label class="star__item" for="star-4"><span class="visuhide">4 stars</span></label>
 									<label class="star__item" for="star-5"><span class="visuhide">5 stars</span></label>
-								  </span>
+								 </span>
+								 <p id="rating_error" style="color: #ff7f7f; margin-top: 5px;">Please Select Star</p>
 							</div>
 							
 							<div class="form-group">
-								<label for="exampleInputPassword1">Comment</label>
-								<textarea class="form-control" placeholder="Please Leave Your Comment...."></textarea>
+								<label for="comment">Comment</label>
+								<textarea class="form-control" id="comment" placeholder="Please Leave Your Comment...."></textarea>
+								 <p id="comment_error" style="color: #ff7f7f; margin-top: 10px;">Please Leave Your Comment </p>
+
 							</div>
 							
-							<button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Add</button>
+							<button type="button" class="btn btn-primary btn-sm waves-effect waves-light rating_comment">Add</button>
 						</form>
 					</div>
 					<!-- /.card-content -->
@@ -253,76 +274,70 @@
 </div><!--/#wrapper -->
 	
 <!-- Placed at the end of the document so the pages load faster -->
-	<script src="../admin/assets/scripts/jquery.min.js"></script>
-	<script src="../admin/assets/scripts/modernizr.min.js"></script>
-	<script src="../admin/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
-	<script src="../admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script src="../admin/assets/plugin/nprogress/nprogress.js"></script>
-	<script src="../admin/assets/plugin/sweet-alert/sweetalert.min.js"></script>
-	<script src="../admin/assets/plugin/waves/waves.min.js"></script>
+	<script src="admin/assets/scripts/jquery.min.js"></script>
+	<script src="admin/assets/scripts/modernizr.min.js"></script>
+	<script src="admin/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+	<script src="admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="admin/assets/plugin/nprogress/nprogress.js"></script>
+	<script src="admin/assets/plugin/sweet-alert/sweetalert.min.js"></script>
+	<script src="admin/assets/plugin/waves/waves.min.js"></script>
 	<!-- Sparkline Chart -->
-	<script src="../admin/assets/plugin/chart/sparkline/jquery.sparkline.min.js"></script>
-	<script src="../admin/assets/scripts/chart.sparkline.init.min.js"></script>
+	<script src="admin/assets/plugin/chart/sparkline/jquery.sparkline.min.js"></script>
+	<script src="admin/assets/scripts/chart.sparkline.init.min.js"></script>
 
 	<!-- Percent Circle -->
-	<script src="../admin/assets/plugin/percircle/js/percircle.js"></script>
+	<script src="admin/assets/plugin/percircle/js/percircle.js"></script>
 
 	<!-- Google Chart -->
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 	<!-- Chartist Chart -->
-	<script src="../admin/assets/plugin/chart/chartist/chartist.min.js"></script>
-	<script src="../admin/assets/scripts/jquery.chartist.init.min.js"></script>
+	<script src="admin/assets/plugin/chart/chartist/chartist.min.js"></script>
+	<script src="admin/assets/scripts/jquery.chartist.init.min.js"></script>
 
 	<!-- FullCalendar -->
-	<script src="../admin/assets/plugin/moment/moment.js"></script>
-	<script src="../admin/assets/plugin/fullcalendar/fullcalendar.min.js"></script>
-	<script src="../admin/assets/scripts/fullcalendar.init.js"></script>
-	
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-
-	<script src="../admin/assets/scripts/main.min.js"></script>
+	<script src="admin/assets/plugin/moment/moment.js"></script>
+	<script src="admin/assets/plugin/fullcalendar/fullcalendar.min.js"></script>
+	<script src="admin/assets/scripts/fullcalendar.init.js"></script>
+	<script src="admin/assets/scripts/main.min.js"></script>
 	<script type="text/javascript">
-	
+
 		$(document).ready(function(){
-			// $('.weeks').hide();
-			// $('.teachers').hide();
-			// $('.students_rating').hide();
-			var rating = 0;
-			$('.assign_class').click(function(){
-				var teacher_id = $(this).data('id');
-				var class_name = $('#class_name'+teacher_id).children('option:selected').val();
-				var submit = "submit";
-				
-				if (class_name=="Select Class") {
-					swal("Please Select Any Class");
-				}
-				else
+			$('#class_error').hide();
+			$('#teacher_error').hide();
+			$('#rating_error').hide();
+			$('#comment_error').hide();
+			$('.rating_comment').click(function(){
+				$('#rating_error').hide();
+				var check = true;
+				var rate = $('.star__radio:checked').val();
+				var class_id = $('#class').val();
+				var teacher_id = $('#teacher').val();
+				var student_id  = $('#student').val();
+				var comment = $('#comment').val();
+				var action = "student_review";
+				if(class_id ==null){ check=false; $('#class_error').show();} else{ check=true; $('#class_error').hide(); }
+				if(teacher_id ==null){check=false; $('#teacher_error').show();} else{ check=true; $('#teacher_error').hide(); }
+				if(!$('.star__radio').is(":checked")){ check=false; $('#rating_error').show();} else{ check=true; $('#rating_error').hide(); }
+				if (comment=='') {check=false; $('#comment_error').show();} else{ check=true; $('#comment_error').hide(); }
+				if(check)
 				{
 					$.ajax({
+						url:"admin/includes/action.php",
 						type:"post",
-						url:"includes/action.php",
-						data:{teacher_id:teacher_id,class_name:class_name,submit:submit},
+						data:{class_name:class_id,teacher_id:teacher_id,student_id:student_id,rating:rate,comment:comment,student_review:action },
 						success:function(data)
 						{
-							if (data=="This class has been already assigned")
+							if (data=="You Have Already Left Comment")
 							{
 								swal({
 								    title: "",
-								    text:data,
+								    text: data,
 								    type: "warning",
 								    confirmButtonColor: '#3F51B5',
 								    confirmButtonText: 'Ok',
 								    closeOnConfirm: false,
-								 },
-								 function(isConfirm){
-
-								   if (isConfirm){
-								     location.reload();
-
-								    } 
-								 });
+							 	});
 							}
 							else
 							{
@@ -337,47 +352,18 @@
 								 function(isConfirm){
 
 								   if (isConfirm){
-								   		location.reload();
+								   		window.location="rating_comment.php";
 								    } 
 								 });
 							}
-							
 						}
 					});
 				}
+
 			});
-
-			// $('.rating').click(function(){
-			// 	if (!$(this).hasClass('yellow_rating')) { rating++; $(this).addClass('yellow_rating'); }
-			// 	else { $(this).removeClass('yellow_rating');rating--; }
-				
-			// });
-			
 		});
 
-
 	</script>
 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#teacherTable').DataTable();
-			$('#reviewTable').DataTable();
-			$('#classTable').DataTable();
-			$('#studentTable').DataTable();
-		});
-	</script>
-
-	<script>
-
-function onestar(){
-	// alert('one');
-}
-function oneovr(){
-document.getElementById('onestr').style.color="yellow";
-}
-
-
-		
-	</script>
 </body>
 </html>

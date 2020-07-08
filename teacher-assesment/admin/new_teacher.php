@@ -15,26 +15,30 @@
 					<div class="card-content">
 						<form>
 							<div class="form-group">
-								<label for="exampleInputName">Name</label>
-								<input type="email" class="form-control" id="exampleInputName" placeholder="Enter Name">
+								<label for="name">Name</label>
+								<input type="text" class="form-control" id="name" placeholder="Enter Name">
+								<p id="name_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Name </p>
 							</div>
 
 							<div class="form-group">
-								<label for="exampleInputEmail1">Email address</label>
-								<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter Email Address">
+								<label for="email">Email address</label>
+								<input type="email" class="form-control" id="email" placeholder="Enter Email Address">
+								<p id="email_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Email </p>
 							</div>
 
 							<div class="form-group">
-								<label for="exampleInputPassword1">Password</label>
-								<input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password">
+								<label for="pass">Password</label>
+								<input type="password" class="form-control" id="pass" placeholder="Enter password">
+								<p id="pass_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Password </p>
 							</div>
 
 							<div class="form-group">
-								<label for="exampleInputSubject">Subject</label>
-								<input type="password" class="form-control" id="exampleInputSubject" placeholder="Enter Subject">
+								<label for="subject">Subject</label>
+								<input type="text" class="form-control" id="subject" placeholder="Enter Subject">
+								<p id="subject_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Subject </p>
 							</div>
 							
-							<button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Add Teacher</button>
+							<button type="button" class="btn btn-primary btn-sm waves-effect waves-light add_teacher">Add Teacher</button>
 						</form>
 					</div>
 					<!-- /.card-content -->
@@ -50,3 +54,15 @@
 	
 <!-- Placed at the end of the document so the pages load faster -->
 	<?php require_once('includes/footer_script.php'); ?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			$('.add_teacher').click(function(){
+				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#pass"),'pass') && blank_field_check($("#subject"),'subject')) 
+				{
+					teacher_add_update(0,$('#name'),$('#email'),$('#pass'),$('#subject'),"add_teacher");
+				}
+				
+			});
+		});
+	</script>

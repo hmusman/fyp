@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2020 at 12:58 PM
+-- Generation Time: Jul 08, 2020 at 12:52 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -95,18 +95,22 @@ INSERT INTO `class_teacher` (`id`, `class_name`, `teacher_id`) VALUES
 CREATE TABLE `reviews` (
   `id` int(11) NOT NULL,
   `teacher_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
   `class_name` varchar(100) NOT NULL,
   `comment` text NOT NULL,
-  `comment_date` varchar(50) NOT NULL
+  `year` varchar(255) NOT NULL,
+  `month` varchar(255) NOT NULL,
+  `week` varchar(255) NOT NULL,
+  `rating` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `reviews`
 --
 
-INSERT INTO `reviews` (`id`, `teacher_id`, `class_name`, `comment`, `comment_date`) VALUES
-(1, 1, '9th', 'he is a good teacher', '1593685668'),
-(2, 1, '9th', 'his is method is not good', '1593685700');
+INSERT INTO `reviews` (`id`, `teacher_id`, `student_id`, `class_name`, `comment`, `year`, `month`, `week`, `rating`) VALUES
+(7, 1, 1, '9th', 'he is  a good teacher', '2020', 'Jul', 'Second Week', '4'),
+(8, 4, 1, '9th', 'he is a very good  teacher', '2020', 'Jul', 'Second Week', '5');
 
 -- --------------------------------------------------------
 
@@ -150,7 +154,7 @@ CREATE TABLE `teacher` (
 
 INSERT INTO `teacher` (`id`, `name`, `email`, `pass`, `subject`) VALUES
 (1, 'teacher1', 'teacher1@gmail.com', '9f191b1e986e07c36e694001bc1117b5', 'chemistry'),
-(2, 'teacher2', 'teacher2@gmail.com', '9f191b1e986e07c36e694001bc1117b5', 'physics'),
+(2, 'teacher2', 'teacher2@gmail.com', 'd8ba46d3e1d1599ade8be196a275bfc4', 'physics'),
 (3, 'teacher3', 'teacher3@gmail.com', '9f191b1e986e07c36e694001bc1117b5', 'mathematics'),
 (4, 'teacher4', 'teacher4@gmail.com', '9f191b1e986e07c36e694001bc1117b5', 'biology');
 
@@ -208,7 +212,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `class_teacher`
@@ -220,7 +224,7 @@ ALTER TABLE `class_teacher`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `student`
@@ -232,7 +236,7 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

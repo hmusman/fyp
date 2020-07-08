@@ -10,7 +10,7 @@
 			<table class="table" id="teacherTable">
 				<thead> 
 					<tr> 
-						<th colspan="7"></th> 
+						<th colspan="6"></th> 
 						<th><a href="new_teacher.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Teacher</a></th> 
 						
 					</tr> 
@@ -24,7 +24,7 @@
 						<th>Class</th>
 						<th>Assign</th>
 						<th>Assign Classes</th>
-						<th>Rating</th>
+						<!-- <th>Rating</th> -->
 						<th>Action</th> 
 						
 					</tr> 
@@ -64,15 +64,15 @@
 											$con->class_teacher_names('teacher_id',$teacher_data['id'],'classes','class_name','name');
 										?>
 									</td>
-									<td class="text-info">
+									<!-- <td class="text-info">
 										<i class=" fa fa-star"></i>
 										<i class=" fa fa-star"></i>
 										<i class=" fa fa-star"></i>
-									</td>
+									</td> -->
 									<td>
 										<!-- <a href="reviews.php?teacher_review=<?= $teacher_data['id'] ?>" class="btn btn-info btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-comment"></i></a> -->
 										<a href="update_teacher.php?teacher_update=<?= $teacher_data['id'] ?>" class="btn btn-primary btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-edit"></i></a>
-										<a href="?teacher_del=<?= $teacher_data['id']?>" class="btn btn-danger btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-trash"></i></a>
+										<button type="button" class="btn btn-danger btn-circle btn-sm waves-effect waves-light del_teacher" data-id="<?= $teacher_data['id']?>"><i class="ico fa fa-trash"></i></button>
 									</td> 
 									
 								</tr> 
@@ -94,3 +94,20 @@
 	
 <!-- Placed at the end of the document so the pages load faster -->
 	<?php require_once('includes/footer_script.php'); ?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.del_teacher').click(function(){
+				var id =$(this).data('id');
+				var action = "del_teacher";
+				$.ajax({
+					url:"includes/action.php",
+					type:"post",
+					data:{id:id,del_teacher:action},
+					success:function(data)
+					{
+						location.reload();
+					}
+				});
+			});
+		});
+	</script>

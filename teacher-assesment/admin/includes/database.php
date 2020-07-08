@@ -37,6 +37,17 @@
 			return mysqli_num_rows($result);
 		}
 
+		public function get_data_by_id($table ,$id)
+		{
+			return $this->fetch_assoc($this->execute("select * from $table where id='$id'"));
+		}
+
+		public function delete_record($table ,$id)
+		{
+			$this->execute("delete from $table where id='$id'");
+		}
+
+		
 		public function register($name,$email ,$pass)
 		{
 			$q = "insert into user set name='$name',email='$email',pass='$pass'";
@@ -47,8 +58,10 @@
 				$_SESSION['name'] = $name;
 				$_SESSION['id'] = $this->last_insert_id();
 			}
+
 		}
 
+		
 		public function login($role , $email , $pass)
 		{
 			$q = "select * from ".$role." where email='$email' and pass='$pass'";
@@ -71,8 +84,10 @@
 			{
 				echo "not";
 			}
+
 		}
 
+		
 		public function login_session($role)
 		{
 			if($role=='admin'){ $url = '../login.php'; } elseif ($role=='student' || $role=='teacher') { $url = 'login.php'; }
@@ -90,6 +105,7 @@
 			return mysqli_insert_id($this->con);
 		}
 
+		
 		public function class_teacher_ids($column ,$column_data ,$desire_column)
 		{
 			$class_teacher_ids = "";
@@ -117,7 +133,8 @@
 
 		} // class_teacher_ids
 
-		public function class_teacher_names($column,$column_data,$table , $desire_column,$base_column)
+		
+		public function class_teacher_names($column,$column_data,$table,$desire_column,$base_column)
 		{
 			$q = "select * from class_teacher join $table on class_teacher.$desire_column = $table.$base_column where class_teacher.$desire_column=$table.$base_column and $column='$column_data'";
 			$cnt =$this->num_rows($this->execute($q));
@@ -138,18 +155,41 @@
 					else
 						echo ucfirst($teacher_class_data['name']);
 
-					
-
-
 				}
 			}
+
 		} // class_teacher_names
 
+		
 		public function class_teacher_name_filter($column, $column_data,$table)
 		{
 			if ($column_data=='') { $q =  "select * from $table"; } else { $q = "select * from $table where $column not in(".$column_data.")"; }
 			return $this->execute($q);
-		}
+
+		}// class_teacher_name_filter
+
+		
+		public function teacher_add_update($id,$name,$email,$pass,$subject,$action)
+		{
+			$q = "";
+			if ($action=='update_teacher'){ $q = "update teacher set name='$name',email='$email',pass='$pass',subject='$subject' where id='$id'"; }
+			else if ($action=='add_teacher')
+			{ 
+				if ($this->num_rows($this->execute("select * from teacher where email= '$email'"))>0)
+				{
+					echo "Teacher Already Exists";
+					exit();
+				}
+				else
+				{
+					$q = "insert into teacher set name='$name',email='$email',pass='$pass',subject='$subject'";
+				} 
+
+			}
+			if($this->execute($q)){ echo "teachers.php"; }
+
+		}//teacher_add_update
+
 	}
 
 	

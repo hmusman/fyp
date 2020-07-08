@@ -68,13 +68,14 @@
 									</td>
 									<td>
 										<a href="update_class.php?class=<?= $class_data['id'] ?>" class="btn btn-primary btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-edit"></i></a>
-										<a href="?class_del=<?= $class_data['id'] ?>" class="btn btn-danger btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-trash"></i></a>
+										<button type="button" class="btn btn-danger btn-circle btn-sm waves-effect waves-light del_class" data-id="<?= $class_data['id']?>"><i class="ico fa fa-trash"></i></button>
 										
 									</td> 
 									
 								</tr> 
 
 							<?php
+							$i++;
 						}
 
 					?>
@@ -90,3 +91,20 @@
 	
 <!-- Placed at the end of the document so the pages load faster -->
 	<?php require_once('includes/footer_script.php'); ?>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('.del_class').click(function(){
+				var id =$(this).data('id');
+				var action = "del_class";
+				$.ajax({
+					url:"includes/action.php",
+					type:"post",
+					data:{id:id,del_class:action},
+					success:function(data)
+					{
+						location.reload();
+					}
+				});
+			});
+		});
+	</script>

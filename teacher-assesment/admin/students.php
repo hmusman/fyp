@@ -19,27 +19,35 @@
 
 			<div class="col-md-2 mt-5" style="margin-top: 5px; margin-bottom: 5px;">
 				<select id="student_class" class="form-control">
+					<?php 
+						$run = $con->execute("select * from classes");
+					?>
 					<option selected=""  disabled="">Select Class</option>
-					<option>9th</option>
-					<option>10th</option>
+					<?php 
+						while ($class_data = $con->fetch_assoc($run))
+						{
+							?><option value="<?= str_replace(' ' ,'_',$class_data['name']) ?>"><?= $class_data['name'] ?></option><?php
+						}
+					?>
+					
 				</select>
 			</div>
 
 			<div class="col-md-2 mt-5" style="margin-top: 5px; margin-bottom: 5px;">
 				<select id="month" class="form-control">
 					<option selected="" disabled="">Select Month</option>
-					<option>Jan</option>
-					<option>Feb</option>
-					<option>Mar</option>
-					<option>Apr</option>
-					<option>May</option>
-					<option>Jun</option>
-					<option>July</option>
-					<option>Aug</option>
-					<option>Sept</option>
-					<option>Oct</option>
-					<option>Nov</option>
-					<option>Dec</option>
+					<option value="Jan">Jan</option>
+					<option value="Feb">Feb</option>
+					<option value="Mar">Mar</option>
+					<option value="Apr">Apr</option>
+					<option value="May">May</option>
+					<option value="Jun">Jun</option>
+					<option value="Jul">Jul</option>
+					<option value="Aug">Aug</option>
+					<option value="Sept">Sept</option>
+					<option value="Oct">Oct</option>
+					<option value="Nov">Nov</option>
+					<option value="Dec">Dec</option>
 					
 				</select>
 			</div>
@@ -47,19 +55,17 @@
 			<div class="col-md-3" style="margin-top: 5px; margin-bottom: 5px;">
 				<select id="week" class="form-control">
 					<option selected="" disabled="">Select Weeks</option>
-					<option>First Week</option>
-					<option>Second Week</option>
-					<option>Third Week</option>
-					<option>Fourth Week</option>
+					<option value="First Week">First Week</option>
+					<option value="Second Week">Second Week</option>
+					<option value="Third Week">Third Week</option>
+					<option value="Fourth Week">Fourth Week</option>
 				
 				</select>
 			</div>
 
-			<div class="col-md-3" style="margin-top: 5px; margin-bottom: 5px;">
+			<div class="col-md-3 teacher_option" style="margin-top: 5px; margin-bottom: 5px;">
 				<select id="teacher" class="form-control">
-					<option selected="" disabled="">Select Teachers</option>
-					<option>Teacher1</option>
-					<option>Teacher2</option>
+					
 					
 				</select>
 			</div>
@@ -134,3 +140,23 @@
 	
 <!-- Placed at the end of the document so the pages load faster -->
 	<?php require_once('includes/footer_script.php'); ?>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.teacher_option').hide();
+
+			$('#student_class').change(function(){
+				var class_name= $('#student_class').val();
+				var action ="class_teacher";
+				$.ajax({
+					url:"includes/action.php",
+					type:"post",
+					data:{class_name:class_name,class_teacher:action},
+					success:function(data)
+					{
+						$('.teacher_option').show();
+						$('#teacher').html(data);
+					}
+				})
+			});
+		});
+	</script>
