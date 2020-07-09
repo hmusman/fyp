@@ -47,7 +47,12 @@
 
 	if(isset($_REQUEST['teacher_action']))
 	{
-		echo $con->teacher_add_update($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['email'],md5($_REQUEST['pass']),$_REQUEST['subject'],$_REQUEST['teacher_action']);
+		$con->teacher_add_update($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['email'],md5($_REQUEST['pass']),$_REQUEST['subject'],$_REQUEST['teacher_action']);
+	}
+
+	if(isset($_REQUEST['student_action']))
+	{
+		$con->student_add_update($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['email'],md5($_REQUEST['pass']),$_REQUEST['class_id'],$_REQUEST['student_action']);
 	}
 
 	if (isset($_REQUEST['del_teacher']))
@@ -56,31 +61,21 @@
 		$con->delete_record('teacher',$id);
 	}
 
+	if (isset($_REQUEST['del_student']))
+	{
+		$id = $_REQUEST['id'];
+		$con->delete_record('student',$id);
+	}
 
 	if (isset($_REQUEST['student_review']))
 	{
-		$week = "";
-		$m = "";
+		
 		$time = time();
 		$year = date('Y',$time);
 		$month = date('m',$time);
 		$day = date('d',$time);
-		if ($day>=1 && $day<=7){ $week = 'First Week'; }
-		else if ($day>=8 && $day<=15){ $week = 'Second Week'; }
-		else if ($day>=16 && $day<=22){ $week = 'Third Week'; }
-		else if ($day>=23 && $day<=31){ $week = 'Fourth Week'; }
-		if ($month==1){ $m = 'Jan'; }
-		else if ($month==2){ $m = 'Feb'; }
-		else if ($month==3){ $m = 'Mar'; }
-		else if ($month==4){ $m = 'Apr'; }
-		else if ($month==5){ $m = 'May'; }
-		else if ($month==6){ $m = 'Jun'; }
-		else if ($month==7){ $m = 'Jul'; }
-		else if ($month==8){ $m = 'Aug'; }
-		else if ($month==9){ $m = 'Sept'; }
-		else if ($month==10){ $m = 'Oct'; }
-		else if ($month==11){ $m = 'Nov'; }
-		else if ($month==12){ $m = 'Dec'; }		
+		$week = $con->daySet($day);
+		$m = $con->monthSet($month);
 		$class_name = $_REQUEST['class_name'];
 		$teacher_id = $_REQUEST['teacher_id'];
 		$student_id = $_REQUEST['student_id'];
@@ -111,5 +106,16 @@
 			<?php
 		}
 
+	}
+
+	if (isset($_REQUEST['filtering'])) 
+	{
+		$con->reviews_filtering( $_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['filtering']);
+	}
+
+	if (isset($_REQUEST['review_delete'])) 
+	{
+		$con->delete_record('reviews',$_REQUEST['id']);
+		$con->reviews_filtering($_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['review_delete']);
 	}
 ?>

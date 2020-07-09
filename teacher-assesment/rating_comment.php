@@ -128,7 +128,7 @@
 
 <div class="main-menu">
 	<header class="header">
-		<a href="" class="logo"><i class="ico ti-rocket"></i>SpaceX</a>
+		<a href="" class="logo"><i class="ico ti-rocket"></i>School System</a>
 		<button type="button" class="button-close fa fa-times js__menu_close"></button>
 	</header>
 	<!-- /.header -->
@@ -136,7 +136,6 @@
 
 		<!-- navigation start   -->
 		<div class="navigation">
-			<h5 class="title">Navigation</h5>
 			<!-- /.title -->
 			<ul class="menu js__accordion">
 				<li class="current">
@@ -166,14 +165,7 @@
 	</div>
 	<!-- /.pull-left -->
 	<div class="pull-right">
-		<div class="ico-item">
-			<a href="#" class="ico-item ti-search js__toggle_open" data-target="#searchform-header"></a>
-			<form action="#" id="searchform-header" class="searchform js__toggle"><input type="search" placeholder="Search..." class="input-search"><button class="ti-search button-search" type="submit"></button></form>
-			<!-- /.searchform -->
-		</div>
-		<!-- /.ico-item -->
-		<a href="#" class="ico-item ti-email notice-alarm js__toggle_open" data-target="#message-popup"></a>
-		<a href="#" class="ico-item ti-bell notice-alarm js__toggle_open" data-target="#notification-popup"></a>
+		
 		<div class="ico-item">
 			<i class="ti-user"></i>
 			<ul class="sub-ico-item">
@@ -209,7 +201,7 @@
 							$run = $con->execute($q);
 						?>
 						<form>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<label for="exampleInputName">Class</label>
 								<select class="form-control" id="class">
 									<option selected="" disabled="" >Select Class</option>
@@ -217,7 +209,7 @@
 								</select>
 								 <p id="class_error" style="color: #ff7f7f; margin-top:10px;">Please Select Class </p>
 
-							</div>
+							</div> -->
 
 							<div class="form-group">
 								<label for="">Teacher</label>
@@ -243,6 +235,7 @@
 									<input type="radio" name="rating" value="4" id="star-4" class="star__radio visuhide">
 									<input type="radio" name="rating" value="5" id="star-5" class="star__radio visuhide">
 								  	<input type="hidden" id="student" value="<?= $id ?>">
+								  	<input type="hidden" id="class" value="<?= $class_data['name'] ?>">
 									<label class="star__item" for="star-1"><span class="visuhide">1 star</span></label>
 									<label class="star__item" for="star-2"><span class="visuhide">2 stars</span></label>
 									<label class="star__item" for="star-3"><span class="visuhide">3 stars</span></label>
@@ -316,7 +309,6 @@
 				var student_id  = $('#student').val();
 				var comment = $('#comment').val();
 				var action = "student_review";
-				if(class_id ==null){ check=false; $('#class_error').show();} else{ check=true; $('#class_error').hide(); }
 				if(teacher_id ==null){check=false; $('#teacher_error').show();} else{ check=true; $('#teacher_error').hide(); }
 				if(!$('.star__radio').is(":checked")){ check=false; $('#rating_error').show();} else{ check=true; $('#rating_error').hide(); }
 				if (comment=='') {check=false; $('#comment_error').show();} else{ check=true; $('#comment_error').hide(); }

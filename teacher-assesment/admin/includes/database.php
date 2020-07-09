@@ -47,7 +47,34 @@
 			$this->execute("delete from $table where id='$id'");
 		}
 
-		
+		public function daySet($day)
+		{
+			$week = "";
+			if ($day>=1 && $day<=7){ $week = 'First Week'; }
+			else if ($day>=8 && $day<=15){ $week = 'Second Week'; }
+			else if ($day>=16 && $day<=22){ $week = 'Third Week'; }
+			else if ($day>=23 && $day<=31){ $week = 'Fourth Week'; }
+			return $week;
+		}
+
+		public function monthSet($month)
+		{
+			$m = "";
+			if ($month==1){ $m = 'Jan'; }
+			else if ($month==2){ $m = 'Feb'; }
+			else if ($month==3){ $m = 'Mar'; }
+			else if ($month==4){ $m = 'Apr'; }
+			else if ($month==5){ $m = 'May'; }
+			else if ($month==6){ $m = 'Jun'; }
+			else if ($month==7){ $m = 'Jul'; }
+			else if ($month==8){ $m = 'Aug'; }
+			else if ($month==9){ $m = 'Sept'; }
+			else if ($month==10){ $m = 'Oct'; }
+			else if ($month==11){ $m = 'Nov'; }
+			else if ($month==12){ $m = 'Dec'; }		
+			return $m;
+		}
+
 		public function register($name,$email ,$pass)
 		{
 			$q = "insert into user set name='$name',email='$email',pass='$pass'";
@@ -189,6 +216,189 @@
 			if($this->execute($q)){ echo "teachers.php"; }
 
 		}//teacher_add_update
+
+		public function student_add_update($id,$name,$email,$pass,$class_id,$action)
+		{
+			$q = "";
+			if ($action=='update_student'){ $q = "update student set name='$name',email='$email',pass='$pass',class_id='$class_id' where id='$id'"; }
+			else if ($action=='add_student')
+			{ 
+				if ($this->num_rows($this->execute("select * from teacher where email= '$email'"))>0)
+				{
+					echo "Student Already Exists";
+					exit();
+				}
+				else
+				{
+					$q = "insert into student set name='$name',email='$email',pass='$pass',class_id='$class_id'";
+				} 
+
+			}
+			if($this->execute($q)){ echo "students.php"; }
+
+		}//student_add_update
+
+		public function rating_stars_view($rating)
+		{
+			if ($rating==1)
+			{
+				?><i class="fa fa-star"></i><?php
+			}
+			else if ($rating==2)
+			{
+				?>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				<?php
+			}
+			else if ($rating==3)
+			{
+				?>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				<?php
+			}
+			else if ($rating==4)
+			{
+				?>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				<?php
+			}
+			else if ($rating==5)
+			{
+				?>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+					<i class="fa fa-star"></i>
+				<?php
+			}
+		}
+
+		public function reviews_filtering($class_name ,$teacher_id , $month ,$week , $action)
+		{
+			$q = "select * from reviews where teacher_id='$teacher_id' and class_name='$class_name' and month='$month' and week='$week'";
+			$run = $this->execute($q);
+			?>
+				<table class="table" id="studentTable" style="margin-top: 25px;" >
+				  
+			<?php
+			if ($action=="admin_filter")
+			{
+				// if()
+				?>
+					<thead> 
+						<tr> 
+							<th>#</th>
+							<th>Teacher</th> 
+							<th>Student</th>
+							<th>Class</th> 
+							<th>Comment</th>
+							<th>Rating</th>
+							<th>Action</th> 
+							
+						</tr> 
+					</thead> 
+				<?php
+			}
+
+			else if($action=="teacher_filter")
+			{
+				?>
+					<thead> 
+						<tr> 
+							<th>#</th>
+							<th>Class</th> 
+							<th>Comment</th>
+							<th>Rating</th>							
+						</tr> 
+					</thead> 
+					<tbody>
+						
+					</tbody>
+				<?php
+			}
+			$i = 1;
+			while ($data = $this->fetch_assoc($run))
+			{
+				$teacher_data = $this->get_data_by_id('teacher', $data['teacher_id']);
+				$student_data = $this->get_data_by_id('student',$data['student_id']);
+				if ($action=="admin_filter")
+				{
+					?>
+						<tr> 
+							<td><?= $i ?></td> 
+
+							<td><?= ucfirst($teacher_data['name']) ?></td> 
+							<td><?= ucfirst($student_data['name']) ?></td>
+							<td><?= $data['class_name'] ?></td>
+							<td>
+								<p><?= ucfirst($data['comment']) ?></p>
+							</td>
+							
+							<td style="color: #FFFF33;">
+								<?php $this->rating_stars_view($data['rating']); ?>
+								
+								
+							</td>
+
+							<td>
+								<button type="button" onclick="review_delete(<?= $data['id'] ?>);" data-id="<?= $data['id'] ?>" class="btn btn-danger btn-circle btn-sm waves-effect waves-light review_delete"><i class="ico fa fa-trash"></i></button>
+							</td> 
+							
+						</tr> 
+
+					<?php
+				}
+
+				else if ($action=="teacher_filter")
+				{
+
+					?>
+						<tr> 
+							<td><?= $i ?></td> 
+							<td><?= $data['class_name'] ?></td>
+							<td><p><?= ucfirst($data['comment']) ?></p></td>
+							<td style="color: #FFFF33;">
+								<?php $this->rating_stars_view($data['rating']); ?>
+							</td>
+		
+						</tr> 
+
+					<?php
+				}
+				$i++;
+				
+			}
+			?>		
+					<?php
+						if($this->num_rows($this->execute($q))==0 && $action=='admin_filter')
+						{
+							?>
+								<tr class="text-center">
+									<td colspan="7" >No Comment</td>
+								</tr>
+							<?php
+						}
+						else if($this->num_rows($this->execute($q))==0 && $action=='teacher_filter')
+						{
+							?>
+								<tr class="text-center">
+									<td colspan="4" >No Comment</td>
+								</tr>
+							<?php
+						}
+					?>
+					</tbody>
+				</table>
+			<?php
+
+		} // reviews_filtering
 
 	}
 

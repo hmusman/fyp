@@ -1,5 +1,4 @@
 <div class="navigation">
-	<h5 class="title">Navigation</h5>
 	<!-- /.title -->
 	<ul class="menu js__accordion">
 		<li class="current">
@@ -13,10 +12,12 @@
 		</li>
 
 		<li>
-			<a class="waves-effect" href="students.php"><i class="menu-icon ti-calendar"></i><span>Students</span></a>
+			<a class="waves-effect" href="reviews.php"><i class="menu-icon ti-calendar"></i><span>Reviews</span></a>
 		</li>
 
-		
+		<li>
+			<a class="waves-effect" href="students.php"><i class="menu-icon ti-calendar"></i><span>Student</span></a>
+		</li>
 	</ul>
 
 	

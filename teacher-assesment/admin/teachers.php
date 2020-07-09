@@ -99,15 +99,31 @@
 			$('.del_teacher').click(function(){
 				var id =$(this).data('id');
 				var action = "del_teacher";
-				$.ajax({
-					url:"includes/action.php",
-					type:"post",
-					data:{id:id,del_teacher:action},
-					success:function(data)
-					{
-						location.reload();
-					}
-				});
+				 swal({
+				    title: "Are you sure?",
+				    text: "You will not be able to recover this teacher!",
+				    type: "warning",
+				    showCancelButton: true,
+				    confirmButtonColor: '#DD6B55',
+				    confirmButtonText: 'Yes, I am sure!',
+				    cancelButtonText: "No, cancel it!",
+				    closeOnConfirm: true,
+				    closeOnCancel: true
+				 },
+				 function(isConfirm){
+				   if (isConfirm){
+				   		$.ajax({
+							url:"includes/action.php",
+							type:"post",
+							data:{id:id,del_teacher:action},
+							success:function(data)
+							{
+								location.reload();
+							}
+						});
+				    }
+				 });
+				
 			});
 		});
 	</script>

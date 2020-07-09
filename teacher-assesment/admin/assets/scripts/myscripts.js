@@ -15,6 +15,7 @@ function blank_field_check(id,error)
 	}
 }
 
+
 function teacher_add_update(id,name,email,pass,subject,action)
 {
 	
@@ -47,6 +48,38 @@ function teacher_add_update(id,name,email,pass,subject,action)
 	});
 }
 
+function student_add_update(id,name,email,pass,class_id,action)
+{
+	
+	var name_val = name.val();
+	var email_val = email.val();
+	var pass_val = pass.val();
+	var class_val = class_id.val();
+	$.ajax({
+		url:"includes/action.php",
+		type:"post",
+		data:{id:id,name:name_val,email:email_val,pass:pass_val,class_id:class_val,student_action:action},
+		success:function(data)
+		{
+			
+			if (data=="Student Already Exists") {
+				swal({
+				    title: "",
+				    text: data,
+				    type: "warning",
+				    confirmButtonColor: '#3F51B5',
+				    confirmButtonText: 'Ok',
+				    closeOnConfirm: false,
+				 });
+			}
+			else
+			{
+				window.location=data;
+			}
+		}
+
+	});
+}
 
 
 $(document).ready(function(){
@@ -55,11 +88,11 @@ $(document).ready(function(){
 	$('#email_error').hide();
 	$('#pass_error').hide();
 	$('#subject_error').hide();
-
-	$('#teacherTable').DataTable();
-	$('#reviewTable').DataTable();
-	$('#classTable').DataTable();
-	$('#studentTable').DataTable();
+	$('#class_error').hide();
+	// $('#teacherTable').DataTable();
+	// $('#reviewTable').DataTable();
+	// $('#classTable').DataTable();
+	// $('#studentTable').DataTable();
 
 	function class_teacher_assign(class_name,teacher_id,cat)
 	{
@@ -93,6 +126,7 @@ $(document).ready(function(){
 		var class_name = $('#class_name'+teacher_id).children('option:selected').val();
 		var cat = "class";
 		if (class_name=="Select Class") {
+			alert("you are not");
 			swal("Please Select Any Class");
 		}
 		else
