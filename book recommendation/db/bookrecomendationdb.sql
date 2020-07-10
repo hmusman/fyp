@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2020 at 11:58 AM
+-- Generation Time: Jul 10, 2020 at 01:20 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -21,6 +21,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `bookrecomendationdb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`id`, `name`, `email`, `pass`) VALUES
+(1, 'adminName', 'admin@gmail.com', '9f191b1e986e07c36e694001bc1117b5');
 
 -- --------------------------------------------------------
 
@@ -66,11 +86,9 @@ INSERT INTO `category_hobby` (`id`, `category_id`, `name`) VALUES
 (4, 1, 'mathematics'),
 (5, 2, 'physics'),
 (6, 2, 'computer science'),
-(7, 2, 'chemistry'),
 (8, 2, 'mathematics'),
 (9, 3, 'operating system'),
 (10, 3, 'computer science'),
-(11, 3, 'computer network'),
 (12, 3, 'mathematics');
 
 -- --------------------------------------------------------
@@ -92,12 +110,10 @@ CREATE TABLE `hobby_book` (
 INSERT INTO `hobby_book` (`id`, `category_hobby_id`, `book_name`) VALUES
 (1, 1, 'book.pdf'),
 (2, 1, 'book.pdf'),
-(3, 5, 'book.pdf'),
+(3, 8, 'book.pdf'),
 (4, 5, 'book.pdf'),
 (5, 9, 'book.pdf'),
-(6, 9, 'book.pdf'),
-(7, 4, 'book.pdf'),
-(8, 11, 'book.pdf');
+(7, 4, 'book.pdf');
 
 -- --------------------------------------------------------
 
@@ -117,7 +133,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `pass`) VALUES
-(9, 'test', 'test@gmail.com', '9f191b1e986e07c36e694001bc1117b5');
+(9, 'test', 'test@gmail.com', '9f191b1e986e07c36e694001bc1117b5'),
+(22, 'final', 'final@gmail.com', '9f191b1e986e07c36e694001bc1117b5');
 
 -- --------------------------------------------------------
 
@@ -153,11 +170,17 @@ CREATE TABLE `user_hobby` (
 --
 
 INSERT INTO `user_hobby` (`ip_address`, `choose_hobby`) VALUES
-('::1', '9');
+('::1', '1');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `category`
@@ -188,28 +211,34 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `category_hobby`
 --
 ALTER TABLE `category_hobby`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `hobby_book`
 --
 ALTER TABLE `hobby_book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
