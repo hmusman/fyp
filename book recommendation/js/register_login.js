@@ -10,7 +10,7 @@ $(document).ready(function(){
 		if (name!='' && email !='' && pass!='' && cpass!='')
 		{
 			$.ajax({
-				url:"includes/action.php",
+				url:"admin/includes/action.php",
 				type:"post",
 				data:{name:name, email:email, pass:pass, register:action},
 				success:function(data)
@@ -31,7 +31,7 @@ $(document).ready(function(){
 		if (email !='' && pass!='')
 		{
 			$.ajax({
-				url:"includes/action.php",
+				url:"admin/includes/action.php",
 				type:"post",
 				data:{email:email, pass:pass,login:action},
 				success:function(data)
@@ -50,4 +50,33 @@ $(document).ready(function(){
 		} 
 
 	});
+
+
+	$('.admin_login').click(function(){
+		var email= $('#email').val(); 
+		var pass= $('#pass').val(); 
+		var action = "admin_login";
+		if (email !='' && pass!='')
+		{
+			$.ajax({
+				url:"admin/includes/action.php",
+				type:"post",
+				data:{email:email, pass:pass,admin_login:action},
+				success:function(data)
+				{
+					if(data=='not')
+					{
+						$('#alert_login').show();
+					}
+					else
+					{
+						window.location="admin/index.php";
+
+					}
+				}
+			});
+		} 
+
+	});
+
 });

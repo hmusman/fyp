@@ -1,5 +1,5 @@
 <?php 
-	require_once 'includes/database.php'; 
+	require_once 'admin/includes/database.php'; 
 	$con->login_session();
 ?>
 
@@ -46,7 +46,7 @@
 	<header class="header menu_2">
 		<div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
 		<div id="logo">
-			<a href="BookReadingPeriods.php"><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
+			<a href="BookReadingPeriods.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
 		</div>
 		<ul id="top_menu">
 			<?php 
@@ -347,11 +347,6 @@ margin-top: -3px;
 
 </style>
 	<main>
-		<h1>BuzzFeed Quiz</h1>
-		<br/><br/>
-			<h2 class="perh2">PERSONALIZE YOUR EXPERIENCE</h2>
-		
-		
 		
 			
 			<p class="onboarding-question">Which best describes you?</p>
@@ -370,6 +365,11 @@ margin-top: -3px;
 		$run = $con->execute('SELECT DISTINCT(category.id),category.title,category.description FROM `category` join category_hobby on category.id = category_hobby.category_id where category.id=category_hobby.category_id');
 		while($data = $con->fetch_assoc($run))
 		{
+			$img="";
+			if ($data['title']=='school'){ $img="ic_import_contacts_black_48dp.png"; }
+			else if ($data['title']=='college'){ $img="ic_style_black_18dp.png"; }
+			else if ($data['title']=='university'){ $img="ic_account_balance_black_36dp.png"; }
+			// else{ $img="ic_import_contacts_black_48dp.png"; }	
 			?>
 				<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 booktime" onmouseover="changepic(<?= $data['id'] ?>)" onmouseout="orgnlpic(<?= $data['id'] ?>)" id="booktime" style="border: 1px #dcdedf solid; background-color: white !important;margin-right: 6px;">
 		
@@ -381,7 +381,7 @@ margin-top: -3px;
 					
 						</div> 
 				
-						<center><img id="bookimg<?= $data['id'] ?>" src="img/ic_import_contacts_black_48dp.png" /></center>
+						<center><img id="bookimg<?= $data['id'] ?>" src="img/<?= $img ?>" /></center>
 						<br/>
 						<p class="para"><?= ucfirst($data['title']) ?><br/>
 							<section class="para2"><?= $data['description'] ?></section>
@@ -511,7 +511,7 @@ margin-top: -3px;
 			<center>
 			
 
-			<button type="button" class="btn_1 outline save">Save and Continue</button>
+			<button type="button" class="btn_1 outline save" onclick="save();">Save and Continue</button>
 
 			</center>
 			<!-- <input class="clear" type="button" value="Clear Selection">
@@ -535,7 +535,7 @@ margin-top: -3px;
 		<div class="container margin_120_95">
 			<div class="row">
 				<div class="col-lg-5 col-md-12 p-r-5">
-					<p><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></p>
+					<p><a href="BookReadingPeriods.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a></p>
 					<p>Mea nibh meis philosophia eu. Duis legimus efficiantur ea sea. Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu. Nihil facilisi indoctum an vix, ut delectus expetendis vis.</p>
 					<div class="follow_us">
 						<ul>
@@ -666,6 +666,8 @@ function Results() {
 
 <script>
 
+	
+
 $(document).ready(function(){
 	$('#message').hide();
 // jQuery methods go here...
@@ -680,13 +682,13 @@ $('.save').click(function(){
 		$('#message').hide();
 		var category_id = $(".category_id:checked").val();
 		$.ajax({
-		url:"includes/action.php",
-		type:"post",
-		data:{category_id:category_id},
-		success:function(data){
-			window.location="BookRecomendationForm.php";
-		}
-	});
+			url:"admin/includes/action.php",
+			type:"post",
+			data:{category_id:category_id},
+			success:function(data){
+				window.location="BookRecomendationForm.php";
+			}
+		});
 	}
 	else
 	{
@@ -702,12 +704,12 @@ $('.save').click(function(){
 
 
 
-function changepic(id){
-	document.getElementById("bookimg"+id).src = "img/1-1.png";
-}
-function orgnlpic(id){
-	document.getElementById("bookimg"+id).src = "img/ic_import_contacts_black_48dp.png";
-}
+// function changepic(id){
+// 	document.getElementById("bookimg"+id).src = "img/1-1.png";
+// }
+// function orgnlpic(id){
+// 	document.getElementById("bookimg"+id).src = "img/ic_import_contacts_black_48dp.png";
+// }
 
 function changepic2(){
 	document.getElementById("bookimg2").src = "img/1-2.png";

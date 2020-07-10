@@ -2885,15 +2885,17 @@ a.box_feat h3 {
 .box_grid ul {
   padding: 20px 15px;
   border-top: 1px solid #ededed;
+  width: 80%;
 }
 .box_grid ul li {
   display: inline-block;
   margin-right: 15px;
+  width: 100%;
 }
-.box_grid ul li:last-child {
+/*.box_grid ul li:last-child {
   margin-right: 0;
   float: right;
-}
+}*//*
 .box_grid ul li:last-child a {
   background: #fff;
   border: 2px solid #662d91;
@@ -2911,11 +2913,37 @@ a.box_feat h3 {
   -ms-border-radius: 30px;
   border-radius: 30px;
 }
-.box_grid ul li:last-child a:hover {
+*/
+.box_grid ul li a {
+  background: #FFC107;
+  border: 2px solid #FFC107;
+  color: #333;
+  padding: 5px 20px;
+  font-weight: 500;
+  line-height: 1;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  border-radius: 30px;
+  margin-left: 41%;
+}
+
+.box_grid ul li a:hover {
+  background: #3f9fff;
+  color: #fff;
+  border: 2px solid #3f9fff;
+}
+
+/*.box_grid ul li:last-child a:hover {
   background: #662d91;
   color: #fff;
 }
-
+*/
 .rating i {
   margin-right: 2px;
   color: #ddd;

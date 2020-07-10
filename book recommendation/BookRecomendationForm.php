@@ -1,5 +1,5 @@
 <?php 
-	require_once('includes/database.php');
+	require_once('admin/includes/database.php');
 	$con->login_session();
 ?>
 <!DOCTYPE html>
@@ -44,7 +44,7 @@
 	<header class="header menu_2">
 		<div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
 		<div id="logo">
-			<a href="BookReadingPeriods.php"><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
+			<a href="BookReadingPeriods.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
 		</div>
 		<ul id="top_menu">
 			<?php 
@@ -279,11 +279,6 @@ ul[ class="answers"] > li{
 
 
 	<main>
-		<h1>BuzzFeed Quiz</h1>
-		<br/><br/>
-			<h2 class="perh2">PERSONALIZE YOUR EXPERIENCE</h2>
-		
-		
 		
 			<p class="onboarding-question">What do you like to read?</p>
 		
@@ -322,127 +317,6 @@ ul[ class="answers"] > li{
 
 					?>
 
-				<!-- <li >
-					<label class="container">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Crime Fiction</div>
-							<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-								<input  name="Question0" id="lblone" type="checkbox">  
-								<span class="checkmark"></span>
-							</div>
-						</div>
-					</label>
-				</li> -->
-
-
-
-
-
-
-				<!-- 	<li >
-						<label class="container">
-							<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Psychological Thrillers</div>
-	<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-		<input  name="Question0" id="lblone" type="checkbox">  
-		<span class="checkmark"></span>
-	</div>
-						</div>
-					</label>
-					</li>
-
-
-
-
-
-					<li >
-						<label class="container">
-							<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Cozy Mysteries</div>
-	<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
-
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Historical Mysteries</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Thrillers</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
-				
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Supernatural Suspense</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
-
-
-
-
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Action and Adventure</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li> -->
-
-
-
-
-
-
-
 			  </ul>
 
 
@@ -473,51 +347,7 @@ ul[ class="answers"] > li{
 			
 				<ul class="answers">
 				
-					<li >
-						<label class="container">
-							<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Science Fiction</div>
-	<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-		<input  name="Question0" id="lblone" type="checkbox">  
-		<span class="checkmark"></span>
-	</div>
-						</div>
-					</label>
-					</li>
-	
-	
-	
-	
-	
-	
-					<li >
-						<label class="container">
-							<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Fantasy</div>
-	<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-		<input  name="Question0" id="lblone" type="checkbox">  
-		<span class="checkmark"></span>
-	</div>
-						</div>
-					</label>
-					</li>
-	
-	
-	
-	
-	
-					<li >
-						<label class="container">
-							<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Horror</div>
-	<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-		<input  name="Question0" id="lblone" type="checkbox">  
-		<span class="checkmark"></span>
-	</div>
-						</div>
-					</label>
-					</li>
-	
+					
 	
 	
 	
@@ -537,52 +367,7 @@ ul[ class="answers"] > li{
 
 			  <ul class="answers">
 				
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Teen and Young Adult</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
-
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Children's</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Middle Grade</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
+				
 
 
 
@@ -605,66 +390,7 @@ ul[ class="answers"] > li{
 
 			  <ul class="answers">
 				
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Biographies and Memoirs</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
-
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> History</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
-
-
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Science</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
 				
-
-
-
-
-				<li >
-					<label class="container">
-						<div class="row">
-<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"> Cooking</div>
-<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-	<input  name="Question0" id="lblone" type="checkbox">  
-	<span class="checkmark"></span>
-</div>
-					</div>
-				</label>
-				</li>
 
 			  </ul>
 
@@ -706,7 +432,7 @@ ul[ class="answers"] > li{
 		<div class="container margin_120_95">
 			<div class="row">
 				<div class="col-lg-5 col-md-12 p-r-5">
-					<p><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></p>
+					<p><a href="BookReadingPeriods.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a></p>
 					<p>Mea nibh meis philosophia eu. Duis legimus efficiantur ea sea. Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu. Nihil facilisi indoctum an vix, ut delectus expetendis vis.</p>
 					<div class="follow_us">
 						<ul>
@@ -800,13 +526,13 @@ $(document).ready(function(){
 			$('#message').hide();
 			var hobbyArr = $('.question_checkbox:checked').map(function(){ return this.value; }).get();
 			$.ajax({
-			url:"includes/action.php",
-			type:"post",
-			data:{hobby_id:hobbyArr},
-			success:function(data){
-				window.location="courses-grid.php";
-			}
-		});
+				url:"admin/includes/action.php",
+				type:"post",
+				data:{hobby_id:hobbyArr},
+				success:function(data){
+					window.location="courses-grid.php";
+				}
+			});
 		}
 		else
 		{

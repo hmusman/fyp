@@ -1,5 +1,5 @@
 <?php
-	require_once('includes/database.php');
+	require_once('admin/includes/database.php');
 	$con->login_session();
 ?>
 <!DOCTYPE html>
@@ -60,7 +60,7 @@
 	<header class="header menu_2">
 		<div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
 		<div id="logo">
-			<a href="index.html"><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></a>
+			<a href="index.html" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
 		</div>
 		<ul id="top_menu">
 			<?php 
@@ -78,57 +78,11 @@
 		</a>
 		<nav id="menu" class="main-menu">
 			<ul>
-				<li><span><a href="#0">Home</a></span>
-					<ul>
-						<li><a href="index.html">Home version 1</a></li>
-						<li><a href="index-2.html">Home version 2</a></li>
-						<li><a href="index-6.html">Home version 3</a></li>
-						<li><a href="index-3.html">Home version 4</a></li>
-						<li><a href="index-4.html">Home version 5</a></li>
-						<li><a href="index-5.html">With Cookie bar (EU law)</a></li>
-					</ul>
-				</li>
-				<li><span><a href="#0">Courses</a></span>
-					<ul>
-						<li><a href="courses-grid.html">Courses grid</a></li>
-						<li><a href="courses-grid-sidebar.html">Courses grid sidebar</a></li>
-						<li><a href="courses-list.html">Courses list</a></li>
-						<li><a href="courses-list-sidebar.html">Courses list sidebar</a></li>
-						<li><a href="course-detail.html">Course detail</a></li>
-                        <li><a href="course-detail-2.html">Course detail working form</a></li>
-						<li><a href="admission.html">Admission wizard</a></li>
-						<li><a href="teacher-detail.html">Teacher detail</a></li>
-					</ul>
-				</li>
-				<li><span><a href="#0">Pages</a></span>
-					<ul>
-						<li><a href="#0">Menu 2</a></li>
-						<li><a href="about.html">About</a></li>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="login.html">Login</a></li>
-						<li><a href="register.html">Register</a></li>
-						<li><a href="contacts.html">Contacts</a></li>
-						<li><a href="404.html">404 page</a></li>
-						<li><a href="agenda-calendar.html">Agenda Calendar</a></li>
-						<li><a href="faq.html">Faq</a></li>
-						<li><a href="help.html">Help</a></li>
-					</ul>
-				</li>
-				<li><span><a href="#0">Extra Pages</a></span>
-					<ul>
-						<li><a href="media-gallery.html">Media gallery</a></li>
-						<li><a href="cart-1.html">Cart page 1</a></li>
-						<li><a href="cart-2.html">Cart page 2</a></li>
-						<li><a href="cart-3.html">Cart page 3</a></li>
-						<li><a href="pricing-tables.html">Responsive pricing tables</a></li>
-						<li><a href="coming_soon/index.html">Coming soon</a></li>
-						<li><a href="icon-pack-1.html">Icon pack 1</a></li>
-						<li><a href="icon-pack-2.html">Icon pack 2</a></li>
-						<li><a href="icon-pack-3.html">Icon pack 3</a></li>
-						<li><a href="icon-pack-4.html">Icon pack 4</a></li>
-					</ul>
-				</li>
-				<li><span><a href="#0">Buy template</a></span></li>
+				
+				
+				
+				
+				
 			</ul>
 		</nav>
 		<!-- Search Menu -->
@@ -155,30 +109,7 @@
 		<div class="filters_listing sticky_horizontal">
 			<div class="container">
 				<ul class="clearfix">
-					<li>
-						<div class="switch-field">
-							<input type="radio" id="all" name="listing_filter" value="all" checked>
-							<label for="all">All</label>
-							<input type="radio" id="popular" name="listing_filter" value="popular">
-							<label for="popular">Popular</label>
-							<input type="radio" id="latest" name="listing_filter" value="latest">
-							<label for="latest">Latest</label>
-						</div>
-					</li>
-					<li>
-						<div class="layout_view">
-							<a href="#0" class="active"><i class="icon-th"></i></a>
-							<a href="courses-list.html"><i class="icon-th-list"></i></a>
-						</div>
-					</li>
-					<li>
-						<select name="orderby" class="selectbox">
-							<option value="category">Category</option>
-							<option value="category 2">Literature</option>
-							<option value="category 3">Architecture</option>
-							<option value="category 4">Economy</option>
-							</select>
-					</li>
+					
 				</ul>
 			</div>
 			<!-- /container -->
@@ -213,7 +144,8 @@
 											<p><?= ucfirst($category_data['description']) ?></p>
 										</div>
 										<ul>
-											<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>">View Book</a></li>
+											
+											<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>" style="width: 100% !important;">View Book</a></li>
 										</ul>
 									</div>
 								</div>
@@ -266,7 +198,7 @@
 		<div class="container margin_120_95">
 			<div class="row">
 				<div class="col-lg-5 col-md-12 p-r-5">
-					<p><img src="img/logo.png" width="149" height="42" data-retina="true" alt=""></p>
+					<p><a href="BookReadingPeriods.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a></p>
 					<p>Mea nibh meis philosophia eu. Duis legimus efficiantur ea sea. Id placerat tacimates definitionem sea, prima quidam vim no. Duo nobis persecuti cu. Nihil facilisi indoctum an vix, ut delectus expetendis vis.</p>
 					<div class="follow_us">
 						<ul>

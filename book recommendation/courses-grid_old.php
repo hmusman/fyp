@@ -1,5 +1,5 @@
 <?php
-	require_once('includes/database.php');
+	require_once('admin/includes/database.php');
 	$con->login_session();
 ?>
 <!DOCTYPE html>

@@ -9,7 +9,7 @@
 			<div class="col-lg-2"></div>
 			<div class="col-lg-8 col-xs-12">
 				<div class="box-content card">
-					<h4 class="box-title" style="background: #3F51B5;">Update Teacher</h4>
+					<h4 class="box-title" style="background: #3F51B5;">Update Student</h4>
 					<!-- /.box-title -->
 					<div class="card-content">
 						<?php
