@@ -221,7 +221,7 @@
 					<h5>Contact with Us</h5>
 					<ul class="contacts">
 						<li><a href=""><i class="ti-mobile"></i> + 61 23 8093 3400</a></li>
-						<li><a href=""><i class="ti-email"></i> info@devsbeta.com</a></li>
+						<li><a href=""><i class="ti-email"></i> info@info.com</a></li>
 					</ul>
 					<div id="newsletter">
 					<h6>Newsletter</h6>

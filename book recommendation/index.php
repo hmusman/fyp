@@ -431,7 +431,7 @@ margin-top: -3px;
 					<h5>Contact with Us</h5>
 					<ul class="contacts">
 						<li><a href="tel://61280932400"><i class="ti-mobile"></i> + 61 23 8093 3400</a></li>
-						<li><a href="mailto:info@udema.com"><i class="ti-email"></i> info@devsbeta.com</a></li>
+						<li><a href="mailto:info@udema.com"><i class="ti-email"></i> info@info.com</a></li>
 					</ul>
 					<div id="newsletter">
 					<h6>Newsletter</h6>
