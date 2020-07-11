@@ -9,11 +9,11 @@
 			<div class="col-lg-2"></div>
 			<div class="col-lg-8 col-xs-12">
 				<div class="box-content card">
-					<h4 class="box-title" style="background: #3F51B5;">Update Category</h4>
+					<h4 class="box-title" style="background: #3F51B5;">Update Institute</h4>
 					<!-- /.box-title -->
 					<div class="card-content">
 						<?php
-							if(isset($_REQUEST['category'])){ $id = $_REQUEST['category']; }
+							if(isset($_REQUEST['institute'])){ $id = $_REQUEST['institute']; }
 							$data = $con->get_data_by_id('category',$id);
 						?>
 						<form>
@@ -29,7 +29,7 @@
 								<p id="description_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Category Description </p>
 							</div>
 
-							<button type="button" data-id="<?= $data['id'] ?>" class="btn btn-primary btn-sm waves-effect waves-light update_category">Update Category</button>
+							<button type="button" data-id="<?= $data['id'] ?>" class="btn btn-primary btn-sm waves-effect waves-light update_category">Update Institute</button>
 						</form>
 					</div>
 					<!-- /.card-content -->

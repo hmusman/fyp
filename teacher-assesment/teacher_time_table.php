@@ -52,7 +52,7 @@
 <div class="main-menu">
 	<header class="header">
     <!-- <div id="basic-coupon-clock" ></div> -->
-    <a href="" class="logo"><i class="ico ti-rocket"></i>SpaceX</a>
+    <a href="" class="logo"><i class="ico ti-rocket"></i>School System</a>
 		<button type="button" class="button-close fa fa-times js__menu_close"></button>
 	</header>
 	<!-- /.header -->
@@ -60,7 +60,7 @@
 
 		<!-- navigation start   -->
 		<div class="navigation">
-			<h5 class="title">Navigation</h5>
+			
 			<!-- /.title -->
 			<ul class="menu js__accordion">
 				<li class="current">
@@ -70,7 +70,7 @@
 					<a class="waves-effect" href="reviews.php"><i class="menu-icon ti-calendar"></i><span>Comment and Rating</span></a>
 				</li>
 				<li>
-					<a class="waves-effect" href="teacher_time_table.html"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
+					<a class="waves-effect" href="teacher_time_table.php"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
 				</li>
 				
 			</ul>
@@ -92,17 +92,9 @@
 	<!-- /.pull-left -->
 	<div class="pull-right">
 		<div class="ico-item">
-			<a href="#" class="ico-item ti-search js__toggle_open" data-target="#searchform-header"></a>
-			<form action="#" id="searchform-header" class="searchform js__toggle"><input type="search" placeholder="Search..." class="input-search"><button class="ti-search button-search" type="submit"></button></form>
-			<!-- /.searchform -->
-		</div>
-		<!-- /.ico-item -->
-		<a href="#" class="ico-item ti-email notice-alarm js__toggle_open" data-target="#message-popup"></a>
-		<a href="#" class="ico-item ti-bell notice-alarm js__toggle_open" data-target="#notification-popup"></a>
-		<div class="ico-item">
 			<i class="ti-user"></i>
 			<ul class="sub-ico-item">
-				<li><a class="js__logout" href="#">Log Out</a></li>
+				<li><a  href="logout.php">Log Out</a></li>
 			</ul>
 			<!-- /.sub-ico-item -->
 		</div>

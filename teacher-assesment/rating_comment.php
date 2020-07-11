@@ -146,7 +146,7 @@
 				</li>
 				
 				<li>
-					<a class="waves-effect" href="student_time_table.html"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
+					<a class="waves-effect" href="student_time_table.php"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
 				</li>
 
 				

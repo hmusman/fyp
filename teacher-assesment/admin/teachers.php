@@ -10,7 +10,7 @@
 			<table class="table" id="teacherTable">
 				<thead> 
 					<tr> 
-						<th colspan="6"></th> 
+						<th colspan="4"></th> 
 						<th><a href="new_teacher.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Teacher</a></th> 
 						
 					</tr> 
@@ -21,8 +21,8 @@
 						<th>#</th> 
 						<th>Name</th> 
 						<th>Subject</th>
-						<th>Class</th>
-						<th>Assign</th>
+						<!-- <th>Class</th>
+						<th>Assign</th> -->
 						<th>Assign Classes</th>
 						<!-- <th>Rating</th> -->
 						<th>Action</th> 
@@ -42,7 +42,7 @@
 									<td><?= $i ?></td> 
 									<td><?= ucfirst($teacher_data['name']) ?></td> 
 									<td><?= ucfirst($teacher_data['subject']) ?></td>
-									<td>
+									<!-- <td>
 										<select class="form-control" id="class_name<?= $teacher_data['id']?>">
 											<option  selected="" disabled="">Select Class </option>
 											<?php 
@@ -55,10 +55,10 @@
 												}
 											?>
 										</select>
-									</td>
-									<td>
+									</td> -->
+									<!-- <td>
 										<button type="button" class="btn btn-primary btn-sm waves-effect waves-light assign_class" data-id="<?= $teacher_data['id'] ?>">Assign</button>
-									</td>
+									</td> -->
 									<td>
 										<?php
 											$con->class_teacher_names('teacher_id',$teacher_data['id'],'classes','class_name','name');

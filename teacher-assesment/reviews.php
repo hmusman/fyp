@@ -63,7 +63,7 @@
 					<a class="waves-effect" href="reviews.php"><i class="menu-icon ti-calendar"></i><span>Comment and Rating</span></a>
 				</li>
 				<li>
-					<a class="waves-effect" href="teacher_time_table.html"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
+					<a class="waves-effect" href="teacher_time_table.php"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
 				</li>
 			</ul>
 
@@ -98,7 +98,7 @@
 
 <div id="wrapper">
 	<div class="main-content">
-		<h4 class="box-title">Students</h4>
+		<h4 class="box-title">Reviews</h4>
 		
 		<!-- <div class="col-md-4 table-responsive">
 			<select id="student_class" class="form-control">

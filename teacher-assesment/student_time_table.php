@@ -52,7 +52,7 @@
 <div class="main-menu">
 	<header class="header">
     <!-- <div id="basic-coupon-clock" ></div> -->
-    <a href="" class="logo"><i class="ico ti-rocket"></i>SpaceX</a>
+    <a href="" class="logo"><i class="ico ti-rocket"></i>School System</a>
 		<button type="button" class="button-close fa fa-times js__menu_close"></button>
 	</header>
 	<!-- /.header -->
@@ -70,7 +70,7 @@
 					<a class="waves-effect" href="rating_comment.php"><i class="menu-icon ti-calendar"></i><span>Comment and Rating</span></a>
 				</li>
 				<li>
-					<a class="waves-effect" href="student_time_table.html"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
+					<a class="waves-effect" href="student_time_table.php"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
 				</li>
 				
 			</ul>

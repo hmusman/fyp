@@ -137,7 +137,7 @@
 				} 
 
 			}
-			if($this->execute($q)){ echo "categories.php"; }
+			if($this->execute($q)){ echo "institutes.php"; }
 
 		}//add_update_category
 

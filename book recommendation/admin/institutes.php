@@ -4,24 +4,24 @@
 
 <div id="wrapper">
 	<div class="main-content">
-		<h4 class="box-title">Categories</h4>
+		<h4 class="box-title">Institute</h4>
 		<div class="table-responsive">
 			<table class="table" id="classTable">
 				
-				<thead> 
+				<!-- <thead> 
 					<tr> 
 						<th colspan="3"></th> 
 						<th><a href="new_category.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Category</a></th> 
 						
 					</tr> 
-				</thead> 
+				</thead>  -->
 
 				<thead> 
 					<tr> 
 						<th>#</th> 
 						<th>Name</th> 
 						<th>Description</th>
-						
+						<th>Action</th>
 					</tr> 
 				</thead> 
 				
@@ -40,8 +40,8 @@
 									<td><?= ucfirst($category_data['title']); ?></td>
 									<td><?= ucfirst($category_data['description']) ?></td>
 									<td>
-										<a href="update_category.php?category=<?= $category_data['id'] ?>" class="btn btn-primary btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-edit"></i></a>
-										<button type="button" class="btn btn-danger btn-circle btn-sm waves-effect waves-light del_category" data-id="<?= $category_data['id']?>"><i class="ico fa fa-trash"></i></button>
+										<a href="update_institute.php?institute=<?= $category_data['id'] ?>" class="btn btn-primary btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-edit"></i></a>
+										<!-- <button type="button" class="btn btn-danger btn-circle btn-sm waves-effect waves-light del_category" data-id="<?= $category_data['id']?>"><i class="ico fa fa-trash"></i></button> -->
 										
 									</td> 
 									

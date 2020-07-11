@@ -5,14 +5,14 @@
 			<a class="waves-effect" href=""><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></a>
 		</li>
 		<li>
-			<a class="waves-effect" href="categories.php"><i class="menu-icon ti-calendar"></i><span>Category</span></a>
+			<a class="waves-effect" href="institutes.php"><i class="menu-icon ti-calendar"></i><span>Institutes</span></a>
 		</li>
 		<li>
-			<a class="waves-effect" href="hobbies.php"><i class="menu-icon ti-calendar"></i><span>Category Hobbies</span></a>
+			<a class="waves-effect" href="hobbies.php"><i class="menu-icon ti-calendar"></i><span>Hobbies</span></a>
 		</li>
 
 		<li>
-			<a class="waves-effect" href="books.php"><i class="menu-icon ti-calendar"></i><span>Hobby Books</span></a>
+			<a class="waves-effect" href="books.php"><i class="menu-icon ti-calendar"></i><span>Book Repository</span></a>
 		</li>
 
 	</ul>
