@@ -9,8 +9,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Udema a modern educational site template">
-    <meta name="author" content="Ansonika">
+
     <title>Final Year Project</title>
 
     <!-- Favicons-->
@@ -41,10 +40,10 @@
 	
 	<div id="page">
 	
-	<header class="header menu_2">
+	<header class="header menu_2 fixed-navbar">
 		<div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
 		<div id="logo">
-			<a href="BookReadingPeriods.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
+			<a href="index.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
 		</div>
 		<ul id="top_menu">
 			<?php 
@@ -280,16 +279,16 @@ ul[ class="answers"] > li{
 
 	<main>
 		
-			<p class="onboarding-question">What do you like to read?</p>
+		<p class="onboarding-question">What do you like to read?</p>
 		
 		
-		   <center> <div class="question"><!-- <p>Mysteries, Thrillers, Action</p> -->
-		
-			<div class="row">
-				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ></div>
-				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="message" ></div>
-			</div>
-			  <ul class="answers">
+		<center> 
+		   	<div class="question"><!-- <p>Mysteries, Thrillers, Action</p> -->
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ></div>
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="message" ></div>
+				</div>
+			    <ul class="answers">
 					
 					<?php
 						$ip = $_SERVER['REMOTE_ADDR'];
@@ -317,112 +316,12 @@ ul[ class="answers"] > li{
 
 					?>
 
-			  </ul>
-
-
-
-
-
-
-
-
-			  
-			  
-			</div></center>
-		  
-
-
-
-
-
-
-
-
-
-
-			
-			<center> <div class="question"><p>Fantasy, Science Fiction, Horror
-
-			</p>
-			
-				<ul class="answers">
-				
-					
-	
-	
-	
-	
-	
-				  </ul>
-			</div></center>
-		  
-			<center><div class="question"><p>Teen and Young Readers
-
-
-
-			</p>
-			
-
-
-
-			  <ul class="answers">
-				
-				
-
-
-
-
-			  </ul>
-
-
-
-			</div></center>
-		  
-	
-			<center><div class="question"><p>Non Fiction
-
-
-
-			</p>
-			
-
-
-
-			  <ul class="answers">
-				
-				
-
-			  </ul>
-
-
-
-			</div></center>
-		  
-		  
-			<!-- <div class="results">Results</div> -->
-		  
-			<!-- <input class="previous" type="button" value="Previous"> -->
-		  
-			<!-- <input class="next"type="button" value="Next Question"> -->
-		  
-			<center>
-			
-			<!-- <a href="courses-grid.html" >	<button type="button" class="btn_1 outline">Find Books</button></a> -->
-
-
-			<button type="button" class="btn_1 outline find_books">Find Books</button>
-
-				<!-- <button type="button" class="next btn_1 outline">Next Optinos</button> -->
-			</center>
-			<!-- <input class="clear" type="button" value="Clear Selection">
-			<input class="results" type="button" value="Results"> -->
-		  
-			<!-- <input type="button" class="btn_1 outline" name="btnResults" id="btnResults" value="Results" onclick="Results()"/>
-		
-			<div id="scoreBoard">
-			  <p> <span id="score"></span></p>
-			</div> -->
-		<!--/call_section-->
+			  	</ul>
+				  
+			</div>
+		</center>
+		 
+		 <center><button type="button" class="btn_1 outline find_books">Find Books</button></center> 	
 		<br/>
 		<br/>
 	</main>
@@ -448,19 +347,16 @@ ul[ class="answers"] > li{
 				<div class="col-lg-3 col-md-6 ml-lg-auto">
 					<h5>Useful links</h5>
 					<ul class="links">
-						<li><a href="#0">Admission</a></li>
-						<li><a href="#0">About</a></li>
-						<li><a href="#0">Login</a></li>
+						
 						<li><a href="#0">Register</a></li>
-						<li><a href="#0">News &amp; Events</a></li>
-						<li><a href="#0">Contacts</a></li>
+						
 					</ul>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<h5>Contact with Us</h5>
 					<ul class="contacts">
-						<li><a href="tel://61280932400"><i class="ti-mobile"></i> + 61 23 8093 3400</a></li>
-						<li><a href="mailto:info@udema.com"><i class="ti-email"></i> info@udema.com</a></li>
+						<li><a href=""><i class="ti-mobile"></i> + 61 23 8093 3400</a></li>
+						<li><a href=""><i class="ti-email"></i> info@devsbeta.com</a></li>
 					</ul>
 					<div id="newsletter">
 					<h6>Newsletter</h6>
@@ -484,7 +380,7 @@ ul[ class="answers"] > li{
 					</ul>
 				</div>
 				<div class="col-md-4">
-					<div id="copy">© 2017 Udema</div>
+					<div id="copy">© 2017 Devsbeta</div>
 				</div>
 			</div>
 		</div>

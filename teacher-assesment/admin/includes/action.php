@@ -82,7 +82,7 @@
 		$comment = $_REQUEST['comment'];
 		$rating = $_REQUEST['rating'];
 		$q = "";
-		if ($con->num_rows($con->execute("select * from reviews where comment='$comment' and rating='$rating'"))>0)
+		if ($con->num_rows($con->execute("select * from reviews where student_id='$student_id' and teacher_id='$teacher_id' and month='$m' and week='$week'"))>0)
 		{
 			echo "You Have Already Left Comment";
 		}

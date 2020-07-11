@@ -5,8 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Udema a modern educational site template">
-    <meta name="author" content="Ansonika">
    <title>Final Year Project</title>
 
     <!-- Favicons-->
@@ -45,24 +43,17 @@
 				<a href="" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
 			</figure>
 			  <form>
+			  	<div class="alert alert-warning" id="alert_login">Sorry! Your email / password is wrong</div>
 				<div class="form-group">
-					<div class="alert alert-warning" id="alert_login">Sorry! Your email / password is wrong</div>
-					<span class="input">
-					<input class="input_field" type="email" id="email" autocomplete="off" name="email">
-						<label class="input_label">
-						<span class="input__label-content">Your email</span>
-					</label>
-					</span>
+			  		<label for="email">Email</label>
+			  		<input class="form-control" type="email" id="email" autocomplete="off" placeholder="Your Email" name="email">
+			  	</div>
 
-					<span class="input">
-					<input class="input_field" type="password" autocomplete="new-password" name="pass" id="pass">
-						<label class="input_label">
-						<span class="input__label-content">Your password</span>
-					</label>
-					</span>
-					<!-- <small><a href="#0">Forgot password?</a></small> -->
-				</div>
-				<a href="#0" class="btn_1 rounded full-width add_top_60 admin_login">Login</a>
+			  	<div class="form-group">
+			  		<label for="pass">Password:</label>
+			  		<input class="form-control" type="password" autocomplete="new-password" placeholder="Your Password" name="pass" id="pass">
+			  	</div>
+				<a href="#0" class="btn_1 rounded full-width add_top_30 admin_login">Login</a>
 			</form>
 		</aside>
 	</div>

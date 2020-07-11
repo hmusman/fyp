@@ -18,6 +18,10 @@
 		<li>
 			<a class="waves-effect" href="students.php"><i class="menu-icon ti-calendar"></i><span>Student</span></a>
 		</li>
+
+		<li>
+			<a class="waves-effect" href="time_table.html"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
+		</li>
 	</ul>
 
 	

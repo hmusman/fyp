@@ -5076,7 +5076,8 @@ ul.list_3 li:before {
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #ededed;
+  /*border: 1px solid #ededed;*/
+  border:1px solid #ccc;
 }
 
 .bg_color_1 {

@@ -31,14 +31,6 @@
 	<!-- Percent Circle -->
 	<link rel="stylesheet" href="assets/plugin/percircle/css/percircle.css">
 
-	<!-- Chartist Chart -->
-	<link rel="stylesheet" href="assets/plugin/chart/chartist/chartist.min.css">
-
-	<!-- FullCalendar -->
-	<link rel="stylesheet" href="assets/plugin/fullcalendar/fullcalendar.min.css">
-	<link rel="stylesheet" href="assets/plugin/fullcalendar/fullcalendar.print.css" media='print'>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
-
 </head>
 
 <body>

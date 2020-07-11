@@ -6,8 +6,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Udema a modern educational site template">
-    <meta name="author" content="Ansonika">
     <title>Final Year Project</title>
 
     <!-- Favicons-->
@@ -41,43 +39,29 @@
 	<!-- End Preload -->
 	
 	<div id="login">
-		<aside style="width: 40%; margin-left: 30% !important; margin-top:5% !important; margin-right: 30% !important; height: 640px !important;">
+		<aside style="width: 40%; margin-left: 30% !important; margin-top:5% !important; margin-right: 30% !important; height: 645px !important;">
 			<figure>
-				<a href="BookReadingPeriods.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
+				<a href="index.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
 			</figure>
 			<form autocomplete="off">
+				<div class="alert alert-success" id="alert_register">You have registered successfully!</div>
 				<div class="form-group">
-					<div class="alert alert-success" id="alert_register">You have registered successfully!</div>
-					<span class="input">
-						<input class="input_field" id="name" name="name"  type="text">
-						<label class="input_label">
-						<span class="input__label-content">Your Name</span>
-					</label>
-					</span>
-
-					<span class="input">
-					<input class="input_field" id="email" name="email"  type="email">
-						<label class="input_label">
-						<span class="input__label-content">Your Email</span>
-					</label>
-					</span>
-
-					<span class="input">
-					<input class="input_field"  name="pass"  type="password" id="pass">
-						<label class="input_label">
-						<span class="input__label-content">Your password</span>
-					</label>
-					</span>
-
-					<span class="input">
-					<input class="input_field" name="cpass" type="password" id="cpass">
-						<label class="input_label">
-						<span class="input__label-content">Confirm password</span>
-					</label>
-					</span>
-					
-					<div id="pass-info" class="clearfix"></div>
-				</div>
+			  		<label for="email">Name</label>
+			  		<input class="form-control" type="text" id="name" autocomplete="off" placeholder="Your Name" name="email">
+			  	</div>
+			  	<div class="form-group">
+			  		<label for="email">Email</label>
+			  		<input class="form-control" type="email" id="email" autocomplete="off" placeholder="Your Email" name="email">
+			  	</div>
+			  	<div class="form-group">
+			  		<label for="email">Password</label>
+			  		<input class="form-control" type="password" id="pass" autocomplete="off" placeholder="Your Password" name="email">
+			  	</div>
+			  	<div class="form-group">
+			  		<label for="email">Email</label>
+			  		<input class="form-control" type="password" id="cpass" autocomplete="off" placeholder="Confirm Password" name="email">
+			  	</div>
+			  	<div id="pass-info" class="clearfix"></div>
 				<a href="#0" class="btn_1 rounded full-width add_top_30 register">Register </a>
 				<div class="text-center add_top_10">Already have an acccount? <strong><a href="login.php">Sign In</a></strong></div>
 			</form>
