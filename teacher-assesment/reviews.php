@@ -62,7 +62,9 @@
 				<li>
 					<a class="waves-effect" href="reviews.php"><i class="menu-icon ti-calendar"></i><span>Comment and Rating</span></a>
 				</li>
-				
+				<li>
+					<a class="waves-effect" href="teacher_time_table.html"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
+				</li>
 			</ul>
 
 			

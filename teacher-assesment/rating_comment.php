@@ -145,6 +145,9 @@
 					<a class="waves-effect" href="rating_comment.php"><i class="menu-icon ti-calendar"></i><span>Rating and Comments</span></a>
 				</li>
 				
+				<li>
+					<a class="waves-effect" href="student_time_table.html"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
+				</li>
 
 				
 			</ul>
