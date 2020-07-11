@@ -41,19 +41,20 @@
 	
 	<div id="page">
 	
-	<header class="header navbar fixed-navbar" style="position: fixed; top: 0;">
-		<div id="preloader"><div data-loader="circle-side"></div></div><!-- /Preload -->
-		<div id="logo">
-			<a href="BookReadingPeriods.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
-		</div>
-		<ul id="top_menu">
-			<?php 
-				if($con->login_session()){ ?><li><a href="login.php" class="login">Login</a></li><?php }
-				else{ ?><li><a href="logout.php" class="">Logout</a></li><?php }
-			?>
-		</ul>
-		
-	</header>
+
+	<nav class="navbar" style="background: linear-gradient(to right, #480048, #C04848); padding: 18px 20px;">
+	  <div class="container-fluid">
+	    <div class="navbar-header">
+	      <a href="index.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
+	    </div>
+	    <ul class="nav navbar-nav">
+	     <?php 
+			if($con->login_session()){ ?><li><a href="login.php" class="login">Login</a></li><?php }
+			else{ ?><li><a href="logout.php" class="" style="color: #fff;font-weight: 500;">LOGOUT</a></li><?php }
+		?>
+	    </ul>
+	  </div>
+	</nav>
 	<!-- /header -->
 
 <style>
