@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 13, 2020 at 06:26 AM
+-- Generation Time: Jul 13, 2020 at 12:52 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -41,6 +41,27 @@ CREATE TABLE `admin` (
 
 INSERT INTO `admin` (`id`, `name`, `email`, `pass`) VALUES
 (1, 'adminName', 'admin@gmail.com', '9f191b1e986e07c36e694001bc1117b5');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `book_review`
+--
+
+CREATE TABLE `book_review` (
+  `id` int(11) NOT NULL,
+  `ip_address` varchar(255) NOT NULL,
+  `book_id` varchar(255) NOT NULL,
+  `book_review` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `book_review`
+--
+
+INSERT INTO `book_review` (`id`, `ip_address`, `book_id`, `book_review`) VALUES
+(2, '::1', '36', 'this is good book'),
+(3, '::1', '35', 'in real it is very horror ful book');
 
 -- --------------------------------------------------------
 
@@ -166,7 +187,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `pass`) VALUES
-(9, 'test', 'test@gmail.com', '9f191b1e986e07c36e694001bc1117b5');
+(9, 'test', 'test@gmail.com', '9f191b1e986e07c36e694001bc1117b5'),
+(22, 'final', 'final@gmail.com', '9f191b1e986e07c36e694001bc1117b5'),
+(23, 'te', 'nabeel@gmail.com', '9f191b1e986e07c36e694001bc1117b5');
 
 -- --------------------------------------------------------
 
@@ -184,7 +207,7 @@ CREATE TABLE `user_category` (
 --
 
 INSERT INTO `user_category` (`ip_address`, `choose_category`) VALUES
-('::1', '2');
+('::1', '1');
 
 -- --------------------------------------------------------
 
@@ -202,7 +225,7 @@ CREATE TABLE `user_hobby` (
 --
 
 INSERT INTO `user_hobby` (`ip_address`, `choose_hobby`) VALUES
-('::1', '6');
+('::1', '1');
 
 -- --------------------------------------------------------
 
@@ -221,7 +244,7 @@ CREATE TABLE `user_hobby_writer` (
 --
 
 INSERT INTO `user_hobby_writer` (`ip_address`, `choose_category_hobby_id`, `choose_category_hobby_writer_id`) VALUES
-('::1', '6', '3');
+('::1', '1', 'anyone');
 
 --
 -- Indexes for dumped tables
@@ -231,6 +254,12 @@ INSERT INTO `user_hobby_writer` (`ip_address`, `choose_category_hobby_id`, `choo
 -- Indexes for table `admin`
 --
 ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `book_review`
+--
+ALTER TABLE `book_review`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -272,6 +301,12 @@ ALTER TABLE `user`
 --
 ALTER TABLE `admin`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `book_review`
+--
+ALTER TABLE `book_review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category`

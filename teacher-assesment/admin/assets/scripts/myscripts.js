@@ -15,6 +15,47 @@ function blank_field_check(id,error)
 	}
 }
 
+function select_check(id,error)
+{
+	if (id.val()==null)
+	{ 
+		$("#"+error+"_error").show();
+		return false;
+	}
+	else
+	{
+		$("#"+error+"_error").hide();
+		id.css('border','1px solid green');
+		return true;
+	}
+}
+
+function class_add_update(id,name,section,location,student,timing,action)
+{
+	$.ajax({
+		url:"includes/action.php",
+		type:"post",
+		data:{id:id,name:name,section:section,student:student,location:location,timing:timing,class_action:action},
+		success:function(data)
+		{
+			if (data=="Class Already Exists") {
+				swal({
+				    title: "",
+				    text: data,
+				    type: "warning",
+				    confirmButtonColor: '#3F51B5',
+				    confirmButtonText: 'Ok',
+				    closeOnConfirm: false,
+				 });
+			}
+			else
+			{
+				window.location=data;
+			}
+		}
+
+	});
+}
 
 function teacher_add_update(id,name,email,pass,subject,action)
 {

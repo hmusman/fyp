@@ -10,7 +10,7 @@
 				
 				<thead> 
 					<tr> 
-						<th colspan="5"></th> 
+						<th colspan="7"></th> 
 						<th><a href="new_class.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Class</a></th> 
 						
 					</tr> 
@@ -20,8 +20,12 @@
 					<tr> 
 						<th>#</th> 
 						<th>Name</th> 
-						<th>Teacher</th>
-						<th>Assign</th>
+						<th>Section</th>
+						<th>Location</th>
+						<th>No.Student</th>
+						<th>Timing</th>
+						<!-- <th>Teacher</th>
+						<th>Assign</th> -->
 						<th>Assign Teachers</th>
 						<th>Action</th> 
 						
@@ -41,26 +45,30 @@
 								<tr> 
 									<td><?= $i ?></td> 
 									<td><?= $class_name ?></td>
-									<td>
+									<td><?= $class_data['section'] ?></td>
+									<td><?= $class_data['location'] ?></td>
+									<td><?= $class_data['student']?></td>
+									<td><?= $class_data['timing'] ?></td>
+									<!-- <td>
 										
 										<select class="form-control" id="teacher_name<?= str_replace(' ', '_',$class_data['name'])?>">
 											<option selected="" disabled="">Select Teacher</option>
 											<?php 
 
-												$teacher_name_run = $con->class_teacher_name_filter('id',$con->class_teacher_ids('class_name',$class_name,'teacher_id'),'teacher'); 
-												while ($teacher_name_data = $con->fetch_assoc($teacher_name_run))
-												{
-													?>	
-														<option value="<?= $teacher_name_data['id'] ?>"><?= ucfirst($teacher_name_data['name']) ?></option>
-													<?php
-												}
+												// $teacher_name_run = $con->class_teacher_name_filter('id',$con->class_teacher_ids('class_name',$class_name,'teacher_id'),'teacher'); 
+												// while ($teacher_name_data = $con->fetch_assoc($teacher_name_run))
+												// {
+												// 	?>	
+												 // 		<option value="<?= $teacher_name_data['id'] ?>"><?= ucfirst($teacher_name_data['name']) ?></option> -->
+											 	<?php
+												// }
 											?>
 											
-										</select>
-									</td>
-									<td>
+										<!-- </select>
+									</td> --> 
+									<!-- <td>
 										<button type="button" class="btn btn-primary btn-sm waves-effect waves-light assign_teacher" data-id="<?= str_replace(' ', '_',$class_data['name']) ?>">Assign</button>
-									</td>
+									</td> -->
 									<td>
 
 										<?php $con->class_teacher_names('class_name',$class_name,'teacher','teacher_id','id');?>
@@ -68,7 +76,7 @@
 									</td>
 									<td>
 										<a href="update_class.php?class=<?= $class_data['id'] ?>" class="btn btn-primary btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-edit"></i></a>
-										<button type="button" class="btn btn-danger btn-circle btn-sm waves-effect waves-light del_class" data-id="<?= $class_data['id']?>"><i class="ico fa fa-trash"></i></button>
+										<button style="margin-top: 5px;" type="button" class="btn btn-danger btn-circle btn-sm waves-effect waves-light del_class" data-id="<?= $class_data['id']?>"><i class="ico fa fa-trash"></i></button>
 										
 									</td> 
 									

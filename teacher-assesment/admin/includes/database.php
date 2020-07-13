@@ -195,6 +195,26 @@
 
 		}// class_teacher_name_filter
 
+		public function class_add_update($id,$name,$section,$location,$student,$timing,$action)
+		{
+			$q = "";
+			if ($action=='update_class'){ $q = "update classes set name='$name',section='$section',location='$location',student='$student',timing='$timing' where id='$id'"; }
+			else if ($action=='add_class')
+			{ 
+				if ($this->num_rows($this->execute("select * from classes where name='$name' and section='$section' and timing='$timing'"))>0)
+				{
+					echo "Class Already Exists";
+					exit();
+				}
+				else
+				{
+					$q = "insert into classes set name='$name',section='$section',location='$location',student='$student',timing='$timing'";
+				} 
+
+			}
+			if($this->execute($q)){ echo  "classes.php"; }
+
+		}//teacher_add_update
 		
 		public function teacher_add_update($id,$name,$email,$pass,$subject,$action)
 		{

@@ -115,43 +115,27 @@
 		<div class="container margin_60_35">
 			<div class="row">
 				<?php 
-					$ip = $_SERVER['REMOTE_ADDR'];
-					$q = "select * from user_hobby_writer where ip_address='$ip'";
-					$run = $con->execute($q);
-					$user_hobby_data = $con->fetch_assoc($run);
-					$category_hobby_id = $user_hobby_data['choose_category_hobby_id'];
-					$category_hobby_writer_id = $user_hobby_data['choose_category_hobby_writer_id'];
-					$category_data = $con->fetch_assoc($con->execute("select category.title,category.description from category join category_hobby on category_hobby.category_id = category.id where category_hobby.id='$category_hobby_id'"));
-					$q1 = "";
-					if ($category_hobby_writer_id=='anyone'){ $q1 = "select * from hobby_book where category_hobby_id='$category_hobby_id'";}
-					else{ $q1 = "select * from hobby_book where category_hobby_writer_id='$category_hobby_writer_id' and category_hobby_id='$category_hobby_id'"; }
-					$run1 = $con->execute($q1);
-					while ($hobby_book = $con->fetch_assoc($run1))
-					{
-					 	?>
-					 		<div class="col-xl-4 col-lg-6 col-md-6">
-								<div class="box_grid wow">
-									<figure class="block-reveal">
-										<div class="block-horizzontal"></div>
-										<!-- <a href="#0" class="wish_bt"></a> -->
-										<a href="view_book.php?book=<?= $hobby_book['book_name']?>"><img src="admin/uploads/books/<?= $hobby_book['book_img'] ?>" class="img-fluid" alt=""></a>
-									</figure>
-									<div class="wrapper">
-										<small>Category</small>
-										<h3><?= ucfirst($category_data['title']) ?></h3>
-										<p><?= ucfirst($category_data['description']) ?></p>
-									</div>
-									<ul>
-										<li><a href="add_review.php?book=<?= $hobby_book['id']?>" style="width: 100% !important; margin-left:4%; ">Add Review</a></li>
-										<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>" style="width: 100% !important; margin-left:10%; ">View Book</a></li>
-									</ul>
-								</div>
-							</div>
-
-					 	<?php
-					} 
+					$id = $_REQUEST['book'];
 				?>
-
+				<style type="text/css">
+					.scheme{ background: linear-gradient(to right, #480048, #C04848); color: #fff; }
+				</style>
+				<div class="col-lg-3"></div>
+				<div class="col-md-6">
+					<div class="card primary" >
+					  <div class="card-header scheme" style="">Header</div>
+						  <div class="card-body">
+						  	<div class="form-group">
+						  		<label for="review">Book Review</label>
+						  		<input type="hidden" id='book_id' value="<?= $id ?>">
+						  		<textarea class="form-control" id="review" placeholder="Please Type Book Review"></textarea>
+						  		<p id="review_error" style="margin-top: 5px; color: #ff7f7f;">Please Type Book Review</p>
+						  	</div>
+						  	<input type="button" class="btn scheme add_review" value="Add">
+						  </div>
+						 
+						</div>
+				</div>
 			</div>
 			<!-- /row -->
 			
@@ -261,10 +245,38 @@
     <script src="js/main.js"></script>
 	<script src="assets/validate.js"></script>
   	<script type="text/javascript">
+  		function blank_field_check(id,error)
+		{
+			var value = id.val();
+			if(value=='')
+			{
+				$('#'+error+'_error').show();
+				id.css('border','1px solid #ff7f7f');
+				return false;
+			}
+			else
+			{
+				$('#'+error+'_error').hide();
+				id.css('border','1px solid green');
+				return true;
+			}
+		}
   		$(document).ready(function(){
-    $("#submitButton").click(function(){
-        alert("t");
-    });
+  			$('#review_error').hide();
+  			$('.add_review').click(function(){
+  				if(blank_field_check($('#review'),'review'))
+  				{
+  					$.ajax({
+  						url:"admin/includes/action.php",
+  						type:"post",
+  						data:{book_id:$('#book_id').val(),book_review:$('#review').val()},
+  						success:function(data)
+  						{
+  							window.location = "courses-grid.php";
+  						}
+  					})
+  				}
+  			});
 });
   	</script>
 </body>

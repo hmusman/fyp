@@ -15,6 +15,21 @@
 		$con->execute($inser_q);
 	}
 
+	if (isset($_REQUEST['book_review']))
+	{
+		$book_id = $_REQUEST['book_id'];
+		$book_review = $_REQUEST['book_review'];
+		$ip = $_SERVER['REMOTE_ADDR'];
+		$q = "select * from book_review where ip_address='$ip' and book_id='$book_id'";
+		if($con->num_rows($con->execute($q)) ==0)
+		{
+			$inser_q = "insert into book_review set ip_address='$ip' ,book_id='$book_id',book_review='$book_review'";
+			$con->execute($inser_q);
+		}
+		
+		
+	}
+
 	if (isset($_REQUEST['hobby_id']))
 	{
 		// $array = $_REQUEST['hobby_id'];

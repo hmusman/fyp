@@ -45,6 +45,12 @@
 		$con->delete_record('classes',$id);
 	}
 
+	if(isset($_REQUEST['class_action']))
+	{
+		$con->class_add_update($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['section'],$_REQUEST['location'],$_REQUEST['student'],$_REQUEST['timing'],$_REQUEST['class_action']);
+	}
+
+
 	if(isset($_REQUEST['teacher_action']))
 	{
 		$con->teacher_add_update($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['email'],md5($_REQUEST['pass']),$_REQUEST['subject'],$_REQUEST['teacher_action']);
