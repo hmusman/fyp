@@ -11,7 +11,7 @@
 				<thead> 
 					<tr> 
 						<th colspan="3"></th> 
-						<th><a href="new_hobby.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Hobby</a></th> 
+						<th><a href="new_hobby.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Sub Category</a></th> 
 						
 					</tr> 
 				</thead> 

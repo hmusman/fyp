@@ -203,7 +203,7 @@ ul[ class="answers"] > li{
     padding:inherit;
     list-style:none;
   }
-  input[name="question[]"]{
+  input[name="question"]{
 	/* height: 100% !important;
     width: 100% !important; */
 	display: none;
@@ -295,7 +295,7 @@ ul[ class="answers"] > li{
 						$q = "select * from user_category where ip_address='$ip'";
 						$categoryArr= $con->fetch_assoc($con->execute($q));
 						$category_id = $categoryArr['choose_category'];
-						$q1 = "SELECT  DISTINCT(category_hobby.id) ,category_hobby.name from category_hobby join hobby_book on category_hobby.id = hobby_book.category_hobby_id where category_hobby.id=hobby_book.category_hobby_id and category_hobby.category_id='$category_id'";
+						$q1 = "SELECT  DISTINCT(category_hobby.id) ,category_hobby.name from category_hobby join category_hobby_writer on category_hobby.id = category_hobby_writer.category_hobby_id where category_hobby.id=category_hobby_writer.category_hobby_id and category_hobby.category_id='$category_id'";
 						$run = $con->execute($q1);
 						while ($data = $con->fetch_assoc($run))
 						{
@@ -305,7 +305,7 @@ ul[ class="answers"] > li{
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"><?= ucwords($data['name']) ?></div>
 											<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-												<input  name="question[]" class="question_checkbox" type="checkbox" value="<?= $data['id'] ?>">  
+												<input  name="question" class="question_checkbox" type="checkbox" value="<?= $data['id'] ?>">  
 												<span class="checkmark"></span>
 											</div>
 										</div>
@@ -321,7 +321,7 @@ ul[ class="answers"] > li{
 			</div>
 		</center>
 		 
-		 <center><button type="button" class="btn_1 outline find_books">Find Books</button></center> 	
+		 <center><button type="button" class="btn_1 outline save">Save and Continue</button></center> 	
 		<br/>
 		<br/>
 	</main>
@@ -415,25 +415,27 @@ ul[ class="answers"] > li{
 <script>
 
 $(document).ready(function(){
-	$('.find_books').click(function(){
+	$('.save').click(function(){
 		
 		if($(".question_checkbox").is(":checked"))
 		{
 			$('#message').hide();
-			var hobbyArr = $('.question_checkbox:checked').map(function(){ return this.value; }).get();
+			// var hobbyArr = $('.question_checkbox:checked').map(function(){ return this.value; }).get();
+			var hobbyArr = $('.question_checkbox:checked').val();
+
 			$.ajax({
 				url:"admin/includes/action.php",
 				type:"post",
 				data:{hobby_id:hobbyArr},
 				success:function(data){
-					window.location="courses-grid.php";
+					window.location="category_hobby_writer.php";
 				}
 			});
 		}
 		else
 		{
 			$('#message').show();
-			document.getElementById('message').innerHTML = "<div class='alert alert-warning'>Please select any hobby book</div>";
+			document.getElementById('message').innerHTML = "<div class='alert alert-warning'>Please select any hobby</div>";
 		}
 	});
 });

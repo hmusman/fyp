@@ -45,13 +45,15 @@
 			  <form>
 			  	<div class="alert alert-warning" id="alert_login">Sorry! Your email / password is wrong</div>
 				<div class="form-group">
-			  		<label for="email">Email</label>
+			  		<label for="email"><i class="icon-mail"></i>Email</label>
 			  		<input class="form-control" type="email" id="email" autocomplete="off" placeholder="Your Email" name="email">
+			  		<p id="email_error" class="text-danger" style="margin-top: 5px;">Please Type Your Email</p>
 			  	</div>
 
 			  	<div class="form-group">
-			  		<label for="pass">Password:</label>
+			  		<label for="pass"><i class="icon-lock"></i>Password</label>
 			  		<input class="form-control" type="password" autocomplete="new-password" placeholder="Your Password" name="pass" id="pass">
+			  		<p id="pass_error" class="text-danger" style="margin-top: 5px;">Please Type Your Password</p>
 			  	</div>
 				<a href="#0" class="btn_1 rounded full-width add_top_30 admin_login">Login</a>
 			</form>

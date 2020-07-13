@@ -59,16 +59,19 @@
 			}
 		}
 
-		public function login($email , $pass)
+		public function login($role,$email,$pass)
 		{
-			$q = "select * from user where email='$email' and pass='$pass'";
+			$url ="";
+			$q = "select * from $role where email='$email' and pass='$pass'";
 			if($this->num_rows($this->execute($q))>0)
 			{
 				$run = $this->execute($q);
 				$data = $this->fetch_assoc($run);
-				$_SESSION['user'] = $data['email'];
+				$_SESSION[$role] = $data['email'];
 				$_SESSION['name'] = $data['name'];
 				$_SESSION['id'] = $data['id'];
+				if ($role=='admin') { $url='admin/index.php'; } else if ($role=='user') { $url='index.php'; }
+				echo $url;
 			}
 			else
 			{
@@ -120,10 +123,12 @@
 		}
 
 
-		public function add_update_category($id,$title,$description,$action)
+		public function add_update_category($id,$title,$description,$img,$action)
 		{
+			$img_name = $img['name'];
+			$path = '../uploads/category/'.$img_name;
 			$q = "";
-			if ($action=='update_category'){ $q = "update category set title='$title',description='$description' where id='$id'"; }
+			if ($action=='update_category'){ $q = "update category set title='$title',description='$description' ,img='$img_name' where id='$id'"; }
 			else if ($action=='add_category')
 			{ 
 				if ($this->num_rows($this->execute("select * from category where title= '$title'"))>0)
@@ -133,11 +138,15 @@
 				}
 				else
 				{
-					$q = "insert into category set title='$title',description='$description'";
+					$q = "insert into category set title='$title',description='$description' ,img='$img_name'";
 				} 
 
 			}
-			if($this->execute($q)){ echo "institutes.php"; }
+			if($this->execute($q))
+			{
+				move_uploaded_file($img['tmp_name'], $path);
+				echo "interest.php"; 
+			}
 
 		}//add_update_category
 
@@ -162,12 +171,43 @@
 
 		}//add_update_hobby
 
+		public function add_update_writer($id,$name,$category,$action)
+		{
+			$q = "";
+			if ($action=='update_writer'){ $q = "update category_hobby_writer set category_hobby_id='$category',name='$name' where id='$id'"; }
+			else if ($action=='add_writer')
+			{ 
+				if ($this->num_rows($this->execute("select * from category_hobby_writer where category_hobby_id='$category' and name='$name'"))>0)
+				{
+					echo "Writer Already Exists";
+					exit();
+				}
+				else
+				{
+					$q = "insert into category_hobby_writer set category_hobby_id='$category',name='$name'";
+				} 
+
+			}
+			if($this->execute($q)){ echo "writers.php"; }
+
+		}//add_update_writer
+
 
 		function category_hobby_filter($category_id)
 		{
 			?><option selected="" disabled="">Select Hobby</option><?php
 		 
 			$run = $this->execute("select * from category_hobby where category_id='$category_id'");
+			while ($hobby_data = $this->fetch_assoc($run))
+			{
+				?><option value="<?= $hobby_data['id']?>"><?= ucfirst($hobby_data['name']) ?></option><?php
+			}
+		}
+
+		function category_hobby_writer_filter($category_hobby_id)
+		{
+			$run = $this->execute("select * from category_hobby_writer where category_hobby_id='$category_hobby_id'");
+			?><option selected="" disabled="">Select Hobby Writer</option><?php
 			while ($hobby_data = $this->fetch_assoc($run))
 			{
 				?><option value="<?= $hobby_data['id']?>"><?= ucfirst($hobby_data['name']) ?></option><?php

@@ -10,7 +10,7 @@
 			<table class="table" id="teacherTable">
 				<thead> 
 					<tr> 
-						<th colspan="4"></th> 
+						<th colspan="5"></th> 
 						<th><a href="new_book.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Book</a></th> 
 						
 					</tr> 
@@ -20,6 +20,7 @@
 					<tr> 
 						<th>#</th> 
 						<th>Name</th> 
+						<th>Author</th>
 						<th>Category</th> 
 						<th>Hobby</th> 
 						<th>Action</th> 
@@ -34,12 +35,14 @@
 						$i =1;
 						while ($book_data = $con->fetch_assoc($run))
 						{
+							$author_data = $con->get_data_by_id('category_hobby_writer',$book_data['category_hobby_writer_id']);
 							$hobby_data = $con->get_data_by_id('category_hobby',$book_data['category_hobby_id']);
 							$category_data = $con->get_data_by_id('category',$hobby_data['category_id']);
 							?>
 								<tr> 
 									<td><?= $i ?></td> 
-									<td><?= ucfirst($book_data['book_name']) ?></td> 
+									<td><?= ucfirst($book_data['book_name']) ?></td>
+									<td><?= ucfirst($author_data['name']) ?></td> 
 									<td><?= ucfirst($category_data['title']) ?></td> 
 									<td><?= ucfirst($hobby_data['name']) ?></td> 									
 									<td>

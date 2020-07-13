@@ -118,40 +118,40 @@
 			<div class="row">
 				<?php 
 					$ip = $_SERVER['REMOTE_ADDR'];
-					$q = "select * from user_hobby where ip_address='$ip'";
+					$q = "select * from user_hobby_writer where ip_address='$ip'";
 					$run = $con->execute($q);
-					while ($user_hobby_data = $con->fetch_assoc($run))
+					$user_hobby_data = $con->fetch_assoc($run);
+					$category_hobby_id = $user_hobby_data['choose_category_hobby_id'];
+					$category_hobby_writer_id = $user_hobby_data['choose_category_hobby_writer_id'];
+					$category_data = $con->fetch_assoc($con->execute("select category.title,category.description from category join category_hobby on category_hobby.category_id = category.id where category_hobby.id='$category_hobby_id'"));
+					$q1 = "";
+					if ($category_hobby_writer_id=='anyone'){ $q1 = "select * from hobby_book where category_hobby_id='$category_hobby_id'";}
+					else{ $q1 = "select * from hobby_book where category_hobby_writer_id='$category_hobby_writer_id' and category_hobby_id='$category_hobby_id'"; }
+					$run1 = $con->execute($q1);
+					while ($hobby_book = $con->fetch_assoc($run1))
 					{
-						$category_hobby_id = $user_hobby_data['choose_hobby'];
-						$category_data = $con->fetch_assoc($con->execute("select category.title,category.description from category join category_hobby on category_hobby.category_id = category.id where category_hobby.id='$category_hobby_id'"));
-						$q1 = "select * from hobby_book where category_hobby_id='$category_hobby_id'";
-						$run1 = $con->execute($q1);
-						while ($hobby_book = $con->fetch_assoc($run1))
-						{
-						 	?>
-						 		<div class="col-xl-4 col-lg-6 col-md-6">
-									<div class="box_grid wow">
-										<figure class="block-reveal">
-											<div class="block-horizzontal"></div>
-											<!-- <a href="#0" class="wish_bt"></a> -->
-											<a href="view_book.php?book=<?= $hobby_book['book_name']?>"><img src="img/3uLLk4tXSV.png" class="img-fluid" alt=""></a>
-										</figure>
-										<div class="wrapper">
-											<small>Category</small>
-											<h3><?= ucfirst($category_data['title']) ?></h3>
-											<p><?= ucfirst($category_data['description']) ?></p>
-										</div>
-										<ul>
-											
-											<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>" style="width: 100% !important;">View Book</a></li>
-										</ul>
+					 	?>
+					 		<div class="col-xl-4 col-lg-6 col-md-6">
+								<div class="box_grid wow">
+									<figure class="block-reveal">
+										<div class="block-horizzontal"></div>
+										<!-- <a href="#0" class="wish_bt"></a> -->
+										<a href="view_book.php?book=<?= $hobby_book['book_name']?>"><img src="admin/uploads/books/<?= $hobby_book['book_img'] ?>" class="img-fluid" alt=""></a>
+									</figure>
+									<div class="wrapper">
+										<small>Category</small>
+										<h3><?= ucfirst($category_data['title']) ?></h3>
+										<p><?= ucfirst($category_data['description']) ?></p>
 									</div>
+									<ul>
+										
+										<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>" style="width: 100% !important;">View Book</a></li>
+									</ul>
 								</div>
+							</div>
 
-						 	<?php
-						} 
-					}
-
+					 	<?php
+					} 
 				?>
 
 			</div>

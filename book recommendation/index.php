@@ -353,17 +353,12 @@ margin-top: -3px;
 
 
 		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12"></div>
+		<div class="row" style="width: 98%; margin:0px auto;">
 			<?php
-				$run = $con->execute('SELECT DISTINCT(category.id),category.title,category.description FROM `category` join category_hobby on category.id = category_hobby.category_id where category.id=category_hobby.category_id');
+				$run = $con->execute('SELECT DISTINCT(category.id),category.title,category.description,category.img FROM `category` join category_hobby on category.id = category_hobby.category_id where category.id=category_hobby.category_id');
 				while($data = $con->fetch_assoc($run))
 				{
-					$img="";
-					if ($data['title']=='school'){ $img="ic_import_contacts_black_48dp.png"; }
-					else if ($data['title']=='college'){ $img="ic_style_black_18dp.png"; }
-					else if ($data['title']=='university'){ $img="ic_account_balance_black_36dp.png"; }
-					// else{ $img="ic_import_contacts_black_48dp.png"; }	
+	
 					?>
 						<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 booktime" onmouseover="changepic(<?= $data['id'] ?>)" onmouseout="orgnlpic(<?= $data['id'] ?>)" id="booktime" style="border: 1px #dcdedf solid; background-color: white !important;margin-right: 6px;">
 				
@@ -375,7 +370,7 @@ margin-top: -3px;
 							
 								</div> 
 						
-								<center><img id="bookimg<?= $data['id'] ?>" src="img/<?= $img ?>" /></center>
+								<center><img id="bookimg<?= $data['id'] ?>" src="admin/uploads/category/<?= $data['img'] ?>" /></center>
 								<br/>
 								<p class="para"><?= ucfirst($data['title']) ?><br/>
 									<section class="para2"><?= $data['description'] ?></section>
@@ -390,7 +385,6 @@ margin-top: -3px;
 				}
 
 			?>
-			<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ></div>
 		</div>
 
 		<center>
