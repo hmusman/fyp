@@ -143,7 +143,7 @@
 									</div>
 									<ul>
 										<li><a href="add_review.php?book=<?= $hobby_book['id']?>" style="width: 100% !important; margin-left:4%; ">Add Review</a></li>
-										<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>" style="width: 100% !important; margin-left:10%; ">View Book</a></li>
+										<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>" style="width: 100% !important; margin-left:9%; ">View Book</a></li>
 									</ul>
 								</div>
 							</div>
