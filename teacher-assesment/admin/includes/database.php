@@ -91,7 +91,9 @@
 		
 		public function login($role , $email , $pass)
 		{
-			$q = "select * from ".$role." where email='$email' and pass='$pass'";
+			$q = "";
+			if ($role=='admin') { $q = "select * from ".$role." where email='$email' and pass='$pass'"; }
+			else { $q = "select * from ".$role." where email='$email' and pass='$pass' and status=1"; }
 			if($this->num_rows($this->execute($q))>0)
 			{
 				$session;
@@ -216,43 +218,61 @@
 
 		}//teacher_add_update
 		
-		public function teacher_add_update($id,$name,$email,$pass,$subject,$action)
+		public function teacher_signup($username,$pass)
+		{
+			if ($this->num_rows($this->execute("select * from teacher where username= '$username'"))>0)
+			{
+				echo "Username Already Exists";
+				exit();
+			}
+			else
+			{
+				$q = "insert into teacher set username='$username',pass='$pass'";
+				if($this->execute($q)){ echo "new_teacher.php?username=".$username; }
+			} 
+			
+
+		}//teacher_signup
+
+		public function student_signup($username,$pass)
+		{
+			if ($this->num_rows($this->execute("select * from student where username= '$username'"))>0)
+			{
+				echo "Username Already Exists";
+				exit();
+			}
+			else
+			{
+				$q = "insert into student set username='$username',pass='$pass'";
+				if($this->execute($q)){ echo "new_student.php?username=".$username; }
+			} 
+			
+
+		}//student_signup
+
+
+		public function teacher_add_update($id,$username,$name,$email,$cnic,$phone,$experience,$salary,$education,$subject,$file,$action)
 		{
 			$q = "";
-			if ($action=='update_teacher'){ $q = "update teacher set name='$name',email='$email',pass='$pass',subject='$subject' where id='$id'"; }
+			$img = $file['name'];
+			$path = '../uploads/teacher/'.$img;
+			if ($action=='update_teacher'){ $q = "update teacher set name='$name',email='$email',cnic='$cnic',phone='$phone',experience='$experience',salary='$salary',education='$education',img='$img',subject='$subject' where id='$id'"; }
 			else if ($action=='add_teacher')
 			{ 
-				if ($this->num_rows($this->execute("select * from teacher where email= '$email'"))>0)
-				{
-					echo "Teacher Already Exists";
-					exit();
-				}
-				else
-				{
-					$q = "insert into teacher set name='$name',email='$email',pass='$pass',subject='$subject'";
-				} 
+				$q = "update teacher set name='$name',email='$email',cnic='$cnic',phone='$phone',experience='$experience',salary='$salary',education='$education',img='$img',subject='$subject' where username='$username'";
 
 			}
-			if($this->execute($q)){ echo "teachers.php"; }
+			if($this->execute($q)){ move_uploaded_file($file['tmp_name'], $path); echo "teachers.php"; }
 
 		}//teacher_add_update
 
-		public function student_add_update($id,$name,$email,$pass,$class_id,$action)
+		public function student_add_update($id,$username,$name,$email,$admission_date,$class_id,$action)
 		{
 			$q = "";
-			if ($action=='update_student'){ $q = "update student set name='$name',email='$email',pass='$pass',class_id='$class_id' where id='$id'"; }
+			if ($action=='update_student'){ $q = "update student set name='$name',email='$email',admission_date='$admission_date',class_id='$class_id' where id='$id'"; }
 			else if ($action=='add_student')
 			{ 
-				if ($this->num_rows($this->execute("select * from teacher where email= '$email'"))>0)
-				{
-					echo "Student Already Exists";
-					exit();
-				}
-				else
-				{
-					$q = "insert into student set name='$name',email='$email',pass='$pass',class_id='$class_id'";
-				} 
-
+				$q = "update student set name='$name',email='$email',admission_date='$admission_date',class_id='$class_id' where username='$username'";
 			}
 			if($this->execute($q)){ echo "students.php"; }
 
@@ -419,6 +439,45 @@
 			<?php
 
 		} // reviews_filtering
+
+		public function active_block($table,$id,$action)
+		{
+			$q = "";
+			if ($table=='teacher')
+			{
+				if ($action=='active'){ $q = "update $table set status=1 where id='$id'"; }
+				else if ($action=='block'){ $q = "update $table set status=0 where id='$id'"; }
+			}
+			else if ($table=='student')
+			{
+				if ($action=='active'){ $q = "update $table set status=1 where id='$id'"; }
+				else if ($action=='block'){ $q = "update $table set status=0 where id='$id'"; }
+			}
+			$this->execute($q);
+		}// active_block
+
+		public function class_teacher_association_add_update($id,$class_name,$teacher_id,$subject,$start_time,$end_time,$shift,$action)
+		{
+			$q = "";
+			if ($action=="update_class_teacher_association")
+			{
+				$q = "update class_teacher set class_name='$class_name',teacher_id='$teacher_id',subject='$subject',start_time='$start_time',end_time='$end_time',shift='$shift' where id='$id'";
+			}
+			else if ($action=="add_class_teacher_association")
+			{
+				if($this->num_rows($this->execute("select * from class_teacher where class_name='$class_name' and teacher_id='$teacher_id' and subject='$subject' and start_time='$start_time' and end_time='$end_time'"))>0)
+				{
+					echo "Class Teacher Association Already Exists";
+					exit();
+				}
+				else
+				{
+					$q = "insert into class_teacher set class_name='$class_name',teacher_id='$teacher_id',subject='$subject',start_time='$start_time',end_time='$end_time',shift='$shift'";
+				}
+				
+			}
+			if ($this->execute($q)) { echo "class_teacher_association.php"; }
+		} 
 
 	}
 

@@ -30,15 +30,58 @@
 							</div>
 
 							<div class="form-group">
-								<label for="pass">Password</label>
-								<input type="password" class="form-control" id="pass" value="<?= $data['pass'] ?>" placeholder="Enter password">
-								<p id="pass_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Password </p>
+								<label for="cnic">Identity Card Number</label>
+								<input type="text" class="form-control" id="cnic" maxlength="13" value="<?= $data['cnic'] ?>" placeholder="Enter Identity Card Number Without Dash">
+								<p id="cnic_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Identity Card Number </p>
+							</div>
+
+							<div class="form-group">
+								<label for="phone">Mobile Number</label>
+								<input type="text" class="form-control" id="phone" value="<?= $data['phone'] ?>" maxlength="11" placeholder="Enter Mobile Number ">
+								<p id="phone_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Mobile Number  </p>
+							</div>
+
+							<div class="form-group">
+								<label for="experience">Teaching Experience</label>
+								<input type="text" class="form-control" id="experience" value="<?= $data['experience'] ?>" placeholder="Enter Experience ">
+								<p id="experience_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Experience  </p>
+							</div>
+
+							<div class="form-group">
+								<label for="salary">Salary</label>
+								<input type="text" class="form-control" id="salary" value="<?= $data['salary'] ?>" placeholder="Enter Salary ">
+								<p id="salary_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Salary  </p>
+							</div>
+							
+							<div class="form-group">
+								<label for="education">Latest Education</label>
+								<select class="form-control" id="education" >
+									<option selected="" disabled="">Pleaase Select Latest Degree</option>
+									<option <?php if($data['education']==14){ echo "selected=''"; } ?> value="14">B.A / B.sc</option>
+									<option <?php if($data['education']==16){ echo "selected=''"; } ?> value="16">M.sc / BS(Hons)</option>
+									<option <?php if($data['education']==18){ echo "selected=''"; } ?> value="18">Mphil / M.sc(Hons)</option>
+									<option <?php if($data['education']==21){ echo "selected=''"; } ?> value="21">Phd</option>
+								</select>
+								<p id="education_error" style="color: #ff7f7f; margin-top: 15px;">Pleaase Select Latest Degree</p>
 							</div>
 
 							<div class="form-group">
 								<label for="subject">Subject</label>
 								<input type="text" class="form-control" id="subject" value="<?= $data['subject'] ?>" placeholder="Enter Subject">
 								<p id="subject_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Subject </p>
+							</div>
+
+							<div class="form-group">
+								<label >Image</label>
+								<input type="file" id="img">
+								<?php 
+									if ($data['img']!=null)
+									{
+										?> <img src="uploads/teacher/<?= $data['img'] ?>" style="width: 100px; height: 100px; margin-top: 5px;"> <?php
+									}
+								?>
+								<p id="img_error" style="color: #ff7f7f; margin-top: 15px;">Please Select Image </p>
+
 							</div>
 							
 							<button type="button" class="btn btn-primary btn-sm waves-effect waves-light update_teacher" data-id=<?= $data['id'] ?>>Update Teacher</button>
@@ -59,11 +102,11 @@
 	<?php require_once('includes/footer_script.php'); ?>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			$('#img_error').hide();
 			$('.update_teacher').click(function(){
-				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#pass"),'pass') && blank_field_check($("#subject"),'subject')) 
+				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#cnic"),'cnic') && blank_field_check($("#phone"),'phone') && blank_field_check($("#experience"),'experience') && blank_field_check($("#salary"),'salary') && blank_field_check($("#education"),'education') && blank_field_check($("#subject"),'subject') && blank_field_check($("#img"),'img') ) 
 				{
-					teacher_add_update($(this).data('id'),$('#name'),$('#email'),$('#pass'),$('#subject'),"update_teacher");
+					teacher_add_update($(this).data('id'),'',$('#name').val(),$('#email').val(),$('#cnic').val(),$('#phone').val(),$('#experience').val(),$('#salary').val(),$('#education').val(),$('#subject').val(),$('#img')[0].files[0],"update_teacher");
 				}
 				
 			});

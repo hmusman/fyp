@@ -30,9 +30,9 @@
 							</div>
 
 							<div class="form-group">
-								<label for="pass">Password</label>
-								<input type="password" class="form-control" id="pass" value="<?= $data['pass'] ?>" placeholder="Enter password">
-								<p id="pass_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Password </p>
+								<label for="addmission_date">Select Admission Date</label>
+								<input type="date" class="form-control" id="admission_date" value="<?= $data['admission_date'] ?>">
+								<p id="admission_error" style="color: #ff7f7f; margin-top: 15px;">Please Select Admission Date </p>
 							</div>
 
 							<div class="form-group">
@@ -70,9 +70,9 @@
 		$(document).ready(function() {
 			
 			$('.update_student').click(function(){
-				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#pass"),'pass') && blank_field_check($("#class"),'class')) 
+				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#admission_date"),'admission') && select_check($("#class"),'class')) 
 				{
-					student_add_update($(this).data('id'),$('#name'),$('#email'),$('#pass'),$('#class'),"update_student");
+					student_add_update($(this).data('id'),'',$('#name').val(),$('#email').val(),$('#admission_date').val(),$('#class').val(),"update_student");
 				}
 				
 			});

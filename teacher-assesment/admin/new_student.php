@@ -10,10 +10,16 @@
 			<div class="col-lg-2"></div>
 			<div class="col-lg-8 col-xs-12">
 				<div class="box-content card">
-					<h4 class="box-title" style="background: #3F51B5;">Add Teacher</h4>
+					<h4 class="box-title" style="background: #3F51B5;">Add Student</h4>
 					<!-- /.box-title -->
 					<div class="card-content">
 						<form>
+
+							<div class="form-group">
+								<label >UserName</label>
+								<input type="text" disabled="" class="form-control" id="username" value="<?php if(isset($_REQUEST['username'])){ echo($_REQUEST['username']); }?>">
+							</div>
+
 							<div class="form-group">
 								<label for="name">Name</label>
 								<input type="text" class="form-control" id="name" placeholder="Enter Name">
@@ -27,9 +33,9 @@
 							</div>
 
 							<div class="form-group">
-								<label for="pass">Password</label>
-								<input type="password" class="form-control" id="pass" placeholder="Enter password">
-								<p id="pass_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Password </p>
+								<label for="addmission_date">Select Admission Date</label>
+								<input type="date" class="form-control" id="admission_date">
+								<p id="admission_error" style="color: #ff7f7f; margin-top: 15px;">Please Select Admission Date </p>
 							</div>
 
 							<div class="form-group">
@@ -40,7 +46,7 @@
 										$run = $con->execute("select * from classes");
 										while ($class_data = $con->fetch_assoc($run))
 										{
-											?><option value="<?= $class_data['id'] ?>"><?= $class_data['name'] ?></option><?php
+											?><option value="<?= $class_data['id'] ?>"> <?= $class_data['name']) ?></option><?php
 										}
 									?>
 								</select>
@@ -67,9 +73,9 @@
 		$(document).ready(function() {
 			
 			$('.add_student').click(function(){
-				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#pass"),'pass') && blank_field_check($("#class"),'class')) 
+				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#admission_date"),'admission') && select_check($("#class"),'class')) 
 				{
-					student_add_update(0,$('#name'),$('#email'),$('#pass'),$('#class'),"add_student");
+					student_add_update(0,$('#username').val(),$('#name').val(),$('#email').val(),$('#admission_date').val(),$('#class').val(),"add_student");
 				}
 				
 			});

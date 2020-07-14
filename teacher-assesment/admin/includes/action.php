@@ -50,15 +50,24 @@
 		$con->class_add_update($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['section'],$_REQUEST['location'],$_REQUEST['student'],$_REQUEST['timing'],$_REQUEST['class_action']);
 	}
 
+	if(isset($_REQUEST['teacher_signup']))
+	{
+		$con->teacher_signup($_REQUEST['username'],md5($_REQUEST['pass']));
+	}
 
 	if(isset($_REQUEST['teacher_action']))
 	{
-		$con->teacher_add_update($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['email'],md5($_REQUEST['pass']),$_REQUEST['subject'],$_REQUEST['teacher_action']);
+		$con->teacher_add_update($_REQUEST['id'],$_REQUEST['username'],$_REQUEST['name'],$_REQUEST['email'],$_REQUEST['cnic'],$_REQUEST['phone'],$_REQUEST['experience'],$_REQUEST['salary'],$_REQUEST['education'],$_REQUEST['subject'],$_FILES['img'],$_REQUEST['teacher_action']);
+	}
+
+	if(isset($_REQUEST['student_signup']))
+	{
+		$con->student_signup($_REQUEST['username'],md5($_REQUEST['pass']));
 	}
 
 	if(isset($_REQUEST['student_action']))
 	{
-		$con->student_add_update($_REQUEST['id'],$_REQUEST['name'],$_REQUEST['email'],md5($_REQUEST['pass']),$_REQUEST['class_id'],$_REQUEST['student_action']);
+		$con->student_add_update($_REQUEST['id'],$_REQUEST['username'],$_REQUEST['name'],$_REQUEST['email'],$_REQUEST['admission_date'],$_REQUEST['class_id'],$_REQUEST['student_action']);
 	}
 
 	if (isset($_REQUEST['del_teacher']))
@@ -71,6 +80,12 @@
 	{
 		$id = $_REQUEST['id'];
 		$con->delete_record('student',$id);
+	}
+
+	if (isset($_REQUEST['del_class_teacher_association']))
+	{
+		$id = $_REQUEST['id'];
+		$con->delete_record('class_teacher',$id);
 	}
 
 	if (isset($_REQUEST['student_review']))
@@ -114,14 +129,54 @@
 
 	}
 
+	if (isset($_REQUEST['class_location']))
+	{
+		$name = str_replace('_',' ',$_REQUEST['class_name']);
+		$q = "SELECT location FROM classes where name='$name'";
+		$run = $con->execute($q);
+		?><option selected="" disabled="">Select Location</option><?php
+		while($data = $con->fetch_assoc($run))
+		{
+			?>
+				<option value="<?= $data['location'] ?>"><?= ucfirst($data['location']) ?></option>
+			<?php
+		}
+
+	}
+
+	if (isset($_REQUEST['class_shift']))
+	{
+		$name = str_replace('_',' ',$_REQUEST['class_name']);
+		$q = "SELECT timing FROM classes where name='$name'";
+		$run = $con->execute($q);
+		?><option selected="" disabled="">Select Location</option><?php
+		while($data = $con->fetch_assoc($run))
+		{
+			?>
+				<option value="<?= $data['timing'] ?>"><?= ucfirst($data['timing']) ?></option>
+			<?php
+		}
+
+	}
+
 	if (isset($_REQUEST['filtering'])) 
 	{
 		$con->reviews_filtering( $_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['filtering']);
+	}
+
+	if (isset($_REQUEST['active_block'])) 
+	{
+		$con->active_block($_REQUEST['table'],$_REQUEST['id'],$_REQUEST['active_block']);
 	}
 
 	if (isset($_REQUEST['review_delete'])) 
 	{
 		$con->delete_record('reviews',$_REQUEST['id']);
 		$con->reviews_filtering($_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['review_delete']);
+	}
+
+	if (isset($_REQUEST['class_teacher_association_action']))
+	{
+		$con->class_teacher_association_add_update($_REQUEST['id'],$_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['subject'], date("g:i a", strtotime($_REQUEST['start_time'])), date("g:i a", strtotime($_REQUEST['end_time'])),$_REQUEST['shift'],$_REQUEST['class_teacher_association_action']);
 	}
 ?>

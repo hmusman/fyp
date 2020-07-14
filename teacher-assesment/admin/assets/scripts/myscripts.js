@@ -29,6 +29,59 @@ function select_check(id,error)
 		return true;
 	}
 }
+function  teacher_signup(username,pass)
+{
+	$.ajax({
+		url:"includes/action.php",
+		type:"post",
+		data:{username:username,pass:pass,teacher_signup:"teacher_signup"},
+		success:function(data)
+		{
+			if (data=="Username Already Exists") {
+				swal({
+				    title: "",
+				    text: data,
+				    type: "warning",
+				    confirmButtonColor: '#3F51B5',
+				    confirmButtonText: 'Ok',
+				    closeOnConfirm: false,
+				 });
+			}
+			else
+			{
+				window.location=data;
+			}
+		}
+
+	});
+}
+
+function  student_signup(username,pass)
+{
+	$.ajax({
+		url:"includes/action.php",
+		type:"post",
+		data:{username:username,pass:pass,student_signup:"student_signup"},
+		success:function(data)
+		{
+			if (data=="Username Already Exists") {
+				swal({
+				    title: "",
+				    text: data,
+				    type: "warning",
+				    confirmButtonColor: '#3F51B5',
+				    confirmButtonText: 'Ok',
+				    closeOnConfirm: false,
+				 });
+			}
+			else
+			{
+				window.location=data;
+			}
+		}
+
+	});
+}
 
 function class_add_update(id,name,section,location,student,timing,action)
 {
@@ -57,20 +110,44 @@ function class_add_update(id,name,section,location,student,timing,action)
 	});
 }
 
-function teacher_add_update(id,name,email,pass,subject,action)
+function teacher_add_update(id,username,name,email,cnic,phone,experience,salary,education,subject,file,action)
 {
-	
-	var name_val = name.val();
-	var email_val = email.val();
-	var pass_val = pass.val();
-	var subject_val = subject.val();
+	var formdata = new FormData();
+	formdata.append('id',id);
+	formdata.append('username',username);
+	formdata.append('name',name);
+	formdata.append('email',email);
+	formdata.append('cnic',cnic);
+	formdata.append('phone',phone);
+	formdata.append('education',education);
+	formdata.append('experience',experience);
+	formdata.append('salary',salary);
+	formdata.append('subject',subject);
+	formdata.append('img',file);
+	formdata.append('teacher_action',action);
 	$.ajax({
 		url:"includes/action.php",
 		type:"post",
-		data:{id:id,name:name_val,email:email_val,pass:pass_val,subject:subject_val,teacher_action:action},
+		data:formdata,
+		processData: false,
+       	contentType: false,
 		success:function(data)
 		{
-			if (data=="Teacher Already Exists") {
+			window.location=data;
+		}
+
+	});
+}
+
+function class_teacher_association_add_update(id,class_name,teacher_id,subject,start_time,end_time,shift,action)
+{
+	$.ajax({
+		url:"includes/action.php",
+		type:"post",
+		data:{id:id,class_name:class_name,teacher_id:teacher_id,subject:subject,start_time:start_time,end_time:end_time,shift:shift,class_teacher_association_action:action},
+		success:function(data)
+		{
+			if (data=="Class Teacher Association Already Exists") {
 				swal({
 				    title: "",
 				    text: data,
@@ -89,21 +166,44 @@ function teacher_add_update(id,name,email,pass,subject,action)
 	});
 }
 
-function student_add_update(id,name,email,pass,class_id,action)
+function active_block(table,id,name,action)
 {
-	
-	var name_val = name.val();
-	var email_val = email.val();
-	var pass_val = pass.val();
-	var class_val = class_id.val();
+	swal({
+	    title: "Are you sure?",
+	    text: "You want to "+action+" "+name,
+	    type: "warning",
+	    showCancelButton: true,
+	    confirmButtonColor: '#DD6B55',
+	    confirmButtonText: 'Yes',
+	    cancelButtonText: "No",
+	    closeOnConfirm: true,
+	    closeOnCancel: true
+	 },
+	 function(isConfirm){
+	   if (isConfirm){
+	   		$.ajax({
+				url:"includes/action.php",
+				type:"post",
+				data:{table:table,id:id,active_block:action},
+				success:function(data)
+				{
+					location.reload();
+				}
+			});
+	    }
+	 });
+}
+
+function student_add_update(id,username,name,email,admission,class_id,action)
+{
 	$.ajax({
 		url:"includes/action.php",
 		type:"post",
-		data:{id:id,name:name_val,email:email_val,pass:pass_val,class_id:class_val,student_action:action},
+		data:{id:id,username:username,name:name,email:email,admission_date:admission,class_id:class_id,student_action:action},
 		success:function(data)
 		{
 			
-			if (data=="Student Already Exists") {
+			if (data=="Username Already Exists") {
 				swal({
 				    title: "",
 				    text: data,
@@ -126,10 +226,22 @@ function student_add_update(id,name,email,pass,class_id,action)
 $(document).ready(function(){
 	
 	$('#name_error').hide();
+	$('#teacher_error').hide();
+	$('#shift_error').hide();
+	$('#location_error').hide();
+	$('#to_time_error').hide();
+	$('#from_time_error').hide();
+	$('#shift_error').hide();
 	$('#email_error').hide();
 	$('#pass_error').hide();
 	$('#subject_error').hide();
 	$('#class_error').hide();
+	$('#admission_error').hide();
+	$('#cnic_error').hide();
+	$('#phone_error').hide();
+	$('#education_error').hide();
+	$('#experience_error').hide();
+	$('#salary_error').hide();
 	// $('#teacherTable').DataTable();
 	// $('#reviewTable').DataTable();
 	// $('#classTable').DataTable();

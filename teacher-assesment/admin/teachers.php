@@ -10,8 +10,8 @@
 			<table class="table" id="teacherTable">
 				<thead> 
 					<tr> 
-						<th colspan="4"></th> 
-						<th><a href="new_teacher.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Teacher</a></th> 
+						<th colspan="12"></th> 
+						<th><a href="teacher_register.php" class="pull-right btn btn-primary btn-sm waves-effect waves-light">Add New Teacher</a></th> 
 						
 					</tr> 
 				</thead> 
@@ -19,12 +19,20 @@
 				<thead> 
 					<tr> 
 						<th>#</th> 
+						<th>Image</th>
 						<th>Name</th> 
+						<th>Email</th>
+						<th>CNIC</th>
+						<th>Phone</th>
+						<th>Salary</th>
+						<th>Education</th>
 						<th>Subject</th>
+						<th>Experience</th>
 						<!-- <th>Class</th>
 						<th>Assign</th> -->
 						<th>Assign Classes</th>
 						<!-- <th>Rating</th> -->
+						<th>Status</th>
 						<th>Action</th> 
 						
 					</tr> 
@@ -40,8 +48,15 @@
 							?>
 								<tr> 
 									<td><?= $i ?></td> 
-									<td><?= ucfirst($teacher_data['name']) ?></td> 
-									<td><?= ucfirst($teacher_data['subject']) ?></td>
+									<td><?php if($teacher_data['img'] !=null){ ?><img src="uploads/teacher/<?php echo $teacher_data['img'] ?>" style="width: 100px; height: 100px;"><?php } ?></td>
+									<td><?php if($teacher_data['name'] !=null){ echo ucfirst($teacher_data['name']); } ?></td> 
+									<td><?php if($teacher_data['email'] !=null){ echo ucfirst($teacher_data['email']); } ?></td>
+									<td><?php if($teacher_data['cnic'] !=null){ echo ucfirst($teacher_data['cnic']); } ?></td>
+									<td><?php if($teacher_data['phone'] !=null){ echo ucfirst($teacher_data['phone']); } ?></td>
+									<td><?php if($teacher_data['salary'] !=null){ echo ucfirst($teacher_data['salary']); } ?></td>
+									<td><?php if($teacher_data['education'] !=null){ echo ucfirst($teacher_data['education']); } ?> Years</td>
+									<td><?php if($teacher_data['subject'] !=null){ echo ucfirst($teacher_data['subject']); } ?></td>
+									<td><?php if($teacher_data['experience'] !=null){ echo ucfirst($teacher_data['experience']); } ?></td>
 									<!-- <td>
 										<select class="form-control" id="class_name<?= $teacher_data['id']?>">
 											<option  selected="" disabled="">Select Class </option>
@@ -69,6 +84,24 @@
 										<i class=" fa fa-star"></i>
 										<i class=" fa fa-star"></i>
 									</td> -->
+									<td><?php 
+										if ($teacher_data['status']==1)
+										{
+											?>
+												<input type="hidden" class="name<?= $teacher_data['id']; ?>" value="<?= $teacher_data['name']; ?>">
+												<button type="button" class="btn btn-danger btn-sm waves-effect waves-light block_teacher" data-id="<?= $teacher_data['id']?>">Block</button>
+
+											<?php
+										}
+										else
+										{
+											?>
+												<input type="hidden" class="name<?= $teacher_data['id']; ?>" value="<?= $teacher_data['name']; ?>">
+												<button type="button" class="btn btn-success btn-sm waves-effect waves-light active_teacher" data-id="<?= $teacher_data['id']?>">Active</button>
+
+											<?php
+										}
+									 ?></td>
 									<td>
 										<!-- <a href="reviews.php?teacher_review=<?= $teacher_data['id'] ?>" class="btn btn-info btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-comment"></i></a> -->
 										<a href="update_teacher.php?teacher_update=<?= $teacher_data['id'] ?>" class="btn btn-primary btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-edit"></i></a>
@@ -125,5 +158,10 @@
 				 });
 				
 			});
+
+			$('.block_teacher').click(function(){ active_block('teacher',$(this).data('id'),$('.name'+$(this).data('id')).val(),'block'); });
+
+			$('.active_teacher').click(function(){ active_block('teacher',$(this).data('id'),$('.name'+$(this).data('id')).val(),'active'); });
+
 		});
 	</script>
