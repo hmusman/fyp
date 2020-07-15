@@ -100,10 +100,9 @@
 			</div>
 		</div>
 
-
-			<div class="studentReviews">
-				 
-			</div>
+		<div class="studentReviews">
+			 
+		</div>
 		
 	</div>
 	<!-- /.main-content -->
@@ -112,6 +111,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 	<?php require_once('includes/footer_script.php'); ?>
 	<script type="text/javascript">
+		
 		function select_check(id,error)
 		{
 			if (id.val()==null)
@@ -142,15 +142,10 @@
 			 },
 			 function(isConfirm){
 			   if (isConfirm){
-			   		var class_name = $('#student_class').val();
-					var month = $('#month').val();
-					var week = $('#week').val();
-					var teacher = $('#teacher').val();
-					var action = "admin_filter";
 					$.ajax({
 						url:"includes/action.php",
 						type:"post",
-						data:{id:id,class_name:class_name,month:month,week:week,teacher_id:teacher,review_delete:action},
+						data:{id:id,class_name:$('#student_class').val(),month:$('#month').val(),week:$('#week').val(),teacher_id:$('#teacher').val(),location:$('#location').val(),shift:$('#shift').val(),review_delete:"admin_filter"},
 						success:function(data)
 						{
 							$('.studentReviews').html(data);
@@ -162,24 +157,15 @@
 
 		$(document).ready(function(){
 			// $('.teacher_option').hide();
-			$('#class_error').hide();
-			$('#month_error').hide();
-			$('#week_error').hide();
-			$('#teacher_error').hide();
 			
 			$('.filter').click(function(){
 
-				if(select_check($('#student_class'),"class") && select_check($('#month'),"month") && select_check($('#week'),"week") && select_check($('#teacher'),"teacher"))
-				{ 
-					var class_name = $('#student_class').val();
-					var month = $('#month').val();
-					var week = $('#week').val();
-					var teacher = $('#teacher').val();
-					var action = "admin_filter";
+				if(select_check($('#student_class'),"class") && select_check($('#teacher'),"teacher") && select_check($('#location'),"location") && select_check($('#shift'),"shift") && select_check($('#week'),"week") && select_check($('#month'),"month") )
+				{
 					$.ajax({
 						url:"includes/action.php",
 						type:"post",
-						data:{class_name:class_name,month:month,week:week,teacher_id:teacher,filtering:action},
+						data:{class_name:$('#student_class').val(),month:$('#month').val(),week:$('#week').val(),teacher_id:$('#teacher').val(),subject:" ",location:$('#location').val(),shift:$('#shift').val(),filtering:"admin_filter"},
 						success:function(data)
 						{
 							$('.studentReviews').html(data);

@@ -46,7 +46,7 @@
 										$run = $con->execute("select * from classes");
 										while ($class_data = $con->fetch_assoc($run))
 										{
-											?><option value="<?= $class_data['id'] ?>"> <?= $class_data['name']) ?></option><?php
+											?><option value="<?= $class_data['id'] ?>"> <?= $class_data['name'] ?></option><?php
 										}
 									?>
 								</select>

@@ -101,7 +101,7 @@
 				$run = $this->execute($q);
 				$data = $this->fetch_assoc($run);
 				if ($role=='admin') { $session='admin'; $url='admin/index.php'; }
-				if ($role=='teacher') { $session='teacher'; $url='reviews.php';}
+				if ($role=='teacher') { $session='teacher'; $url='reviews.php'; $_SESSION['img'] = $data['img'];}
 				if ($role=='student') { $session='student'; $url='rating_comment.php'; }
 
 				$_SESSION[$session] = $data['email'];
@@ -320,16 +320,18 @@
 			}
 		}
 
-		public function reviews_filtering($class_name ,$teacher_id , $month ,$week , $action)
+		public function reviews_filtering($class_name ,$teacher_id,$subject,$location,$shift,$month,$week,$action)
 		{
-			$q = "select * from reviews where teacher_id='$teacher_id' and class_name='$class_name' and month='$month' and week='$week'";
-			$run = $this->execute($q);
+			$class_name = str_replace('_', ' ', $class_name);
+			$q = "";
+			
 			?>
 				<table class="table" id="studentTable" style="margin-top: 25px;" >
 				  
 			<?php
 			if ($action=="admin_filter")
 			{
+				$q = "select * from reviews where teacher_id='$teacher_id' and class_name='$class_name' and month='$month' and week='$week' and shift='$shift' and location='$location'";
 				// if()
 				?>
 					<thead> 
@@ -337,9 +339,11 @@
 							<th>#</th>
 							<th>Teacher</th> 
 							<th>Student</th>
-							<th>Class</th> 
+							<th>Class</th>
+							<th>Subject</th> 
 							<th>Comment</th>
 							<th>Rating</th>
+							<th>Result</th>
 							<th>Action</th> 
 							
 						</tr> 
@@ -349,13 +353,16 @@
 
 			else if($action=="teacher_filter")
 			{
+				$q = "select * from reviews where teacher_id='$teacher_id' and class_name='$class_name' and month='$month' and week='$week' and shift='$shift' and location='$location' and subject='$subject'";
 				?>
 					<thead> 
 						<tr> 
 							<th>#</th>
 							<th>Class</th> 
+							<th>Subject</th> 
 							<th>Comment</th>
-							<th>Rating</th>							
+							<th>Rating</th>
+							<th>Result</th>							
 						</tr> 
 					</thead> 
 					<tbody>
@@ -364,6 +371,7 @@
 				<?php
 			}
 			$i = 1;
+			$run = $this->execute($q);
 			while ($data = $this->fetch_assoc($run))
 			{
 				$teacher_data = $this->get_data_by_id('teacher', $data['teacher_id']);
@@ -377,16 +385,10 @@
 							<td><?= ucfirst($teacher_data['name']) ?></td> 
 							<td><?= ucfirst($student_data['name']) ?></td>
 							<td><?= $data['class_name'] ?></td>
-							<td>
-								<p><?= ucfirst($data['comment']) ?></p>
-							</td>
-							
-							<td style="color: #FFFF33;">
-								<?php $this->rating_stars_view($data['rating']); ?>
-								
-								
-							</td>
-
+							<td><?= ucfirst($data['subject']) ?></td>
+							<td><p><?= ucfirst($data['comment']) ?></p></td>
+							<td style="color: #FFFF33;"><?php $this->rating_stars_view($data['rating']); ?></td>
+							<td><?= $data['result'] ?> % </td>
 							<td>
 								<button type="button" onclick="review_delete(<?= $data['id'] ?>);" data-id="<?= $data['id'] ?>" class="btn btn-danger btn-circle btn-sm waves-effect waves-light review_delete"><i class="ico fa fa-trash"></i></button>
 							</td> 
@@ -403,11 +405,10 @@
 						<tr> 
 							<td><?= $i ?></td> 
 							<td><?= $data['class_name'] ?></td>
+							<td><?= ucfirst($data['subject']) ?></td>
 							<td><p><?= ucfirst($data['comment']) ?></p></td>
-							<td style="color: #FFFF33;">
-								<?php $this->rating_stars_view($data['rating']); ?>
-							</td>
-		
+							<td style="color: #FFFF33;"><?php $this->rating_stars_view($data['rating']); ?></td>
+							<td><?= $data['result'] ?> % </td>
 						</tr> 
 
 					<?php
@@ -421,7 +422,7 @@
 						{
 							?>
 								<tr class="text-center">
-									<td colspan="7" >No Comment</td>
+									<td colspan="8" >No Comment</td>
 								</tr>
 							<?php
 						}
@@ -429,7 +430,7 @@
 						{
 							?>
 								<tr class="text-center">
-									<td colspan="4" >No Comment</td>
+									<td colspan="5" >No Comment</td>
 								</tr>
 							<?php
 						}
@@ -478,6 +479,12 @@
 			}
 			if ($this->execute($q)) { echo "class_teacher_association.php"; }
 		} 
+
+		public function class_association_update($id,$start_time,$end_time,$shift)
+		{
+			$q = "update class_teacher set start_time='$start_time',end_time='$end_time',shift='$shift' where id='$id'";
+			if ($this->execute($q)) { echo "association_classes.php"; }
+		}
 
 	}
 

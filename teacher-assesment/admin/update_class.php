@@ -39,8 +39,8 @@
 								<label for="timing">Class Time</label>
 								<select type="text" class="form-control" id="timing">
 									<option selected="" disabled="">Select Class Time</option>
-									<option value="morning">Morning</option>
-									<option value="evening">Evening</option>
+									<option <?php if($data['timing']=="morning"){ echo "selected=''"; } ?> value="morning">Morning</option>
+									<option <?php if($data['timing']=="evening"){ echo "selected=''"; } ?> value="evening">Evening</option>
 								</select>
 								<p id="timing_error" style="color: #ff7f7f; margin-top: 15px;">Please Type Class Time</p>
 							</div>

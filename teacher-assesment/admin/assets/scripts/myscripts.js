@@ -1,3 +1,22 @@
+function validation_field_check(id,error,pattern)
+{
+	// var $regexname=/^([a-zA-Z]{3,16})$/;
+	id.keyup(function(){
+		if (pattern.test(id.val()))
+		{
+			$('#'+error+'_error').text('it does not match');
+		
+		}
+		else
+		{
+			alert("not ok");
+		}
+		
+	});
+
+}
+
+
 function blank_field_check(id,error)
 {
 	var value = id.val();
@@ -29,6 +48,7 @@ function select_check(id,error)
 		return true;
 	}
 }
+
 function  teacher_signup(username,pass)
 {
 	$.ajax({
@@ -235,6 +255,8 @@ $(document).ready(function(){
 	$('#email_error').hide();
 	$('#pass_error').hide();
 	$('#subject_error').hide();
+	$('#month_error').hide();
+	$('#week_error').hide();
 	$('#class_error').hide();
 	$('#admission_error').hide();
 	$('#cnic_error').hide();

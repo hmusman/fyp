@@ -200,7 +200,7 @@
 							$class_id = $data['class_id'];
 							$class_data = $con->fetch_assoc($con->execute("select * from classes where id='$class_id'"));
 							$class_name = $class_data['name'];
-							$q = "SELECT teacher.id , teacher.name FROM class_teacher join teacher on class_teacher.teacher_id = teacher.id where class_teacher.class_name='$class_name'";
+							$q = "SELECT distinct(subject) FROM class_teacher where class_name='$class_name'";
 							$run = $con->execute($q);
 						?>
 						<form>
@@ -215,22 +215,31 @@
 							</div> -->
 
 							<div class="form-group">
-								<label for="">Teacher</label>
-								<select class="form-control" id="teacher">
-									<option selected="" disabled="" >Select Teacher</option>
+								<label for="">Subject</label>
+								<select class="form-control" id="subject">
+									<option selected="" disabled="" >Select Subject</option>
 									<?php
-										while ($teacher_data= $con->fetch_assoc($run))
+										if ($con->num_rows($run)>0)
 										{
-											?><option value="<?= $teacher_data['id'] ?>"> <?= $teacher_data['name'] ?></option><?php
+											while ($subject_data= $con->fetch_assoc($run))
+											{
+												?> <option value="<?= $subject_data['subject'] ?>"><?= ucfirst($subject_data['subject']) ?></option> <?php
+											}
 										}
+
 									?>
 									
 								</select>
-								 <p id="teacher_error" style="color: #ff7f7f; margin-top: 10px;">Please Select Teacher </p>
+								 <p id="subject_error" style="color: #ff7f7f; margin-top: 10px;">Please Select Select </p>
 
 							</div>
 
+							<div class="form-group" id="teacher_div">
+								
+							</div>
+
 							<div class="form-group">
+								<label>Select Star For Teacher's Performance</label>
 								<span class="star__container">
 									<input type="radio" name="rating" value="1" id="star-1" class="star__radio visuhide">
 									<input type="radio" name="rating" value="2" id="star-2" class="star__radio visuhide">
@@ -239,6 +248,8 @@
 									<input type="radio" name="rating" value="5" id="star-5" class="star__radio visuhide">
 								  	<input type="hidden" id="student" value="<?= $id ?>">
 								  	<input type="hidden" id="class" value="<?= $class_data['name'] ?>">
+								  	<input type="hidden" id="location" value="<?= $class_data['location'] ?>">
+								  	<input type="hidden" id="shift" value="<?= $class_data['timing'] ?>">
 									<label class="star__item" for="star-1"><span class="visuhide">1 star</span></label>
 									<label class="star__item" for="star-2"><span class="visuhide">2 stars</span></label>
 									<label class="star__item" for="star-3"><span class="visuhide">3 stars</span></label>
@@ -249,10 +260,38 @@
 							</div>
 							
 							<div class="form-group">
-								<label for="comment">Comment</label>
+								<label for="comment">Leave Comment About Teacher's Performance</label>
 								<textarea class="form-control" id="comment" placeholder="Please Leave Your Comment...."></textarea>
 								 <p id="comment_error" style="color: #ff7f7f; margin-top: 10px;">Please Leave Your Comment </p>
 
+							</div>
+
+							<div class=" form-group ">
+								<label>Satisfied With Teaching Method>: </label>
+								&nbsp;&nbsp;<label style="font-size: 12px;">Yes &nbsp;<input type="radio" name="s" value="yes" class="satisfied"></label>  
+							    &nbsp;&nbsp;<label style="font-size: 12px;">No &nbsp;<input type="radio" name="s" value="no" class="satisfied"></label>
+							    <p id="satisfied_error" style="color: #ff7f7f; margin-top: 5px;">Please Check It</p>
+							</div>
+
+							<div class=" form-group ">
+								<label>Complete Syllabus: </label>
+								&nbsp;&nbsp;<label style="font-size: 12px;">Yes &nbsp;<input type="radio" name="sy" value="yes" class="syllabus"></label>  
+							    &nbsp;&nbsp;<label style="font-size: 12px;">No &nbsp;<input type="radio" name="sy" value="no" class="syllabus"></label>
+								<p id="syllabus_error" style="color: #ff7f7f; margin-top: 5px;">Please Check It</p>
+							</div>
+
+							<div class=" form-group ">
+								<label>Copearative: </label>
+								&nbsp;&nbsp;<label style="font-size: 12px;">Yes &nbsp;<input type="radio" name="c" value="yes" class="cooperation"></label>  
+							    &nbsp;&nbsp;<label style="font-size: 12px;">No &nbsp;<input type="radio" name="c" value="no" class="cooperation"></label>
+								<p id="cooperation_error" style="color: #ff7f7f; margin-top: 5px;">Please Check It</p>
+							</div>
+
+							<div class=" form-group ">
+								<label>Practical Activity: </label>
+								&nbsp;&nbsp;<label style="font-size: 12px;">Yes &nbsp;<input type="radio" name="p" value="yes" class="practical"></label>  
+							    &nbsp;&nbsp;<label style="font-size: 12px;">No &nbsp;<input type="radio" name="p" value="no" class="practical"></label>
+								<p id="practical_error" style="color: #ff7f7f; margin-top: 5px;">Please Check It</p>
 							</div>
 							
 							<button type="button" class="btn btn-primary btn-sm waves-effect waves-light rating_comment">Add</button>
@@ -297,30 +336,92 @@
 	<script src="admin/assets/scripts/fullcalendar.init.js"></script>
 	<script src="admin/assets/scripts/main.min.js"></script>
 	<script type="text/javascript">
+		
+		function radio_check(id,error,value)
+		{
+			if (id.is(':checked')) {
+				$('#'+error+'_error').hide();
+				if (value.val()=="yes") { return 25; }
+				else if (value.val()=="no") { return 0; }
+				
+			}
+			else
+			{
+				$('#'+error+'_error').show();
+				return 786;
+			}
+		}
+
+
+		function blank_field_check(id,error)
+		{
+			var value = id.val();
+			if(value=='')
+			{
+				$('#'+error+'_error').show();
+				id.css('border','1px solid #ff7f7f');
+				return false;
+			}
+			else
+			{
+				$('#'+error+'_error').hide();
+				id.css('border','1px solid green');
+				return true;
+			}
+		}
+
+		function select_check(id,error)
+		{
+			if (id.val()==null)
+			{ 
+				$("#"+error+"_error").show();
+				return false;
+			}
+			else
+			{
+				$("#"+error+"_error").hide();
+				id.css('border','1px solid green');
+				return true;
+			}
+		}
 
 		$(document).ready(function(){
+			var result = 0;
 			$('#class_error').hide();
 			$('#teacher_error').hide();
+			$('#subject_error').hide();
 			$('#rating_error').hide();
+			$('#satisfied_error').hide();
+			$('#syllabus_error').hide();
+			$('#cooperation_error').hide();
+			$('#practical_error').hide();
 			$('#comment_error').hide();
 			$('.rating_comment').click(function(){
 				$('#rating_error').hide();
 				var check = true;
 				var rate = $('.star__radio:checked').val();
 				var class_id = $('#class').val();
+				var subject = $('#subject').val();
+				var location = $('#location').val();
+				var shift = $('#shift').val();
 				var teacher_id = $('#teacher').val();
 				var student_id  = $('#student').val();
 				var comment = $('#comment').val();
 				var action = "student_review";
-				if(teacher_id ==null){check=false; $('#teacher_error').show();} else{ check=true; $('#teacher_error').hide(); }
 				if(!$('.star__radio').is(":checked")){ check=false; $('#rating_error').show();} else{ check=true; $('#rating_error').hide(); }
-				if (comment=='') {check=false; $('#comment_error').show();} else{ check=true; $('#comment_error').hide(); }
-				if(check)
+				if(select_check($('#subject'),'subject') && blank_field_check($('#teacher'),'teacher')&& blank_field_check($('#comment'),'comment'))
 				{
+
+					if(radio_check($('.satisfied'),'satisfied',$('.satisfied:checked')) !=786) { check=true; result = result + radio_check($('.satisfied'),'satisfied',$('.satisfied:checked'));  } else{ check = false; }
+					if(radio_check($('.syllabus'),'syllabus',$('.syllabus:checked')) !=786) { check=true; result = result + radio_check($('.syllabus'),'syllabus',$('.syllabus:checked'));  } else{ check = false; }
+					if(radio_check($('.cooperation'),'cooperation',$('.cooperation:checked')) !=786) { check=true; result = result + radio_check($('.cooperation'),'cooperation',$('.cooperation:checked'));  } else{ check = false; }
+					if(radio_check($('.practical'),'practical',$('.practical:checked')) !=786) { check=true; result = result + radio_check($('.practical'),'practical',$('.practical:checked'));  } else{ check = false; }
+					
+
 					$.ajax({
 						url:"admin/includes/action.php",
 						type:"post",
-						data:{class_name:class_id,teacher_id:teacher_id,student_id:student_id,rating:rate,comment:comment,student_review:action },
+						data:{class_name:class_id,teacher_id:teacher_id,student_id:student_id,rating:rate,comment:comment,subject:subject,location:location,shift:shift,result:result,student_review:action },
 						success:function(data)
 						{
 							if (data=="You Have Already Left Comment")
@@ -355,6 +456,18 @@
 					});
 				}
 
+			});
+
+			$('#subject').change(function(){
+				$.ajax({
+					url:"admin/includes/action.php",
+					type:"post",
+					data:{class_name:$('#class').val(),subject:$(this).val(),subject_teacher:"student_filter"},
+					success:function(data)
+					{
+						$('#teacher_div').html(data);
+					}
+				})
 			});
 		});
 

@@ -102,14 +102,18 @@
 		$student_id = $_REQUEST['student_id'];
 		$comment = $_REQUEST['comment'];
 		$rating = $_REQUEST['rating'];
+		$subject = $_REQUEST['subject'];
+		$location = $_REQUEST['location'];
+		$shift = $_REQUEST['shift'];
+		$result = $_REQUEST['result'];
 		$q = "";
-		if ($con->num_rows($con->execute("select * from reviews where student_id='$student_id' and teacher_id='$teacher_id' and month='$m' and week='$week'"))>0)
+		if ($con->num_rows($con->execute("select * from reviews where student_id='$student_id' and teacher_id='$teacher_id' and month='$m' and subject='$subject'"))>0)
 		{
 			echo "You Have Already Left Comment";
 		}
 		else
 		{
-			if($con->execute("insert into reviews set teacher_id='$teacher_id',student_id='$student_id',class_name='$class_name',comment='$comment',year='$year',month='$m',week='$week',rating='$rating'")){ echo "Your Comment Has Been Recieved"; }
+			if($con->execute("insert into reviews set teacher_id='$teacher_id',student_id='$student_id',class_name='$class_name',comment='$comment',year='$year',month='$m',week='$week',rating='$rating',shift='$shift',location='$location',subject='$subject',result='$result'")){ echo "Your Comment Has Been Recieved"; }
 		}
 	} // student_review
 
@@ -117,7 +121,7 @@
 	if (isset($_REQUEST['class_teacher']))
 	{
 		$class_name = str_replace('_',' ',$_REQUEST['class_name']);
-		$q = "SELECT teacher.id , teacher.name FROM class_teacher join teacher on class_teacher.teacher_id = teacher.id where class_teacher.class_name='$class_name'";
+		$q = "SELECT distinct(teacher.id) , teacher.name FROM class_teacher join teacher on class_teacher.teacher_id = teacher.id where class_teacher.class_name='$class_name'";
 		$run = $con->execute($q);
 		?><option selected="" disabled="">Select Teachers</option><?php
 		while($data = $con->fetch_assoc($run))
@@ -144,12 +148,28 @@
 
 	}
 
+	if (isset($_REQUEST['class_teacher_subject']))
+	{
+		$name = str_replace('_',' ',$_REQUEST['class_name']);
+		$teacher_id = $_REQUEST['teacher_id'];
+		$q = "SELECT distinct(subject) FROM class_teacher where class_name='$name' and teacher_id='$teacher_id'";
+		$run = $con->execute($q);
+		?><option selected="" disabled="">Select Subject</option><?php
+		while($data = $con->fetch_assoc($run))
+		{
+			?>
+				<option value="<?= $data['subject'] ?>"><?= ucfirst($data['subject']) ?></option>
+			<?php
+		}
+
+	}
+
 	if (isset($_REQUEST['class_shift']))
 	{
 		$name = str_replace('_',' ',$_REQUEST['class_name']);
 		$q = "SELECT timing FROM classes where name='$name'";
 		$run = $con->execute($q);
-		?><option selected="" disabled="">Select Location</option><?php
+		?><option selected="" disabled="">Select Shift</option><?php
 		while($data = $con->fetch_assoc($run))
 		{
 			?>
@@ -161,7 +181,7 @@
 
 	if (isset($_REQUEST['filtering'])) 
 	{
-		$con->reviews_filtering( $_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['filtering']);
+		$con->reviews_filtering( $_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['subject'],$_REQUEST['location'],$_REQUEST['shift'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['filtering']);
 	}
 
 	if (isset($_REQUEST['active_block'])) 
@@ -172,11 +192,30 @@
 	if (isset($_REQUEST['review_delete'])) 
 	{
 		$con->delete_record('reviews',$_REQUEST['id']);
-		$con->reviews_filtering($_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['review_delete']);
+		$con->reviews_filtering($_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['location'],$_REQUEST['shift'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['review_delete']);
 	}
 
 	if (isset($_REQUEST['class_teacher_association_action']))
 	{
 		$con->class_teacher_association_add_update($_REQUEST['id'],$_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['subject'], date("g:i a", strtotime($_REQUEST['start_time'])), date("g:i a", strtotime($_REQUEST['end_time'])),$_REQUEST['shift'],$_REQUEST['class_teacher_association_action']);
+	}
+
+	if (isset($_REQUEST['class_association_action']))
+	{
+		$con->class_association_update($_REQUEST['id'] ,date("g:i a", strtotime($_REQUEST['start_time'])), date("g:i a", strtotime($_REQUEST['end_time'])),$_REQUEST['shift']);
+	}
+
+	if (isset($_REQUEST['subject_teacher']))
+	{
+		$subject = $_REQUEST['subject'];
+		$class_name = $_REQUEST['class_name'];
+		$data =$con->fetch_assoc($con->execute("select teacher_id from class_teacher where class_name='$class_name' and subject='$subject'"));
+		$teacher_data = $con->get_data_by_id('teacher',$data['teacher_id']);
+		?>
+			<label for="">Teacher</label>
+			<input type="hidden" class="form-control" id="teacher" value="<?= $teacher_data['id'] ?>">
+			<input disabled="" class="form-control" value="<?= $teacher_data['name'] ?>">
+			<!-- <p id="teacher_error" style="color: #ff7f7f; margin-top: 10px;">Please Select Your Subject</p> -->
+		<?php
 	}
 ?>

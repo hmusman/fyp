@@ -35,28 +35,17 @@
 	<link rel="stylesheet" href="admin/assets/plugin/chart/chartist/chartist.min.css">
 
 	<!-- FullCalendar -->
-	<!-- <link rel="stylesheet" href="admin/assets/plugin/fullcalendar/fullcalendar.min.css">
+	<link rel="stylesheet" href="admin/assets/plugin/fullcalendar/fullcalendar.min.css">
 	<link rel="stylesheet" href="admin/assets/plugin/fullcalendar/fullcalendar.print.css" media='print'>
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css"> -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
 
-  <!-- external javascripts -->
-  <script src="assets/jstimer/jquery-2.2.4.min.js"></script>
-  <!-- <script src="js/jquery-ui.min.js"></script> -->
- 
-  <!-- JS | jquery plugin collection for this theme -->
-  <script src="assets/jstimer/jquery-plugin-collection.js"></script>
 </head>
 
 <body>
 
-
-
-
-
 <div class="main-menu">
 	<header class="header">
-    <!-- <div id="basic-coupon-clock" ></div> -->
-    <a href="" class="logo"><i class="ico ti-rocket"></i>School System</a>
+		<a href="" class="logo"><i class="ico ti-rocket"></i>School System </a>
 		<button type="button" class="button-close fa fa-times js__menu_close"></button>
 	</header>
 	<!-- /.header -->
@@ -69,7 +58,7 @@
 			<!-- /.title -->
 			<ul class="menu js__accordion">
 				<li class="current">
-					<a class="waves-effect" href="reviews.php"><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></a>
+					<a class="waves-effect" href=""><i class="menu-icon ti-dashboard"></i><span>Dashboard</span></a>
 				</li>
 				<li>
 					<a class="waves-effect" href="reviews.php"><i class="menu-icon ti-calendar"></i><span>Comment and Rating</span></a>
@@ -78,11 +67,10 @@
 				<li>
 					<a class="waves-effect" href="association_classes.php"><i class="menu-icon ti-calendar"></i><span>Association Classes</span></a>
 				</li>
-				
+
 				<li>
 					<a class="waves-effect" href="teacher_time_table.php"><i class="menu-icon ti-calendar"></i><span>Time Table</span></a>
 				</li>
-				
 			</ul>
 
 			
@@ -101,10 +89,11 @@
 	</div>
 	<!-- /.pull-left -->
 	<div class="pull-right">
+	
 		<div class="ico-item">
 			<i class="ti-user"></i>
 			<ul class="sub-ico-item">
-				<li><a  href="logout.php">Log Out</a></li>
+				<li><a href="logout.php">Log Out</a></li>
 			</ul>
 			<!-- /.sub-ico-item -->
 		</div>
@@ -113,40 +102,32 @@
 </div>
 <!-- /.fixed-navbar -->
 
-
-<!-- /#message-popup -->
-
 <div id="wrapper">
 	<div class="main-content">
-		<h4 class="box-title">TimeTable</h4>
-		
-    <table class="table" id="studentTable" style="margin-top: 25px;" >
-     
-			<thead> 
-		        <!-- <tr style="background-color: #00aeff;">
-		          <td class="text-center  " colspan="5" style="color:white; font-weight: 600; font-size: larger; " >Timing For All Batches</td>
-		        </tr> -->
-				<tr> 
-					<th>#</th>
-					<th>Class</th> 
-					<th>Subject</th>
-					<th>Start Time</th> 
-					<th>End Time</th>
-					<th>Location</th>
+		<h4 class="box-title">Association Classes</h4>
+		<div class="table-responsive">
+			<table class="table" id="teacherTable">
+				<thead> 
+					<tr> 
+						<th>#</th> 
+						<th>Class</th>
+						<th>Subject</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+						<th>Shift</th>
+						<th>Action</th> 
+						
+					</tr> 
+				</thead> 
+				<tbody> 
 					
-					
-				</tr> 
-			</thead> 
-			<tbody> 
-				<?php
+					<?php
 						if(isset($_SESSION['teacher'])){ $id =  $_SESSION['id']; }
 						$run = $con->execute("select * from class_teacher where teacher_id='$id'");
 						$i =1;
 						while ($class_teacher_data = $con->fetch_assoc($run))
 						{
-							$class_name = $class_teacher_data['class_name'];
 							$teacher_data = $con->get_data_by_id('teacher',$class_teacher_data['teacher_id']);
-							$class_data = $con->fetch_assoc($con->execute("select * from classes where name='$class_name'"));
 							?>
 								<tr> 
 									<td><?= $i ?></td> 
@@ -155,7 +136,11 @@
 									<td><?php  echo ucfirst($class_teacher_data['subject']); ?></td>
 									<td><?php echo $class_teacher_data['start_time']; ?></td>
 									<td><?php  echo $class_teacher_data['end_time']; ?></td>
-									<td><?php echo ucfirst($class_data['location']);?></td>									
+									<td><?php echo ucfirst($class_teacher_data['shift']);?></td>									
+									<td>
+										
+										<a href="update_association_class.php?class_association_update=<?= $class_teacher_data['id'] ?>" class="btn btn-primary btn-circle btn-sm waves-effect waves-light"><i class="ico fa fa-edit"></i></a>
+									</td> 
 									
 								</tr> 
 
@@ -164,50 +149,53 @@
 						}
 
 					?>
-				
-			</tbody> 
-		</table> 
+					
+					
+				</tbody> 
+			</table> 
+			
+		</div>
 	</div>
 	<!-- /.main-content -->
 </div><!--/#wrapper -->
 	
 <!-- Placed at the end of the document so the pages load faster -->
-	<!-- <script src="../admin/assets/scripts/jquery.min.js"></script> -->
-	
+	<script src="admin/assets/scripts/jquery.min.js"></script>
+	<script src="admin/assets/scripts/modernizr.min.js"></script>
+	<script src="admin/assets/plugin/bootstrap/js/bootstrap.min.js"></script>
+	<script src="admin/assets/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="admin/assets/plugin/nprogress/nprogress.js"></script>
+	<script src="admin/assets/plugin/sweet-alert/sweetalert.min.js"></script>
+	<script src="admin/assets/plugin/waves/waves.min.js"></script>
 	<!-- Sparkline Chart -->
-	
+	<script src="admin/assets/plugin/chart/sparkline/jquery.sparkline.min.js"></script>
+	<script src="admin/assets/scripts/chart.sparkline.init.min.js"></script>
+
+	<!-- Percent Circle -->
+	<script src="admin/assets/plugin/percircle/js/percircle.js"></script>
+
+	<!-- Google Chart -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 	<!-- Chartist Chart -->
-
-
+	<script src="admin/assets/plugin/chart/chartist/chartist.min.js"></script>
+	<script src="admin/assets/scripts/jquery.chartist.init.min.js"></script>
 
 	<!-- FullCalendar -->
-<!-- 	
+	<script src="admin/assets/plugin/moment/moment.js"></script>
+	<script src="admin/assets/plugin/fullcalendar/fullcalendar.min.js"></script>
+	<script src="admin/assets/scripts/fullcalendar.init.js"></script>
+	
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
+	<script src="admin/assets/scripts/main.min.js"></script>
 	<script type="text/javascript">
+		
 		$(document).ready(function(){
-			$('#teacherTable').DataTable();
-			$('#reviewTable').DataTable();
-			$('#classTable').DataTable();
-			$('#studentTable').DataTable();
+
 		});
-	</script> -->
+	</script>
 
-
-
-<script>
-	 $(document).ready(function() {
-    $('#basic-coupon-clock').countdown('2020/07/20', function(event) {
-      $(this).html(event.strftime('%D days %H:%M:%S'));
-    });
-  });
-</script>
-
-<script>
-  $(document).ready(function() {
-   $('#basic-coupon-clock2').countdown('2020/07/20', function(event) {
-     $(this).html(event.strftime('%D days %H:%M:%S'));
-   });
- });
-</script>
 </body>
 </html>

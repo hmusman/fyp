@@ -1,3 +1,7 @@
+<?php 
+	require_once('admin/includes/database.php'); 
+	$con->login_session('student');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -118,89 +122,51 @@
 		          <td class="text-center  " colspan="5" style="color:white; font-weight: 600; font-size: larger; " >Timing For All Batches</td>
 		        </tr> -->
 				<tr> 
-					<th>Batch Type</th>
-					<th>Class time</th> 
-					<th>Course Duration</th> 
-					<th>Price</th>
-					<th>Duration</th>
+					<th>#</th>
+					<th>Class</th>
+					<th>Teacher</th> 
+					<th>Subject</th>
+					<th>Start Time</th> 
+					<th>End Time</th>
+					<th>Location</th>
 					
 					
 				</tr> 
 			</thead> 
 			<tbody> 
-				<tr style="background-color: white;"> 
-					<td>JavaScript Batch 3</td> 
+				<?php
+						if(isset($_SESSION['student'])){ $id =  $_SESSION['id']; }
+						$student_data = $con->get_data_by_id("student",$id);
+						$class_id=$student_data['class_id'];
+						$class_data = $con->get_data_by_id('classes',$class_id);
+						$class_name = $class_data['name'];
+						$q = "select * from class_teacher where class_name='$class_name'";
+						$run = $con->execute($q);
+						$i =1;
+						while ($class_teacher_data = $con->fetch_assoc($run))
+						{
+							$teacher_data = $con->get_data_by_id('teacher',$class_teacher_data['teacher_id']);
+							?>
+								<tr> 
+									<td><?= $i ?></td> 
+									
+									<td><?php  echo ucfirst($class_data['name']);?></td> 
+									<td><?php  echo ucfirst($teacher_data['name']);?></td> 
+									<td><?php  echo ucfirst($class_teacher_data['subject']); ?></td>
+									<td><?php echo $class_teacher_data['start_time']; ?></td>
+									<td><?php  echo $class_teacher_data['end_time']; ?></td>
+									<td><?php echo ucfirst($class_data['location']);?></td>									
+									
+								</tr> 
 
-					<td>45 minutes</td> 
-					<td>	6 Month</td>
-					<td>
-						Free
-					</td>
-					
-					<td>
-            <div id="basic-coupon-clock" ></div>
-					</td>
-					
-				</tr> 
+							<?php
+							$i++;
+						}
 
-				<tr> 
-					<td>JavaScript Batch 1 </td> 
-					<td>45 minutes</td> 
-					<td>	6 Month</td>
-					<td>
-						960$
-					</td>
-					<td>
-					Paid
-					</td>
-					
-					
-				</tr> 
-
-
-				<tr style="background-color: white;"> 
-					<td>JavaScript Batch 3</td> 
-					<td>1 Hour</td> 
-					<td>1 year</td>
-					<td>
-					500$
-					</td>
-					<td>
-					Paid
-					</td>
-					
-					
-				</tr> 
-
-				<tr> 
-					<td>React NodeJs batch 7</td> 
-					<td>1 Hour</td> 
-					<td>1 year</td>
-					<td>
-					500$
-					</td>
-					<td>
-					Paid
-					</td>
-					
-					
-				</tr> 
-				<tr style="background-color: white;"> 
-					<td>React NodeJs batch 8</td> 
-					<td>45 minutes</td> 
-					<td>	6 Month</td>
-					<td>
-						Free
-					</td>
-					<td>
-						<div id="basic-coupon-clock2" ></div>
-					</td>
-					
-					
-				</tr> 
+					?>
 				
 			</tbody> 
-		</table> 
+	</table> 
 	</div>
 	<!-- /.main-content -->
 </div><!--/#wrapper -->
