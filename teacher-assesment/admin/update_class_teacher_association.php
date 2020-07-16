@@ -100,8 +100,14 @@
 	<?php require_once('includes/footer_script.php'); ?>
 	<script type="text/javascript">
 		$(document).ready(function() {
+			select_check($('#class'),'class');
+			select_check($('#teacher'),'teacher');
+			select_check($('#shift'),'shift');
+			blank_field_check($('#subject'),'Characters','subject',/^[a-zA-Z]/,4,20);
+			time_blank_check($('#from_time'),'from_time');
+			time_blank_check($('#to_time'),'to_time');
 			$('.update_class_teacher_association').click(function(){
-				if (select_check($("#class"),'class') && select_check($("#teacher"),'teacher') && blank_field_check($("#subject"),'subject') && blank_field_check($("#from_time"),'from_time') && blank_field_check($('#to_time'),'to_time') && select_check($("#shift"),'shift')) 
+				if ($("#class_error").is(":hidden") && $("#teacher_error").is(":hidden") && $("#subject_error").is(":hidden") && $("#from_time_error").is(":hidden") && $("#to_time_error").is(":hidden") && $("#shift_error").is(":hidden")) 
 				{
 					class_teacher_association_add_update($(this).data('id'),$('#class').val(),$('#teacher').val(),$('#subject').val(),$('#from_time').val(),$('#to_time').val(),$('#shift').val(),"update_class_teacher_association");
 				}

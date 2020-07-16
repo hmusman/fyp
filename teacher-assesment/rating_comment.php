@@ -337,6 +337,53 @@
 	<script src="admin/assets/scripts/main.min.js"></script>
 	<script type="text/javascript">
 		
+
+		function validation_field_check(id,check,error,pattern,minlength,maxlength)
+		{
+			id.keyup(function()
+			{
+				if(!pattern.test(id.val()))
+				{
+					$('#'+error+'_error').show();
+					id.css('border','1px solid #ff7f7f');
+					$('#'+error+'_error').text('Only '+check+' Are Allowed');
+				}
+				else if(id.val().length > maxlength)
+				{
+					$('#'+error+'_error').show();
+					id.css('border','1px solid #ff7f7f');
+					$('#'+error+'_error').text('Maximum '+maxlength +' Length Is Allowed');
+				}
+
+				else if(id.val().length < minlength)
+				{
+					$('#'+error+'_error').show();
+					id.css('border','1px solid #ff7f7f');
+					$('#'+error+'_error').text('Minimum '+minlength +' Length Is Allowed');
+				}
+				else
+				{
+					$('#'+error+'_error').hide();
+					id.css('border','1px solid green');
+				}
+			});
+		}
+
+		function comment_field_check(id,check,error,pattern,minlength,maxlength)
+		{
+			var value = id.val();
+			if(value=='')
+			{
+				$('#'+error+'_error').show();
+				id.css('border','1px solid #ff7f7f');
+				validation_field_check(id,check,error,pattern,minlength,maxlength);
+			}
+			else
+			{ validation_field_check(id,check,error,pattern,minlength,maxlength); }
+
+		}
+
+
 		function radio_check(id,error,value)
 		{
 			if (id.is(':checked')) {
@@ -347,6 +394,12 @@
 			}
 			else
 			{
+				id.change(function(){
+					
+						$("#"+error+"_error").hide();
+						return 786;
+					
+				});
 				$('#'+error+'_error').show();
 				return 786;
 			}
@@ -374,8 +427,18 @@
 		{
 			if (id.val()==null)
 			{ 
+				id.change(function(){
+					if (id.val()!=null)
+					{
+						$("#"+error+"_error").hide();
+						id.css('border','1px solid green');
+						return true;
+					}
+				});
 				$("#"+error+"_error").show();
+				id.css('border','1px solid #ff7f7f');
 				return false;
+
 			}
 			else
 			{
@@ -396,6 +459,13 @@
 			$('#cooperation_error').hide();
 			$('#practical_error').hide();
 			$('#comment_error').hide();
+			select_check($('#subject'),'subject');
+			blank_field_check($('#teacher'),'teacher');
+			radio_check($('.satisfied'),'satisfied',$('.satisfied:checked'));
+			radio_check($('.syllabus'),'syllabus',$('.syllabus:checked'));
+			radio_check($('.cooperation'),'cooperation',$('.cooperation:checked'));
+			radio_check($('.practical'),'practical',$('.practical:checked'));
+			comment_field_check($('#comment'),'Characters And Numbers','comment',/^[a-zA-Z0-9]/,1,100);
 			$('.rating_comment').click(function(){
 				$('#rating_error').hide();
 				var check = true;
@@ -409,14 +479,13 @@
 				var comment = $('#comment').val();
 				var action = "student_review";
 				if(!$('.star__radio').is(":checked")){ check=false; $('#rating_error').show();} else{ check=true; $('#rating_error').hide(); }
-				if(select_check($('#subject'),'subject') && blank_field_check($('#teacher'),'teacher')&& blank_field_check($('#comment'),'comment'))
+				if($("#subject_error").is(":hidden") && $('#comment_error').is(':hidden') && $('#rating_error').is(':hidden') && $('#syllabus_error').is(':hidden') && $('#satisfied_error').is(':hidden') && $('#cooperation_error').is(':hidden') && $('#practical_error').is(':hidden'))
 				{
 
-					if(radio_check($('.satisfied'),'satisfied',$('.satisfied:checked')) !=786) { check=true; result = result + radio_check($('.satisfied'),'satisfied',$('.satisfied:checked'));  } else{ check = false; }
-					if(radio_check($('.syllabus'),'syllabus',$('.syllabus:checked')) !=786) { check=true; result = result + radio_check($('.syllabus'),'syllabus',$('.syllabus:checked'));  } else{ check = false; }
-					if(radio_check($('.cooperation'),'cooperation',$('.cooperation:checked')) !=786) { check=true; result = result + radio_check($('.cooperation'),'cooperation',$('.cooperation:checked'));  } else{ check = false; }
-					if(radio_check($('.practical'),'practical',$('.practical:checked')) !=786) { check=true; result = result + radio_check($('.practical'),'practical',$('.practical:checked'));  } else{ check = false; }
-					
+					if(radio_check($('.satisfied'),'satisfied',$('.satisfied:checked')) !=786) { result = result + radio_check($('.satisfied'),'satisfied',$('.satisfied:checked'));  }
+					if(radio_check($('.syllabus'),'syllabus',$('.syllabus:checked')) !=786) { result = result + radio_check($('.syllabus'),'syllabus',$('.syllabus:checked'));  }
+					if(radio_check($('.cooperation'),'cooperation',$('.cooperation:checked')) !=786) { result = result + radio_check($('.cooperation'),'cooperation',$('.cooperation:checked'));  }
+					if(radio_check($('.practical'),'practical',$('.practical:checked')) !=786) { result = result + radio_check($('.practical'),'practical',$('.practical:checked'));  }
 
 					$.ajax({
 						url:"admin/includes/action.php",

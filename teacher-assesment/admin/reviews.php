@@ -145,7 +145,7 @@
 					$.ajax({
 						url:"includes/action.php",
 						type:"post",
-						data:{id:id,class_name:$('#student_class').val(),month:$('#month').val(),week:$('#week').val(),teacher_id:$('#teacher').val(),location:$('#location').val(),shift:$('#shift').val(),review_delete:"admin_filter"},
+						data:{id:id,class_name:$('#student_class').val(),month:$('#month').val(),week:$('#week').val(),teacher_id:$('#teacher').val(),subject:' ',location:$('#location').val(),shift:$('#shift').val(),review_delete:"admin_filter"},
 						success:function(data)
 						{
 							$('.studentReviews').html(data);

@@ -68,9 +68,12 @@
 	<?php require_once('includes/footer_script.php'); ?>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+			blank_field_check($('#name'),'Characters','name',/^[a-zA-Z]/,2,5);
+			blank_field_check($('#email'),'Email Addresses','email',/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,5,50);
+			time_blank_check($('#admission_date'),'admission');
+			select_check($('#class'),'class');
 			$('.update_student').click(function(){
-				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#admission_date"),'admission') && select_check($("#class"),'class')) 
+				if ($("#name_error").is(":hidden") && $("#email_error").is(":hidden") && $("#admission_error").is(":hidden") && $("#class_error").is(":hidden")) 
 				{
 					student_add_update($(this).data('id'),'',$('#name').val(),$('#email').val(),$('#admission_date').val(),$('#class').val(),"update_student");
 				}

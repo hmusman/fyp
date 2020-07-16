@@ -74,8 +74,13 @@
 			$('#location_error').hide();
 			$('#student_error').hide();
 			$('#timing_error').hide();
+			blank_field_check($('#name'),'Characters','name',/^[a-zA-Z]/,2,5);
+			blank_field_check($('#section'),'Characters','section',/^[a-zA-Z]/,1,5);
+			blank_field_check($('#student'),'Numbers','student',/^[0-9]/,2,4);
+			blank_field_check($('#location'),'Characters And Numbers','location',/^[a-zA-Z0-9]/,5,10);
+			select_check($('#timing'),'timing');
 			$('.update_class').click(function(){
-				if(blank_field_check($('#name'),'name') && blank_field_check($('#section'),'section') && blank_field_check($('#student'),'student') && select_check($('#timing'),'timing') && blank_field_check($('#location'),'location'))
+				if($("#name_error").is(":hidden") && $("#section_error").is(":hidden") && $("#student_error").is(":hidden") && $("#location_error").is(":hidden") && $("#timing_error").is(":hidden"))
 				{
 					class_add_update($(this).data('id'),$('#name').val(),$('#section').val(),$('#location').val(),$('#student').val(),$('#timing').val(),'update_class');
 				}

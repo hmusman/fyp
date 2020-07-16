@@ -103,8 +103,17 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#img_error').hide();
+			blank_field_check($('#name'),'Characters','name',/^[a-zA-Z]/,2,5);
+			blank_field_check($('#email'),'Email Addresses','email',/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,5,50);
+			blank_field_check($('#cnic'),'Numbers','cnic',/^[0-9]/,13,13);
+			blank_field_check($('#phone'),'Numbers','phone',/^[0-9]/,11,11);
+			blank_field_check($('#experience'),'Characters And Numbers','experience',/^[a-zA-Z0-9]/,6,7);
+			blank_field_check($('#salary'),'Numbers','salary',/^[0-9]/,4,6);
+			select_check($('#education'),'education');
+			blank_field_check($('#subject'),'Characters','subject',/^[a-zA-Z]/,4,20);
+			blank_field_check($('#img'),'img');
 			$('.update_teacher').click(function(){
-				if (blank_field_check($("#name"),'name') && blank_field_check($("#email"),'email') && blank_field_check($("#cnic"),'cnic') && blank_field_check($("#phone"),'phone') && blank_field_check($("#experience"),'experience') && blank_field_check($("#salary"),'salary') && blank_field_check($("#education"),'education') && blank_field_check($("#subject"),'subject') && blank_field_check($("#img"),'img') ) 
+				if ($("#name_error").is(":hidden") && $("#email_error").is(":hidden") && $("#cnic_error").is(":hidden") && $("#phone_error").is(":hidden") && $("#experience_error").is(":hidden") && $("#salary_error").is(":hidden") && $("#education_error").is(":hidden") && $("#subject_error").is(":hidden") && $("#img_error").is(":hidden")) 
 				{
 					teacher_add_update($(this).data('id'),'',$('#name').val(),$('#email').val(),$('#cnic').val(),$('#phone').val(),$('#experience').val(),$('#salary').val(),$('#education').val(),$('#subject').val(),$('#img')[0].files[0],"update_teacher");
 				}

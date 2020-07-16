@@ -192,7 +192,7 @@
 	if (isset($_REQUEST['review_delete'])) 
 	{
 		$con->delete_record('reviews',$_REQUEST['id']);
-		$con->reviews_filtering($_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['location'],$_REQUEST['shift'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['review_delete']);
+		$con->reviews_filtering($_REQUEST['class_name'],$_REQUEST['teacher_id'],$_REQUEST['subject'],$_REQUEST['location'],$_REQUEST['shift'],$_REQUEST['month'],$_REQUEST['week'],$_REQUEST['review_delete']);
 	}
 
 	if (isset($_REQUEST['class_teacher_association_action']))

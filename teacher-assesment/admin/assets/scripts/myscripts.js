@@ -1,27 +1,61 @@
-function validation_field_check(id,error,pattern)
+function validation_field_check(id,check,error,pattern,minlength,maxlength)
 {
-	// var $regexname=/^([a-zA-Z]{3,16})$/;
-	id.keyup(function(){
-		if (pattern.test(id.val()))
+	id.keyup(function()
+	{
+		if(!pattern.test(id.val()))
 		{
-			$('#'+error+'_error').text('it does not match');
-		
+			$('#'+error+'_error').show();
+			id.css('border','1px solid #ff7f7f');
+			$('#'+error+'_error').text('Only '+check+' Are Allowed');
+		}
+		else if(id.val().length > maxlength)
+		{
+			$('#'+error+'_error').show();
+			id.css('border','1px solid #ff7f7f');
+			$('#'+error+'_error').text('Maximum '+maxlength +' Length Is Allowed');
+		}
+
+		else if(id.val().length < minlength)
+		{
+			$('#'+error+'_error').show();
+			id.css('border','1px solid #ff7f7f');
+			$('#'+error+'_error').text('Minimum '+minlength +' Length Is Allowed');
 		}
 		else
 		{
-			alert("not ok");
+			$('#'+error+'_error').hide();
+			id.css('border','1px solid green');
 		}
-		
 	});
-
 }
 
-
-function blank_field_check(id,error)
+function blank_field_check(id,check,error,pattern,minlength,maxlength)
 {
 	var value = id.val();
 	if(value=='')
 	{
+		$('#'+error+'_error').show();
+		id.css('border','1px solid #ff7f7f');
+		validation_field_check(id,check,error,pattern,minlength,maxlength);
+	}
+	else
+	{ validation_field_check(id,check,error,pattern,minlength,maxlength); }
+
+}
+
+function time_blank_check(id,error)
+{
+	var value = id.val();
+	if(value=='')
+	{
+		id.change(function(){
+			if (id.val()!='')
+			{
+				$("#"+error+"_error").hide();
+				id.css('border','1px solid green');
+				return true;
+			}
+		});
 		$('#'+error+'_error').show();
 		id.css('border','1px solid #ff7f7f');
 		return false;
@@ -32,14 +66,40 @@ function blank_field_check(id,error)
 		id.css('border','1px solid green');
 		return true;
 	}
+
 }
+
+function file_blank_check(id,error)
+{
+	var value = id.val();
+	if(value=='')
+	{
+		$('#'+error+'_error').show();
+		id.css('border','1px solid #ff7f7f');
+		return false;
+	}
+	else
+	{ return true; }
+
+}
+
 
 function select_check(id,error)
 {
 	if (id.val()==null)
 	{ 
+		id.change(function(){
+			if (id.val()!=null)
+			{
+				$("#"+error+"_error").hide();
+				id.css('border','1px solid green');
+				return true;
+			}
+		});
 		$("#"+error+"_error").show();
+		id.css('border','1px solid #ff7f7f');
 		return false;
+
 	}
 	else
 	{
