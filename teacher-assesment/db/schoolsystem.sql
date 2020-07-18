@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2020 at 11:41 AM
+-- Generation Time: Jul 18, 2020 at 01:42 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -122,8 +122,8 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `teacher_id`, `student_id`, `class_name`, `comment`, `year`, `month`, `week`, `rating`, `shift`, `location`, `subject`, `result`) VALUES
-(22, 4, 1, '9th Evening', 'he is a good teacher', '2020', 'Jul', 'Second Week', '4', 'evening', 'hall', 'biology', 50),
-(23, 3, 1, '9th Evening', 'he is a good teacher', '2020', 'Jul', 'Second Week', '5', 'evening', 'hall', 'mathematics', 75);
+(23, 3, 1, '9th Evening', 'he is a good teacher', '2020', 'Jul', 'Second Week', '5', 'evening', 'hall', 'mathematics', 75),
+(28, 4, 1, '9th Evening', 'he is a good teacher', '2020', 'Jul', 'Third Week', '4', 'evening', 'hall', 'biology', 75);
 
 -- --------------------------------------------------------
 
@@ -134,11 +134,11 @@ INSERT INTO `reviews` (`id`, `teacher_id`, `student_id`, `class_name`, `comment`
 CREATE TABLE `student` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
-  `roll_no` int(11) NOT NULL,
+  `roll_no` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `pass` varchar(255) DEFAULT NULL,
-  `class_id` int(11) NOT NULL,
+  `class_id` int(11) DEFAULT NULL,
   `admission_date` varchar(255) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -266,31 +266,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `classes`
 --
 ALTER TABLE `classes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `class_teacher`
 --
 ALTER TABLE `class_teacher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `time_table`

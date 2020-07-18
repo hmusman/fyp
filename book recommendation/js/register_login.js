@@ -75,7 +75,7 @@ $(document).ready(function(){
          	$('.login').click();
          	$('.admin_login').click();
         }
-    })
+    });
 
 	$('.login').click(function(){ login('user',$('#email'),$('#pass')); } );
 	$('.admin_login').click(function(){ login('admin',$('#email'),$('#pass')); } );
