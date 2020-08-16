@@ -30,10 +30,10 @@
 	<link href="css/icon_fonts/css/all_icons.min.css" rel="stylesheet">
 
     <!-- YOUR CUSTOM CSS -->
-    <link href="css/custom.css" rel="stylesheet">
+    <!-- <link href="css/custom.css" rel="stylesheet"> -->
 	
 	<!-- Modernizr -->
-	<script src="js/modernizr.js"></script>
+	<!-- <script src="js/modernizr.js"></script> -->
 
 </head>
 
@@ -47,11 +47,12 @@
 	    <div class="navbar-header">
 	      <a href="index.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
 	    </div>
-	    <ul class="nav navbar-nav">
-	     <?php 
-			if($con->login_session()){ ?><li><a href="login.php" class="login">Login</a></li><?php }
-			else{ ?><li><a href="logout.php" class="" style="color: #fff;font-weight: 500;">LOGOUT</a></li><?php }
-		?>
+		<ul class="nav navbar-nav" style="flex-direction: row;">
+	    	<li style="margin-right: 15px;"><input class="form-control mr-sm-2" type="text" id="search" placeholder="Search"></li>
+		    <?php 
+				if($con->login_session()){ ?><li><a href="login.php" class="login">Login</a></li><?php }
+				else{ ?><li><a href="logout.php" class="" style="color: #fff;font-weight: 500;">LOGOUT</a></li><?php }
+			?>
 	    </ul>
 	  </div>
 	</nav>
@@ -345,6 +346,10 @@ margin-top: -3px;
 }
 
 </style>
+	<div class="container" style="margin-top: 30px;">
+		<div class="row searchData">
+		</div>
+	</div>
 	 <main style="margin-top: 40px;">	
 		<p class="onboarding-question">Which best describes you?</p>
 		<div class="row">
@@ -467,12 +472,32 @@ margin-top: -3px;
 	<!-- SPECIFIC SCRIPTS -->
 	<script src="js/video_header.js"></script>
 	<script>
-		HeaderVideo.init({
-			container: $('.header-video'),
-			header: $('.header-video--media'),
-			videoTrigger: $("#video-trigger"),
-			autoPlayVideo: true
+		// HeaderVideo.init({
+		// 	container: $('.header-video'),
+		// 	header: $('.header-video--media'),
+		// 	videoTrigger: $("#video-trigger"),
+		// 	autoPlayVideo: true
+		// });
+		function search(query)
+		{
+			$.ajax({
+				url:'admin/includes/action.php',
+				type:"post",
+				data:{query:query},
+				success:function(data)
+				{
+					$('.searchData').html(data);
+				}
+			});
+		}
+
+		$(document).ready(function(){
+			$('#search').keyup(function(e){ if($('#search').val().length >=3){search($('#search').val());}});
+			$('#searchBtn').click(function(){
+				search($('#search').val());
+			});
 		});
+
 	</script>
 
 

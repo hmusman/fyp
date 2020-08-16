@@ -193,7 +193,7 @@
 		}//add_update_writer
 
 
-		function category_hobby_filter($category_id)
+		public function category_hobby_filter($category_id)
 		{
 			?><option selected="" disabled="">Select Hobby</option><?php
 		 
@@ -204,7 +204,7 @@
 			}
 		}
 
-		function category_hobby_writer_filter($category_hobby_id)
+		public function category_hobby_writer_filter($category_hobby_id)
 		{
 			$run = $this->execute("select * from category_hobby_writer where category_hobby_id='$category_hobby_id'");
 			?><option selected="" disabled="">Select Hobby Writer</option><?php
@@ -212,6 +212,57 @@
 			{
 				?><option value="<?= $hobby_data['id']?>"><?= ucfirst($hobby_data['name']) ?></option><?php
 			}
+		}
+
+		public function search($query)
+		{
+
+			$q = "SELECT * from category_hobby_writer join hobby_book on category_hobby_writer.id = hobby_book.category_hobby_writer_id WHERE category_hobby_writer.name LIKE "."'".'%'.$query.'%'."'".' OR hobby_book.book_name LIKE '."'".'%'.$query.'%'."'";
+			$run = $this->execute($q);
+			$count = $this->num_rows($run);
+			if($count>0)
+			{
+				while($data=$this->fetch_assoc($run) )
+				{
+					$book_id = $data['id'];
+					$review_data_count = $this->num_rows($this->execute("select * from book_review where book_id='$book_id'"));
+					$category_hobby_id = $data['category_hobby_id'];
+					$category_q = "SELECT category.title,category_hobby.name FROM `category` join category_hobby on category.id = category_hobby.category_id WHERE category_hobby.id='$category_hobby_id'";
+					$category_data = $this->fetch_assoc($this->execute($category_q));
+					?>
+						<div class="col-xl-4 col-lg-6 col-md-6">
+							<div class="box_grid wow" style="visibility: visible;">
+								<a href="view_book.php?book=<?= $data['book_name']?>"><img src="admin/uploads/books/<?= $data['book_img'] ?>" class="img-fluid" alt=""></a>
+								<div class="wrapper">
+									<small>Category</small>
+									<h3><?php echo ucwords($category_data['title']); ?></h3>
+									<small>Type</small>
+									<h5 style="font-size: 15px;margin-left: 10px;"><?php echo ucwords($category_data['name']); ?></h5>
+								</div>
+								<ul>
+									<li><a href="add_review.php?book=<?= $data['id']?>" style="width: 100% !important; margin-left:4%; ">Add Review</a></li>
+									<li><a href="view_book.php?book=<?= $data['book_name']?>" style="width: 100% !important; margin-left:9%; ">View Book</a></li>
+								</ul>
+								<?php
+									if($review_data_count>0)
+									{
+										?>
+											<ul>
+												<li style="width: 100%;"><a href="BookReview.php?book_id=<?= $data['id']?>" style="width: 100% !important; margin-left:30%; ">View Review</a></li>
+											</ul>
+										<?php
+									}
+								?>
+							</div>
+						</div>
+					<?php
+				}
+			}
+			else
+			{
+				?><div class="col-xl-4 col-lg-6 col-md-6"><div class="alert alert-warning">Sorry No Record Found!</div></div><?php
+			}
+			
 		}
 
 	}

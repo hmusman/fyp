@@ -58,6 +58,10 @@
 		<div id="logo">
 			<a href="index.php" style=" color: #fff; font-size: 19px;font-weight: 500;">BOOK RECOMMENDATION</a>
 		</div>
+		<!-- <div class="form-inline"> -->
+		    <!-- <input class="form-control mr-sm-2" type="text" id="search" placeholder="Search"> -->
+		    <!-- <button class="btn btn-success" type="button" id="searchBtn">Search</button> -->
+		<!-- </div> -->
 		<ul id="top_menu">
 			<?php 
 				if($con->login_session()){ ?><li><a href="login.php" class="login">Login</a></li><?php }
@@ -74,11 +78,6 @@
 		</a>
 		<nav id="menu" class="main-menu">
 			<ul>
-				
-				
-				
-				
-				
 			</ul>
 		</nav>
 		<!-- Search Menu -->
@@ -112,6 +111,11 @@
 		</div>
 		<!-- /filters -->
 
+		<div class="container">
+			<div class="row searchData">
+			</div>
+		</div>
+
 		<div class="container margin_60_35">
 			<div class="row">
 				<?php 
@@ -128,6 +132,8 @@
 					$run1 = $con->execute($q1);
 					while ($hobby_book = $con->fetch_assoc($run1))
 					{
+						$book_id = $hobby_book['id'];
+						$review_data_count = $con->num_rows($con->execute("select * from book_review where book_id='$book_id'"));
 					 	?>
 					 		<div class="col-xl-4 col-lg-6 col-md-6">
 								<div class="box_grid wow">
@@ -141,10 +147,22 @@
 										<h3><?= ucfirst($category_data['title']) ?></h3>
 										<p><?= ucfirst($category_data['description']) ?></p>
 									</div>
-									<ul>
+									<ul style="padding:0px 15px; padding-top: 15px; padding-bottom: 15px;">
 										<li><a href="add_review.php?book=<?= $hobby_book['id']?>" style="width: 100% !important; margin-left:4%; ">Add Review</a></li>
 										<li><a href="view_book.php?book=<?= $hobby_book['book_name']?>" style="width: 100% !important; margin-left:9%; ">View Book</a></li>
 									</ul>
+									<?php
+										if($review_data_count>0)
+										{
+											?>
+												<ul>
+													<li style="width: 100%;"><a href="BookReview.php?book_id=<?= $hobby_book['id']?>" style="width: 100% !important; margin-left:30%; ">View Review</a></li>
+												</ul>
+											<?php
+										}
+									?>
+									
+									
 								</div>
 							</div>
 
@@ -262,10 +280,30 @@
 	<script src="assets/validate.js"></script>
   	<script type="text/javascript">
   		$(document).ready(function(){
-    $("#submitButton").click(function(){
-        alert("t");
-    });
-});
+		    $("#submitButton").click(function(){
+		        alert("t");
+		    });
+
+		    function search(query)
+			{
+				$.ajax({
+					url:'admin/includes/action.php',
+					type:"post",
+					data:{query:query},
+					success:function(data)
+					{
+						$('.searchData').html(data);
+					}
+				});
+			}
+
+			$(document).ready(function(){
+				$('#search').keyup(function(e){ if($('#search').val().length >=3){search($('#search').val());}});
+				$('#searchBtn').click(function(){
+					search($('#search').val());
+				});
+			});
+		});
   	</script>
 </body>
 </html>

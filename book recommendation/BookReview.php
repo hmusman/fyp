@@ -286,7 +286,7 @@ ul[ class="answers"] > li{
 
 	<main style="margin-top: 40px;">
 		
-		<p class="onboarding-question">What do you like to read?</p>
+		<p class="onboarding-question">Book Review</p>
 		
 		
 		<center> 
@@ -295,40 +295,44 @@ ul[ class="answers"] > li{
 					<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" ></div>
 					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" id="message" ></div>
 				</div>
-			    <ul class="answers">
-					
-					<?php
-						$ip = $_SERVER['REMOTE_ADDR'];
-						$q = "select * from user_category where ip_address='$ip'";
-						$categoryArr= $con->fetch_assoc($con->execute($q));
-						$category_id = $categoryArr['choose_category'];
-						$q1 = "SELECT  DISTINCT(category_hobby.id) ,category_hobby.name from category_hobby join category_hobby_writer on category_hobby.id = category_hobby_writer.category_hobby_id where category_hobby.id=category_hobby_writer.category_hobby_id and category_hobby.category_id='$category_id'";
-						$run = $con->execute($q1);
-						while ($data = $con->fetch_assoc($run))
-						{
-							?>
-								<li >
-									<label class="container">
-										<div class="row">
-											<div class="col-xs-12 col-sm-12 col-md-11 col-lg-10 " style="text-align: left;"><?= ucwords($data['name']) ?></div>
-											<div class="col-xs-12 col-sm-12  col-md-1  col-lg-2">
-												<input  name="question" class="question_checkbox" type="checkbox" value="<?= $data['id'] ?>">  
-												<span class="checkmark"></span>
-											</div>
-										</div>
-									</label>
-								</li>
+
+				<div class="container">
+					<table class="table table-stripped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Review</th>
+								<th>Date</th>
+							</tr>
+						</thead>
+						<tbody>
 							<?php
-						}
+							
+							$book_id = $_REQUEST['book_id'];
+							$q1 = "SELECT * FROM hobby_book JOIN book_review on hobby_book.id = book_review.book_id where book_review.book_id='$book_id'";
+							$run = $con->execute($q1);
+							$i=1;
+							while ($data = $con->fetch_assoc($run))
+							{
+								?>
+									
+								<tr>
+									<td><?= $i++ ?></td>
+									<td><?= ucfirst($data['book_review']) ?></td>
+									<td><?= date('d/m/y',$data['review_date']) ?></td>
+								</tr>
+								<?php
+							}
 
-					?>
-
-			  	</ul>
+						?>
+						</tbody>
+					</table>
+				</div>
+			   
 				  
 			</div>
 		</center>
 		 
-		 <center><button type="button" class="btn_1 outline save">Save and Continue</button></center> 	
 		<br/>
 		<br/>
 	</main>
